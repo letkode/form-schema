@@ -1,0 +1,13 @@
+services:
+    php:
+        container_name: lka-package-form-schema
+        image: ghcr.io/letkode/lka-php-package:8.4
+        environment:
+            XDEBUG_CLIENT_HOST: host.docker.internal
+            XDEBUG_CLIENT_PORT: 9003
+            PHP_IDE_CONFIG: serverName=Docker
+        command: sleep infinity
+        volumes:
+            - ./:/app/www
+            - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+            - ./docker/php.ini:/usr/local/etc/php/php.ini

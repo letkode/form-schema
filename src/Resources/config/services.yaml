@@ -1,0 +1,84 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Letkode\FormSchema\:
+        resource: '../../'
+        exclude:
+            - '../../Domain/Entity/'
+            - '../../Domain/Enum/'
+            - '../../Domain/ValueObject/'
+            - '../../Domain/Exception/'
+            - '../../Application/DTO/'
+            - '../../Application/Filter/'
+            - '../../Attribute/'
+            - '../../Migrations/'
+
+    Letkode\FormSchema\Application\Resolver\FormSchemaResolver:
+        arguments:
+            $defaultLocale: '%letkode_form_schema.default_locale%'
+        public: true
+        alias: Letkode\FormSchema\Domain\Contract\FormSchemaResolverInterface
+
+    Letkode\FormSchema\Domain\Contract\FormSchemaResolverInterface:
+        alias: Letkode\FormSchema\Application\Resolver\FormSchemaResolver
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormRepository:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormSectionRepository:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormGroupRepository:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormFieldRepository:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormOptionGeneralRepository:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormOptionGeneralValueRepository:
+        public: true
+
+    Letkode\FormSchema\Domain\Repository\FormRepositoryInterface:
+        alias: Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormRepository
+
+    Letkode\FormSchema\Domain\Repository\FormFieldRepositoryInterface:
+        alias: Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormFieldRepository
+
+    Letkode\FormSchema\Domain\Repository\FormOptionGeneralRepositoryInterface:
+        alias: Letkode\FormSchema\Infrastructure\Doctrine\Repository\FormOptionGeneralRepository
+
+    Letkode\FormSchema\Infrastructure\Registry\FieldTypeRegistry:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Registry\OptionsSourceRegistry:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Registry\FormRenderRegistry:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Registry\SectionRenderRegistry:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Registry\GroupRenderRegistry:
+        public: true
+
+    Letkode\FormSchema\Application\Resolver\OptionsResolver:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\OptionsSource\OptionsEntitySource:
+        public: true
+
+    Letkode\FormSchema\Infrastructure\Cache\FormSchemaCacheInvalidator:
+        arguments:
+            $cache: '@%letkode_form_schema.cache.pool%'
+            $prefix: '%letkode_form_schema.cache.key_prefix%'
+        public: true
+
+    Letkode\FormSchema\Command\LetkodeFormSchemaInstallCommand:
+        tags: ['console.command']

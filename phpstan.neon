@@ -1,0 +1,20 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - src/Migrations
+    symfony:
+        containerXmlPath: null
+    doctrine:
+        objectManagerLoader: null
+    ignoreErrors:
+        # Property hooks con backing field — PHPStan aún no los soporta completamente
+        - '#Property .+ has no default value#'
+    checkMissingIterableValueType: false
+    treatPhpDocTypesAsCertain: false
+
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon

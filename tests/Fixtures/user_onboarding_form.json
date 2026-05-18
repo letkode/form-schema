@@ -1,0 +1,720 @@
+{
+  "id": "01930a1b-2c3d-7e4f-8a9b-0c1d2e3f4a5b",
+  "name": "Formulario de Onboarding",
+  "tag": "user_onboarding",
+  "locale": "es",
+  "default_locale": "es",
+  "enabled": true,
+  "parameters": {
+    "type_render": "stepper",
+    "stepper": {
+      "navigation": "horizontal",
+      "show_progress": true,
+      "allow_skip": false,
+      "persist_on_navigate": true
+    }
+  },
+  "render": {
+    "type": "stepper",
+    "metadata": {
+      "navigation": "horizontal",
+      "show_progress": true,
+      "allow_skip": false,
+      "persist_on_navigate": true
+    }
+  },
+  "translations": {
+    "es": { "name": "Formulario de Onboarding" },
+    "en": { "name": "Onboarding Form" }
+  },
+  "sections": [
+    {
+      "id": "01930a1b-2c3d-7e4f-8a9b-1a2b3c4d5e6f",
+      "name": "Datos Personales",
+      "tag": "personal_data",
+      "description": "Ingresa tu información personal",
+      "position": 1,
+      "enabled": true,
+      "parameters": {
+        "type_render": "simple"
+      },
+      "render": { "type": "simple", "metadata": {} },
+      "translations": {
+        "es": {
+          "name": "Datos Personales",
+          "description": "Ingresa tu información personal"
+        },
+        "en": {
+          "name": "Personal Data",
+          "description": "Enter your personal information"
+        }
+      },
+      "groups": [
+        {
+          "id": "01930a1b-2c3d-7e4f-8a9b-2a2b3c4d5e6f",
+          "name": "Información Básica",
+          "tag": "basic_info",
+          "description": null,
+          "position": 1,
+          "enabled": true,
+          "parameters": {
+            "type_render": "simple"
+          },
+          "render": { "type": "simple", "metadata": {} },
+          "translations": {
+            "es": { "name": "Información Básica" },
+            "en": { "name": "Basic Information" }
+          },
+          "fields": [
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000001",
+              "name": "Nombre",
+              "tag": "first_name",
+              "type": "string",
+              "description": "Tu nombre legal",
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 1,
+              "enabled": true,
+              "placeholder": "Ej: Juan",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Nombre", "placeholder": "Ej: Juan", "description": "Tu nombre legal" },
+                "en": { "name": "First Name", "placeholder": "E.g. John", "description": "Your legal name" }
+              }
+            },
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000002",
+              "name": "Apellido",
+              "tag": "last_name",
+              "type": "string",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 2,
+              "enabled": true,
+              "placeholder": "Ej: Pérez",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Apellido", "placeholder": "Ej: Pérez" },
+                "en": { "name": "Last Name", "placeholder": "E.g. Smith" }
+              }
+            },
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000003",
+              "name": "Correo Electrónico",
+              "tag": "email",
+              "type": "email",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": true, "entity": "App\\Entity\\User", "method": "findOneByEmail" },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": false,
+                "create": true
+              },
+              "parameters": {},
+              "position": 3,
+              "enabled": true,
+              "placeholder": "mail@ejemplo.com",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Correo Electrónico", "placeholder": "mail@ejemplo.com" },
+                "en": { "name": "Email", "placeholder": "mail@example.com" }
+              }
+            },
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000004",
+              "name": "Teléfono",
+              "tag": "phone",
+              "type": "phone",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 4,
+              "enabled": true,
+              "placeholder": "+56 9 1234 5678",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Teléfono", "placeholder": "+56 9 1234 5678" },
+                "en": { "name": "Phone", "placeholder": "+1 555 000 0000" }
+              }
+            },
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000005",
+              "name": "Edad",
+              "tag": "age",
+              "type": "number",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 5,
+              "enabled": true,
+              "placeholder": "25",
+              "defaultValue": null,
+              "style": ["lg:w-3/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Edad" },
+                "en": { "name": "Age" }
+              }
+            },
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000006",
+              "name": "Contraseña",
+              "tag": "password",
+              "type": "password",
+              "description": "Mínimo 8 caracteres",
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": false,
+                "edit": true,
+                "create": true,
+                "min_strength": 2
+              },
+              "parameters": {},
+              "position": 6,
+              "enabled": true,
+              "placeholder": "••••••••",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Contraseña", "description": "Mínimo 8 caracteres" },
+                "en": { "name": "Password", "description": "Minimum 8 characters" }
+              }
+            },
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000007",
+              "name": "Token de Referido",
+              "tag": "referral_token",
+              "type": "hidden",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": false,
+                "edit": false,
+                "create": true
+              },
+              "parameters": {},
+              "position": 7,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": null,
+              "style": [],
+              "options": [],
+              "translations": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01930a1b-2c3d-7e4f-8a9b-3a2b3c4d5e6f",
+      "name": "Información Adicional",
+      "tag": "additional_info",
+      "description": null,
+      "position": 2,
+      "enabled": true,
+      "parameters": {
+        "type_render": "accordion",
+        "accordion": {
+          "allow_multiple_open": false,
+          "first_open": true
+        }
+      },
+      "render": {
+        "type": "accordion",
+        "metadata": {
+          "allow_multiple_open": false,
+          "first_open": true
+        }
+      },
+      "translations": {
+        "es": { "name": "Información Adicional" },
+        "en": { "name": "Additional Information" }
+      },
+      "groups": [
+        {
+          "id": "01930a1b-2c3d-7e4f-8a9b-4a2b3c4d5e6f",
+          "name": "Perfil",
+          "tag": "profile",
+          "description": null,
+          "position": 1,
+          "enabled": true,
+          "parameters": {
+            "type_render": "simple"
+          },
+          "render": { "type": "simple", "metadata": {} },
+          "translations": {
+            "es": { "name": "Perfil" },
+            "en": { "name": "Profile" }
+          },
+          "fields": [
+            {
+              "id": "01930a1b-0002-7e4f-8a9b-000000000001",
+              "name": "Biografía",
+              "tag": "bio",
+              "type": "textarea",
+              "description": "Cuéntanos sobre ti",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 1,
+              "enabled": true,
+              "placeholder": "Escribe una breve descripción...",
+              "defaultValue": null,
+              "style": ["lg:w-full"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Biografía", "description": "Cuéntanos sobre ti", "placeholder": "Escribe una breve descripción..." },
+                "en": { "name": "Biography", "description": "Tell us about yourself", "placeholder": "Write a short description..." }
+              }
+            },
+            {
+              "id": "01930a1b-0002-7e4f-8a9b-000000000002",
+              "name": "Fecha de Nacimiento",
+              "tag": "birth_date",
+              "type": "date",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 2,
+              "enabled": true,
+              "placeholder": "DD/MM/YYYY",
+              "defaultValue": null,
+              "style": ["lg:w-4/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Fecha de Nacimiento" },
+                "en": { "name": "Birth Date" }
+              }
+            },
+            {
+              "id": "01930a1b-0002-7e4f-8a9b-000000000003",
+              "name": "Fecha y Hora de Ingreso",
+              "tag": "entry_datetime",
+              "type": "datetime",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 3,
+              "enabled": true,
+              "placeholder": "DD/MM/YYYY HH:MM",
+              "defaultValue": "2026-05-16T09:00:00",
+              "style": ["lg:w-4/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Fecha y Hora de Ingreso" },
+                "en": { "name": "Entry Date & Time" }
+              }
+            },
+            {
+              "id": "01930a1b-0002-7e4f-8a9b-000000000004",
+              "name": "Período de Vacaciones",
+              "tag": "vacation_period",
+              "type": "date-range",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 4,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": { "from": null, "to": null },
+              "style": ["lg:w-6/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Período de Vacaciones" },
+                "en": { "name": "Vacation Period" }
+              }
+            },
+            {
+              "id": "01930a1b-0002-7e4f-8a9b-000000000005",
+              "name": "Foto de Perfil",
+              "tag": "profile_photo",
+              "type": "file",
+              "description": "JPG o PNG, máximo 2MB",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 5,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": null,
+              "style": ["lg:w-4/12"],
+              "options": [],
+              "translations": {
+                "es": { "name": "Foto de Perfil", "description": "JPG o PNG, máximo 2MB" },
+                "en": { "name": "Profile Photo", "description": "JPG or PNG, max 2MB" }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01930a1b-2c3d-7e4f-8a9b-5a2b3c4d5e6f",
+      "name": "Preferencias",
+      "tag": "preferences",
+      "description": null,
+      "position": 3,
+      "enabled": true,
+      "parameters": {
+        "type_render": "tabs",
+        "tabs": {
+          "position": "top",
+          "lazy_load": false
+        }
+      },
+      "render": {
+        "type": "tabs",
+        "metadata": {
+          "position": "top",
+          "lazy_load": false
+        }
+      },
+      "translations": {
+        "es": { "name": "Preferencias" },
+        "en": { "name": "Preferences" }
+      },
+      "groups": [
+        {
+          "id": "01930a1b-2c3d-7e4f-8a9b-6a2b3c4d5e6f",
+          "name": "Selecciones",
+          "tag": "selections",
+          "description": null,
+          "position": 1,
+          "enabled": true,
+          "parameters": {
+            "type_render": "matrix",
+            "matrix": {
+              "rows": ["Opción A", "Opción B"],
+              "cols": ["Lunes", "Miércoles", "Viernes"]
+            }
+          },
+          "render": {
+            "type": "matrix",
+            "metadata": {
+              "rows": ["Opción A", "Opción B"],
+              "cols": ["Lunes", "Miércoles", "Viernes"]
+            }
+          },
+          "translations": {
+            "es": { "name": "Selecciones" },
+            "en": { "name": "Selections" }
+          },
+          "fields": [
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000001",
+              "name": "Notificaciones Activas",
+              "tag": "notifications_enabled",
+              "type": "switch",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 1,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": true,
+              "style": ["lg:w-4/12"],
+              "options": [
+                { "value": "1", "text": "Sí", "tag": "yes", "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "0", "text": "No", "tag": "no", "icon": null, "color": null, "position": 2, "extra": {} }
+              ],
+              "translations": {
+                "es": { "name": "Notificaciones Activas" },
+                "en": { "name": "Active Notifications" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000002",
+              "name": "Satisfacción General",
+              "tag": "satisfaction_rating",
+              "type": "rating",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [
+                { "value": "1", "text": "Muy malo", "tag": "very_bad", "icon": "star", "color": "#ef4444", "position": 1, "extra": {} },
+                { "value": "2", "text": "Malo", "tag": "bad", "icon": "star", "color": "#f97316", "position": 2, "extra": {} },
+                { "value": "3", "text": "Regular", "tag": "regular", "icon": "star", "color": "#eab308", "position": 3, "extra": {} },
+                { "value": "4", "text": "Bueno", "tag": "good", "icon": "star", "color": "#84cc16", "position": 4, "extra": {} },
+                { "value": "5", "text": "Excelente", "tag": "excellent", "icon": "star", "color": "#22c55e", "position": 5, "extra": {} }
+              ],
+              "translations": {
+                "es": { "name": "Satisfacción General" },
+                "en": { "name": "Overall Satisfaction" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000003",
+              "name": "País",
+              "tag": "country",
+              "type": "list",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": true, "key": "country_id" },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 3,
+              "enabled": true,
+              "placeholder": "Selecciona un país",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [
+                { "value": "cl", "text": "Chile", "tag": "cl", "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "ar", "text": "Argentina", "tag": "ar", "icon": null, "color": null, "position": 2, "extra": {} },
+                { "value": "pe", "text": "Perú", "tag": "pe", "icon": null, "color": null, "position": 3, "extra": {} },
+                { "value": "co", "text": "Colombia", "tag": "co", "icon": null, "color": null, "position": 4, "extra": {} }
+              ],
+              "translations": {
+                "es": { "name": "País", "placeholder": "Selecciona un país" },
+                "en": { "name": "Country", "placeholder": "Select a country" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000004",
+              "name": "Región",
+              "tag": "region",
+              "type": "list-group",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 4,
+              "enabled": true,
+              "placeholder": "Selecciona una región",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [
+                { "value": "rm", "text": "Región Metropolitana", "tag": "rm", "icon": null, "color": null, "position": 1, "extra": { "group": "Centro" } },
+                { "value": "v", "text": "Valparaíso", "tag": "v", "icon": null, "color": null, "position": 2, "extra": { "group": "Centro" } },
+                { "value": "i", "text": "Tarapacá", "tag": "i", "icon": null, "color": null, "position": 3, "extra": { "group": "Norte" } }
+              ],
+              "translations": {
+                "es": { "name": "Región", "placeholder": "Selecciona una región" },
+                "en": { "name": "Region", "placeholder": "Select a region" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000005",
+              "name": "Idiomas que habla",
+              "tag": "languages",
+              "type": "multilist",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 5,
+              "enabled": true,
+              "placeholder": "Selecciona idiomas",
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [
+                { "value": "es", "text": "Español", "tag": "es", "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "en", "text": "Inglés", "tag": "en", "icon": null, "color": null, "position": 2, "extra": {} },
+                { "value": "pt", "text": "Portugués", "tag": "pt", "icon": null, "color": null, "position": 3, "extra": {} },
+                { "value": "fr", "text": "Francés", "tag": "fr", "icon": null, "color": null, "position": 4, "extra": {} }
+              ],
+              "translations": {
+                "es": { "name": "Idiomas que habla", "placeholder": "Selecciona idiomas" },
+                "en": { "name": "Spoken Languages", "placeholder": "Select languages" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000006",
+              "name": "Género",
+              "tag": "gender",
+              "type": "radio",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 6,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": null,
+              "style": ["lg:w-6/12"],
+              "options": [
+                { "value": "male", "text": "Masculino", "tag": "male", "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "female", "text": "Femenino", "tag": "female", "icon": null, "color": null, "position": 2, "extra": {} },
+                { "value": "other", "text": "Otro", "tag": "other", "icon": null, "color": null, "position": 3, "extra": {} },
+                { "value": "prefer_not", "text": "Prefiero no indicar", "tag": "prefer_not", "icon": null, "color": null, "position": 4, "extra": {} }
+              ],
+              "translations": {
+                "es": { "name": "Género" },
+                "en": { "name": "Gender" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000007",
+              "name": "Intereses",
+              "tag": "interests",
+              "type": "checkbox",
+              "description": "Selecciona todos los que apliquen",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {},
+              "position": 7,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": null,
+              "style": ["lg:w-full"],
+              "options": [
+                { "value": "tech", "text": "Tecnología", "tag": "tech", "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "sports", "text": "Deportes", "tag": "sports", "icon": null, "color": null, "position": 2, "extra": {} },
+                { "value": "music", "text": "Música", "tag": "music", "icon": null, "color": null, "position": 3, "extra": {} },
+                { "value": "travel", "text": "Viajes", "tag": "travel", "icon": null, "color": null, "position": 4, "extra": {} }
+              ],
+              "translations": {
+                "es": { "name": "Intereses", "description": "Selecciona todos los que apliquen" },
+                "en": { "name": "Interests", "description": "Select all that apply" }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
