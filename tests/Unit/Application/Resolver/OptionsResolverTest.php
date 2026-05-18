@@ -7,19 +7,19 @@ namespace Letkode\FormSchema\Tests\Unit\Application\Resolver;
 use Letkode\FormSchema\Application\DTO\OptionDTO;
 use Letkode\FormSchema\Application\Resolver\OptionsResolver;
 use Letkode\FormSchema\Domain\Contract\OptionsSourceInterface;
-use Letkode\FormSchema\Infrastructure\Registry\OptionsSourceRegistry;
+use Letkode\FormSchema\Domain\Contract\OptionsSourceRegistryInterface;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class OptionsResolverTest extends TestCase
 {
-    private OptionsSourceRegistry&MockObject $registry;
+    private OptionsSourceRegistryInterface&MockObject $registry;
     private OptionsResolver $resolver;
 
     protected function setUp(): void
     {
-        $this->registry = $this->createMock(OptionsSourceRegistry::class);
+        $this->registry = $this->createMock(OptionsSourceRegistryInterface::class);
         $this->resolver = new OptionsResolver($this->registry);
     }
 

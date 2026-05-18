@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Letkode\FormSchema\Infrastructure\Registry;
 
 use Letkode\FormSchema\Domain\Contract\OptionsSourceInterface;
+use Letkode\FormSchema\Domain\Contract\OptionsSourceRegistryInterface;
 use Letkode\FormSchema\Domain\Exception\UnknownOptionsSourceException;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
-final class OptionsSourceRegistry
+final class OptionsSourceRegistry implements OptionsSourceRegistryInterface
 {
     /** @var array<string, OptionsSourceInterface> */
     private array $sources = [];

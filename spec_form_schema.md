@@ -320,6 +320,7 @@ letkode/form-schema/
 │   │   ├── Contract/
 │   │   │   ├── FieldTypeInterface.php
 │   │   │   ├── OptionsSourceInterface.php
+│   │   │   ├── OptionsSourceRegistryInterface.php
 │   │   │   ├── StructureRenderInterface.php
 │   │   │   ├── FormRenderInterface.php
 │   │   │   ├── SectionRenderInterface.php
@@ -1083,6 +1084,8 @@ class RegionRepository extends ServiceEntityRepository { /* ... */ }
 ### 9.5 Registry de fuentes
 
 `OptionsSourceRegistry` idéntico en concepto al `FieldTypeRegistry`. Tag: `form_schema.options_source`. Attribute: `#[AsOptionsSource]`. Sin compiler pass — recibe sus servicios vía `#[AutowireIterator('form_schema.options_source')]`.
+
+La clase es `final`. Expone el contrato `OptionsSourceRegistryInterface` (`get`, `has`, `all`) para que los consumidores internos (como `OptionsResolver`) dependan de la abstracción y puedan mockearse en tests unitarios.
 
 El proyecto puede registrar fuentes adicionales (ej. `OptionsApiSource` que va a un endpoint externo).
 

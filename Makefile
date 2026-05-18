@@ -71,13 +71,13 @@ hooks: ## Installs git hooks from tools/hooks/
 
 # Tests
 test: ## Run all tests
-	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_PHP} php bin/phpunit
+	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_PHP} php vendor/bin/phpunit
 
 test-file: ## Run a specific test file. Usage: make test-file f=tests/Unit/...
-	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_PHP} php bin/phpunit $(f)
+	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_PHP} php vendor/bin/phpunit $(f)
 
 test-filter: ## Run tests matching a method name. Usage: make test-filter m=testMethodName
-	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_PHP} php bin/phpunit --filter $(m)
+	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_PHP} php vendor/bin/phpunit --filter $(m)
 
 # Code quality
 cs-fixer: ## Runs php-cs-fixer following Symfony rules

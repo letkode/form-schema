@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Letkode\FormSchema\Application\Resolver;
 
 use Letkode\FormSchema\Application\DTO\OptionDTO;
-use Letkode\FormSchema\Infrastructure\Registry\OptionsSourceRegistry;
+use Letkode\FormSchema\Domain\Contract\OptionsSourceRegistryInterface;
 
 final class OptionsResolver
 {
     public function __construct(
-        private readonly OptionsSourceRegistry $registry,
+        private readonly OptionsSourceRegistryInterface $registry,
     ) {
     }
 
