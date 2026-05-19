@@ -374,7 +374,8 @@ letkode/form-schema/
 │   │   │   ├── SimpleFormRender.php
 │   │   │   ├── StepperFormRender.php
 │   │   │   ├── WizardFormRender.php
-│   │   │   └── TabsFormRender.php
+│   │   │   ├── TabsFormRender.php
+│   │   │   └── ModalFormRender.php
 │   │   ├── SectionRender/
 │   │   │   ├── SimpleSectionRender.php
 │   │   │   ├── AccordionSectionRender.php
@@ -1097,7 +1098,7 @@ El paquete entiende que **cada nivel jerárquico tiene su propio modo de render*
 
 | Nivel | Built-in | Caso de uso |
 |---|---|---|
-| `Form` | `simple`, `stepper`, `wizard`, `tabs` | Cómo se navega entre secciones |
+| `Form` | `simple`, `stepper`, `wizard`, `tabs`, `modal` | Cómo se navega entre secciones |
 | `FormSection` | `simple`, `accordion`, `tabs`, `collapsible` | Cómo se presentan los grupos dentro de una sección |
 | `FormGroup` | `simple`, `matrix`, `tabs` | Cómo se distribuyen los fields dentro de un grupo |
 
@@ -2243,7 +2244,7 @@ El frontend interpreta `form.render.type === 'stepper'` y arma la UI con la secu
 
 ## 21. Resumen ejecutivo
 
-> Un **Symfony Bundle PHP 8.4 nativo** (estilo `AbstractBundle` de Symfony 7, Doctrine ORM ^3.4) que modela formularios en BD jerárquicos (Form→Section→Group→Field) con i18n dinámico por request, **18 tipos de campo predefinidos** extensibles vía Strategy + Registry (estilo `Doctrine\DBAL\Types\Type::addType()`), opciones dinámicas desde catálogo interno (`FormOptionGeneral`) o repositorios del proyecto (habilitados vía `#[AsFormOptionsProvider]`, método default `findForFormOptions`), **renders estructurales en 3 niveles** independientes y registrables (`FormRender`: simple/stepper/wizard/tabs · `SectionRender`: simple/accordion/tabs/collapsible · `GroupRender`: simple/matrix/tabs), atributos como ValueObjects readonly con estructura plana en BD y soporte de claves custom para contextos de filtrado, DTOs readonly con `translations` completo como contrato de salida, migraciones distribuidas dentro del paquete, soft delete en todas las entidades, y cache PSR-6 opt-in con key basada en hash de todos los parámetros del builder. **Aprovecha intensivamente PHP 8.4**: property hooks (con backing fields privados para ORM), asymmetric visibility (`public private(set)`), `new` chaining, nuevas funciones de array (`array_find`/`array_any`/`array_all`), `#[\Override]` obligatorio, lazy objects nativos vía Doctrine 3.4. Reutiliza `letkode/helpers` para validators, conversores y excepciones. El proyecto consumidor instala vía Composer, agrega el namespace de migraciones, ejecuta `migrate`, y ya puede crear formularios programáticamente y consumirlos con `FormSchemaResolver->schema($tag)->withLocale($locale)->resolve()`.
+> Un **Symfony Bundle PHP 8.4 nativo** (estilo `AbstractBundle` de Symfony 7, Doctrine ORM ^3.4) que modela formularios en BD jerárquicos (Form→Section→Group→Field) con i18n dinámico por request, **18 tipos de campo predefinidos** extensibles vía Strategy + Registry (estilo `Doctrine\DBAL\Types\Type::addType()`), opciones dinámicas desde catálogo interno (`FormOptionGeneral`) o repositorios del proyecto (habilitados vía `#[AsFormOptionsProvider]`, método default `findForFormOptions`), **renders estructurales en 3 niveles** independientes y registrables (`FormRender`: simple/stepper/wizard/tabs/modal · `SectionRender`: simple/accordion/tabs/collapsible · `GroupRender`: simple/matrix/tabs), atributos como ValueObjects readonly con estructura plana en BD y soporte de claves custom para contextos de filtrado, DTOs readonly con `translations` completo como contrato de salida, migraciones distribuidas dentro del paquete, soft delete en todas las entidades, y cache PSR-6 opt-in con key basada en hash de todos los parámetros del builder. **Aprovecha intensivamente PHP 8.4**: property hooks (con backing fields privados para ORM), asymmetric visibility (`public private(set)`), `new` chaining, nuevas funciones de array (`array_find`/`array_any`/`array_all`), `#[\Override]` obligatorio, lazy objects nativos vía Doctrine 3.4. Reutiliza `letkode/helpers` para validators, conversores y excepciones. El proyecto consumidor instala vía Composer, agrega el namespace de migraciones, ejecuta `migrate`, y ya puede crear formularios programáticamente y consumirlos con `FormSchemaResolver->schema($tag)->withLocale($locale)->resolve()`.
 
 ---
 
@@ -2254,7 +2255,7 @@ El frontend interpreta `form.render.type === 'stepper'` y arma la UI con la secu
 | 1 | Soft delete | **Sí**, en las 6 entidades. Filtro `softdeleteable` activado por defecto en el bundle. |
 | 2 | Locale | Opción A: locale enviado en cada request vía `withLocale()`, backend resuelve y devuelve DTO traducido. DTOs incluyen `translations` completo `{locale: {field: value}}` para que el frontend maneje presentación sin re-request. Cadena de fallback: `locale solicitado → Form.defaultLang → valor crudo`. |
 | 3 | Validación server-side | Fuera de v1. La prioridad es mantener clara y estable la estructura del schema. |
-| 4 | Renders estructurales | **3 niveles** con registry independiente cada uno: `FormRender` (built-in: simple/stepper/wizard/tabs), `SectionRender` (simple/accordion/tabs/collapsible), `GroupRender` (simple/matrix/tabs). Cada nivel extensible con su atributo `#[AsXxxRender]`. |
+| 4 | Renders estructurales | **3 niveles** con registry independiente cada uno: `FormRender` (built-in: simple/stepper/wizard/tabs/modal), `SectionRender` (simple/accordion/tabs/collapsible), `GroupRender` (simple/matrix/tabs). Cada nivel extensible con su atributo `#[AsXxxRender]`. |
 | 5 | Default method `OptionsEntitySource` | `findForFormOptions(array $context): array` |
 | 6 | Bundle skeleton | `AbstractBundle` de Symfony 7 (igual que `letkode/helpers`). Sin Extension/Configuration separados. |
 | 7 | Dependencia `letkode/helpers` | Sí, integrada para validators, conversores y excepciones. Evita duplicación. |
@@ -2269,7 +2270,7 @@ El frontend interpreta `form.render.type === 'stepper'` y arma la UI con la secu
 - [ ] `bin/console doctrine:migrations:migrate` crea las 6 tablas correctamente en PostgreSQL y MySQL.
 - [ ] Los 18 FieldTypes built-in están implementados y testeados.
 - [ ] Las 2 OptionsSource built-in (`general`, `entity`) funcionan.
-- [ ] Los **4 FormRender built-in** (`simple`, `stepper`, `wizard`, `tabs`) funcionan.
+- [ ] Los **5 FormRender built-in** (`simple`, `stepper`, `wizard`, `tabs`, `modal`) funcionan.
 - [ ] Los **4 SectionRender built-in** (`simple`, `accordion`, `tabs`, `collapsible`) funcionan.
 - [ ] Los 3 GroupRender built-in (`simple`, `matrix`, `tabs`) funcionan.
 - [ ] Un proyecto puede registrar un FieldType custom solo con `#[AsFieldType]`, sin tocar config.

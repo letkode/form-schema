@@ -76,6 +76,31 @@ Las secciones se presentan como pestañas accesibles en cualquier orden.
 }
 ```
 
+### `modal`
+
+El formulario se presenta dentro de un dialog/modal. El frontend es responsable de abrirlo y cerrarlo; el bundle solo expone la metadata de configuración.
+
+```json
+{
+  "render": {
+    "type": "modal",
+    "metadata": {
+      "size": "md",
+      "position": "center",
+      "dismissible": true,
+      "show_close_button": true
+    }
+  }
+}
+```
+
+| Parámetro en `parameters.modal` | Descripción | Valores | Default |
+|---|---|---|---|
+| `size` | Ancho del dialog | `"sm"` / `"md"` / `"lg"` / `"xl"` / `"full"` | `"md"` |
+| `position` | Posición en pantalla | `"center"` / `"top"` / `"bottom"` / `"drawer-right"` / `"drawer-left"` | `"center"` |
+| `dismissible` | Cierra al hacer click fuera | `true` / `false` | `true` |
+| `show_close_button` | Muestra botón X de cierre | `true` / `false` | `true` |
+
 ---
 
 ## Renders de Section
