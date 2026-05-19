@@ -20,9 +20,9 @@ final class ModalFormRender implements FormRenderInterface
     public function renderMeta(array $parameters): array
     {
         return [
-            'size'              => $parameters['modal']['size'] ?? 'md',
-            'position'          => $parameters['modal']['position'] ?? 'center',
-            'dismissible'       => $parameters['modal']['dismissible'] ?? true,
+            'size' => $parameters['modal']['size'] ?? 'md',
+            'position' => $parameters['modal']['position'] ?? 'center',
+            'dismissible' => $parameters['modal']['dismissible'] ?? true,
             'show_close_button' => $parameters['modal']['show_close_button'] ?? true,
         ];
     }

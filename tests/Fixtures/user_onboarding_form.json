@@ -184,7 +184,19 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [],
-              "interactions": [],
+              "interactions": [
+                {
+                  "trigger": "input",
+                  "action": "ajax_validate",
+                  "target": null,
+                  "condition": {},
+                  "params": {
+                    "endpoint": "/api/users/check-phone",
+                    "method": "GET",
+                    "debounce": 300
+                  }
+                }
+              ],
               "translations": {
                 "es": { "name": "Teléfono", "placeholder": "+56 9 1234 5678" },
                 "en": { "name": "Phone", "placeholder": "+1 555 000 0000" }
@@ -426,7 +438,15 @@
               "defaultValue": "2026-05-16T09:00:00",
               "style": ["lg:w-4/12"],
               "options": [],
-              "interactions": [],
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "set_date_constraint",
+                  "target": "vacation_period",
+                  "condition": {},
+                  "params": { "constraint": "min" }
+                }
+              ],
               "translations": {
                 "es": { "name": "Fecha y Hora de Ingreso" },
                 "en": { "name": "Entry Date & Time" }
@@ -618,7 +638,15 @@
                 { "value": "4", "text": "Bueno", "tag": "good", "icon": "star", "color": "#84cc16", "position": 4, "extra": {} },
                 { "value": "5", "text": "Excelente", "tag": "excellent", "icon": "star", "color": "#22c55e", "position": 5, "extra": {} }
               ],
-              "interactions": [],
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "toggle_visibility",
+                  "target": "bio",
+                  "condition": { "operator": "in", "value": [1, 2] },
+                  "params": {}
+                }
+              ],
               "translations": {
                 "es": { "name": "Satisfacción General" },
                 "en": { "name": "Overall Satisfaction" }
@@ -665,8 +693,8 @@
                   "target": "region",
                   "condition": {},
                   "params": {
-                    "mode": "server",
-                    "filter_param": "country_id"
+                    "mode": "client",
+                    "filter_key": "country_id"
                   }
                 }
               ],
@@ -775,6 +803,13 @@
                   "action": "toggle_visibility",
                   "target": "interests",
                   "condition": { "operator": "not_equals", "value": "prefer_not" },
+                  "params": {}
+                },
+                {
+                  "trigger": "change",
+                  "action": "toggle_required",
+                  "target": "bio",
+                  "condition": { "operator": "not_in", "value": ["prefer_not"] },
                   "params": {}
                 }
               ],

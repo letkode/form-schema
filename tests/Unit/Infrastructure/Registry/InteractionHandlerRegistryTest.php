@@ -6,8 +6,8 @@ namespace Letkode\FormSchema\Tests\Unit\Infrastructure\Registry;
 
 use Letkode\FormSchema\Domain\Exception\UnknownInteractionHandlerException;
 use Letkode\FormSchema\Infrastructure\InteractionHandler\AjaxValidateInteractionHandler;
-use Letkode\FormSchema\Infrastructure\InteractionHandler\FilterOptionsInteractionHandler;
 use Letkode\FormSchema\Infrastructure\InteractionHandler\ComputeInteractionHandler;
+use Letkode\FormSchema\Infrastructure\InteractionHandler\FilterOptionsInteractionHandler;
 use Letkode\FormSchema\Infrastructure\Registry\InteractionHandlerRegistry;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

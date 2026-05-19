@@ -29,9 +29,9 @@ final class ModalFormRenderTest extends TestCase
         $meta = $this->render->renderMeta([]);
 
         self::assertSame([
-            'size'              => 'md',
-            'position'          => 'center',
-            'dismissible'       => true,
+            'size' => 'md',
+            'position' => 'center',
+            'dismissible' => true,
             'show_close_button' => true,
         ], $meta);
     }
@@ -41,17 +41,17 @@ final class ModalFormRenderTest extends TestCase
     {
         $meta = $this->render->renderMeta([
             'modal' => [
-                'size'              => 'xl',
-                'position'          => 'drawer-right',
-                'dismissible'       => false,
+                'size' => 'xl',
+                'position' => 'drawer-right',
+                'dismissible' => false,
                 'show_close_button' => false,
             ],
         ]);
 
         self::assertSame([
-            'size'              => 'xl',
-            'position'          => 'drawer-right',
-            'dismissible'       => false,
+            'size' => 'xl',
+            'position' => 'drawer-right',
+            'dismissible' => false,
             'show_close_button' => false,
         ], $meta);
     }
