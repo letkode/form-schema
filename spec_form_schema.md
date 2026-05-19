@@ -160,6 +160,7 @@ El paquete usa atributos como mecanismo principal de configuración/extensión (
 | `#[AsFormRender]` | Clases que implementan `FormRenderInterface` | Auto-registro en `FormRenderRegistry` |
 | `#[AsSectionRender]` | Clases que implementan `SectionRenderInterface` | Auto-registro en `SectionRenderRegistry` |
 | `#[AsGroupRender]` | Clases que implementan `GroupRenderInterface` | Auto-registro en `GroupRenderRegistry` |
+| `#[AsInteractionHandler]` | Clases que implementan `InteractionHandlerInterface` | Auto-registro en `InteractionHandlerRegistry` |
 
 Todos los atributos del paquete admiten parámetro opcional `priority: int` para resolver colisiones cuando hay overrides.
 
@@ -313,6 +314,7 @@ letkode/form-schema/
 │   │   │   └── FilterStructureTypeEnum.php
 │   │   ├── ValueObject/
 │   │   │   ├── FieldAttributes.php
+│   │   │   ├── FieldInteraction.php
 │   │   │   ├── FieldParameters.php
 │   │   │   ├── FormParameters.php
 │   │   │   ├── SectionParameters.php
@@ -385,12 +387,22 @@ letkode/form-schema/
 │   │   │   ├── SimpleGroupRender.php
 │   │   │   ├── MatrixGroupRender.php
 │   │   │   └── TabsGroupRender.php
+│   │   ├── InteractionHandler/
+│   │   │   ├── AbstractInteractionHandler.php
+│   │   │   ├── FilterOptionsInteractionHandler.php
+│   │   │   ├── ToggleVisibilityInteractionHandler.php
+│   │   │   ├── ToggleRequiredInteractionHandler.php
+│   │   │   ├── SetValueInteractionHandler.php
+│   │   │   ├── AjaxValidateInteractionHandler.php
+│   │   │   ├── SetDateConstraintInteractionHandler.php
+│   │   │   └── ComputeInteractionHandler.php
 │   │   ├── Registry/
 │   │   │   ├── FieldTypeRegistry.php
 │   │   │   ├── OptionsSourceRegistry.php
 │   │   │   ├── FormRenderRegistry.php
 │   │   │   ├── SectionRenderRegistry.php
-│   │   │   └── GroupRenderRegistry.php
+│   │   │   ├── GroupRenderRegistry.php
+│   │   │   └── InteractionHandlerRegistry.php
 │   │   └── Cache/
 │   │       └── CachedFormSchemaResolver.php       # decorator PSR-6
 │   ├── Application/
@@ -400,7 +412,8 @@ letkode/form-schema/
 │   │   │   ├── GroupDTO.php
 │   │   │   ├── FieldDTO.php
 │   │   │   ├── OptionDTO.php
-│   │   │   └── OptionGroupDTO.php
+│   │   │   ├── OptionGroupDTO.php
+│   │   │   └── InteractionDTO.php
 │   │   ├── Resolver/
 │   │   │   ├── FormSchemaResolver.php             # servicio público principal
 │   │   │   ├── OptionsResolver.php
@@ -413,7 +426,8 @@ letkode/form-schema/
 │       ├── AsOptionsSource.php
 │       ├── AsFormRender.php
 │       ├── AsSectionRender.php
-│       └── AsGroupRender.php
+│       ├── AsGroupRender.php
+│       └── AsInteractionHandler.php
 └── tests/
     ├── Unit/
     └── Integration/
@@ -1092,7 +1106,84 @@ El proyecto puede registrar fuentes adicionales (ej. `OptionsApiSource` que va a
 
 ---
 
-## 10. Renders estructurales en 3 niveles (Strategy + Registry)
+## 10. Sistema de interacciones de fields
+
+Las interacciones permiten que el schema declare **comportamiento dinámico** que el UI debe ejecutar al producirse eventos sobre un field. El bundle almacena la configuración de forma puramente declarativa; no ejecuta ni valida la lógica.
+
+### 10.1 Columna en BD
+
+`form_field.interactions` — JSON nullable. Array de objetos `FieldInteraction`.
+
+### 10.2 Estructura de `FieldInteraction`
+
+```php
+final readonly class FieldInteraction
+{
+    public string $trigger;            // 'change' | 'blur' | 'focus' | 'input'
+    public string $action;             // tipo de acción (ver tabla)
+    public string|array|null $target;  // tag(s) del field afectado; null = self
+    public array $condition;           // condición opcional sobre el valor actual
+    public array $params;              // parámetros específicos de la acción
+}
+```
+
+### 10.3 Contrato `InteractionHandlerInterface`
+
+El sistema usa el mismo patrón **Strategy + Registry** que `FieldType` y `OptionsSource`. Cada tipo de acción es una clase que implementa la interfaz:
+
+```php
+interface InteractionHandlerInterface
+{
+    public static function getName(): string;   // nombre de la acción, ej. 'filter_options'
+    public function getDefaultParams(): array;  // params mergeados con los almacenados en BD
+}
+```
+
+El resolver hace `array_replace($handler->getDefaultParams(), $storedParams)` — los params de BD sobreescriben los defaults. El UI siempre recibe un DTO con params completos.
+
+### 10.4 Handlers built-in y sus defaults
+
+| Handler | `getName()` | `getDefaultParams()` |
+|---|---|---|
+| `FilterOptionsInteractionHandler` | `filter_options` | `['mode' => 'server']` |
+| `ToggleVisibilityInteractionHandler` | `toggle_visibility` | `[]` |
+| `ToggleRequiredInteractionHandler` | `toggle_required` | `[]` |
+| `SetValueInteractionHandler` | `set_value` | `[]` |
+| `AjaxValidateInteractionHandler` | `ajax_validate` | `['method' => 'GET', 'debounce' => 0]` |
+| `SetDateConstraintInteractionHandler` | `set_date_constraint` | `['constraint' => 'min']` |
+| `ComputeInteractionHandler` | `compute` | `['decimals' => null]` |
+
+### 10.5 Extensibilidad — handlers del proyecto
+
+El bundle registra `InteractionHandlerInterface` para autoconfiguration con tag `form_schema.interaction_handler`. Cualquier clase del proyecto con `#[AsInteractionHandler]` queda disponible automáticamente:
+
+```php
+#[AsInteractionHandler]
+final class SendWebhookInteractionHandler extends AbstractInteractionHandler
+{
+    public static function getName(): string { return 'send_webhook'; }
+
+    public function getDefaultParams(): array
+    {
+        return ['method' => 'POST', 'retry' => 0];
+    }
+}
+```
+
+Si el resolver encuentra un `action` no registrado en el registry lanza `UnknownInteractionHandlerException`.
+
+### 10.6 Condition operators
+
+`equals`, `not_equals`, `in`, `not_in`, `truthy`, `falsy`. Condition `{}` = ejecutar siempre.
+
+### 10.7 En el DTO
+
+`FieldDTO.interactions` expone `list<InteractionDTO>` (vacío si no hay interacciones). Params = merge de `getDefaultParams()` + params almacenados en BD.
+
+---
+
+## 11. Renders estructurales en 3 niveles (Strategy + Registry)
+
 
 El paquete entiende que **cada nivel jerárquico tiene su propio modo de render** y cada uno es extensible. Los tres niveles (`Form`, `FormSection`, `FormGroup`) tienen un campo `parameters.type_render` que apunta a un render registrado.
 
@@ -1312,7 +1403,7 @@ Cada meta se inyecta en el DTO de su nivel dentro de `render` como `{"type": "..
 
 ---
 
-## 11. Integración con `letkode/helpers`
+## 12. Integración con `letkode/helpers`
 
 El paquete declara `letkode/helpers: ^1` como dependencia y reutiliza:
 
@@ -1328,7 +1419,7 @@ Esto evita duplicar lógica y mantiene un comportamiento consistente con el rest
 
 ---
 
-## 12. DTOs
+## 13. DTOs
 
 `final readonly` classes con `JsonSerializable`. Cada nivel jerárquico expone la llave `render` con `type` y `metadata` proveniente del render aplicado.
 
@@ -1407,6 +1498,18 @@ final readonly class FieldDTO implements \JsonSerializable
         public array $style,
         public array $options,             // list<OptionDTO>
         public array|null $translations,   // {locale: {field: value}} completo
+        public array $interactions = [],   // list<InteractionDTO> — vacío si no hay
+    ) {}
+}
+
+final readonly class InteractionDTO implements \JsonSerializable
+{
+    public function __construct(
+        public string $trigger,            // 'change' | 'blur' | 'focus' | 'input'
+        public string $action,             // 'filter_options' | 'toggle_visibility' | 'toggle_required' | 'set_value' | 'ajax_validate' | 'set_date_constraint' | 'compute'
+        public string|array|null $target,  // tag(s) del field afectado; null = self
+        public array $condition,           // ['operator' => ..., 'value' => ...] o []
+        public array $params,              // config específica de cada action
     ) {}
 }
 
@@ -1436,7 +1539,7 @@ final readonly class OptionGroupDTO implements \JsonSerializable
 
 ---
 
-## 13. Servicio público: `FormSchemaResolver`
+## 14. Servicio público: `FormSchemaResolver`
 
 ### 13.1 Interfaz
 
@@ -1505,7 +1608,7 @@ toArray(): FormDTO->jsonSerialize()
 
 ---
 
-## 14. Cache (PSR-6 opt-in)
+## 15. Cache (PSR-6 opt-in)
 
 ### 14.1 Configuración
 
@@ -1585,7 +1688,7 @@ Se documenta que el proyecto debe invocar `invalidate($tag)` en sus listeners `p
 
 ---
 
-## 15. Migraciones
+## 16. Migraciones
 
 ### 15.1 Estrategia
 
@@ -1618,7 +1721,7 @@ php bin/console doctrine:migrations:migrate
 
 ---
 
-## 16. Configuración del bundle
+## 17. Configuración del bundle
 
 ```yaml
 # config/packages/letkode_form_schema.yaml
@@ -1894,7 +1997,7 @@ letkode_form_schema:
 
 ---
 
-## 17. Puntos de extensión desde el proyecto
+## 18. Puntos de extensión desde el proyecto
 
 | Quiero... | Cómo |
 |---|---|
@@ -1914,7 +2017,7 @@ letkode_form_schema:
 
 ---
 
-## 18. Ejemplos de uso
+## 19. Ejemplos de uso
 
 ### 18.1 Crear un formulario desde el proyecto (programático, sintaxis PHP 8.4)
 
@@ -2143,7 +2246,7 @@ El frontend interpreta `form.render.type === 'stepper'` y arma la UI con la secu
 
 ---
 
-## 19. Lista de tareas / Plan de implementación por fases
+## 20. Lista de tareas / Plan de implementación por fases
 
 ### Fase 1 — Core (MVP funcional)
 1. Setup composer.json, bundle skeleton, services.yaml, DI extension/configuration.
@@ -2182,7 +2285,7 @@ El frontend interpreta `form.render.type === 'stepper'` y arma la UI con la secu
 
 ---
 
-## 20. composer.json (boceto)
+## 21. composer.json (boceto)
 
 ```json
 {
@@ -2242,13 +2345,13 @@ El frontend interpreta `form.render.type === 'stepper'` y arma la UI con la secu
 
 ---
 
-## 21. Resumen ejecutivo
+## 22. Resumen ejecutivo
 
 > Un **Symfony Bundle PHP 8.4 nativo** (estilo `AbstractBundle` de Symfony 7, Doctrine ORM ^3.4) que modela formularios en BD jerárquicos (Form→Section→Group→Field) con i18n dinámico por request, **18 tipos de campo predefinidos** extensibles vía Strategy + Registry (estilo `Doctrine\DBAL\Types\Type::addType()`), opciones dinámicas desde catálogo interno (`FormOptionGeneral`) o repositorios del proyecto (habilitados vía `#[AsFormOptionsProvider]`, método default `findForFormOptions`), **renders estructurales en 3 niveles** independientes y registrables (`FormRender`: simple/stepper/wizard/tabs/modal · `SectionRender`: simple/accordion/tabs/collapsible · `GroupRender`: simple/matrix/tabs), atributos como ValueObjects readonly con estructura plana en BD y soporte de claves custom para contextos de filtrado, DTOs readonly con `translations` completo como contrato de salida, migraciones distribuidas dentro del paquete, soft delete en todas las entidades, y cache PSR-6 opt-in con key basada en hash de todos los parámetros del builder. **Aprovecha intensivamente PHP 8.4**: property hooks (con backing fields privados para ORM), asymmetric visibility (`public private(set)`), `new` chaining, nuevas funciones de array (`array_find`/`array_any`/`array_all`), `#[\Override]` obligatorio, lazy objects nativos vía Doctrine 3.4. Reutiliza `letkode/helpers` para validators, conversores y excepciones. El proyecto consumidor instala vía Composer, agrega el namespace de migraciones, ejecuta `migrate`, y ya puede crear formularios programáticamente y consumirlos con `FormSchemaResolver->schema($tag)->withLocale($locale)->resolve()`.
 
 ---
 
-## 22. Decisiones resueltas
+## 23. Decisiones resueltas
 
 | # | Tema | Decisión |
 |---|---|---|
@@ -2264,7 +2367,7 @@ El frontend interpreta `form.render.type === 'stepper'` y arma la UI con la secu
 
 ---
 
-## 23. Definition of Done — v1.0.0
+## 24. Definition of Done — v1.0.0
 
 - [ ] Bundle se instala con `composer require letkode/form-schema` y se auto-registra vía `extra.symfony.bundles`.
 - [ ] `bin/console doctrine:migrations:migrate` crea las 6 tablas correctamente en PostgreSQL y MySQL.

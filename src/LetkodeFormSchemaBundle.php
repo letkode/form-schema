@@ -8,6 +8,7 @@ use Letkode\FormSchema\DependencyInjection\Compiler\RegisterFormOptionsProviders
 use Letkode\FormSchema\Domain\Contract\FieldTypeInterface;
 use Letkode\FormSchema\Domain\Contract\FormRenderInterface;
 use Letkode\FormSchema\Domain\Contract\GroupRenderInterface;
+use Letkode\FormSchema\Domain\Contract\InteractionHandlerInterface;
 use Letkode\FormSchema\Domain\Contract\OptionsSourceInterface;
 use Letkode\FormSchema\Domain\Contract\SectionRenderInterface;
 use Letkode\FormSchema\Infrastructure\Cache\CachedFormSchemaResolver;
@@ -135,5 +136,8 @@ class LetkodeFormSchemaBundle extends AbstractBundle
 
         $container->registerForAutoconfiguration(GroupRenderInterface::class)
             ->addTag('form_schema.group_render');
+
+        $container->registerForAutoconfiguration(InteractionHandlerInterface::class)
+            ->addTag('form_schema.interaction_handler');
     }
 }

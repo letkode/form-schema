@@ -7,14 +7,17 @@ namespace Letkode\FormSchema\Application\Resolver;
 use Letkode\FormSchema\Application\DTO\FieldDTO;
 use Letkode\FormSchema\Application\DTO\FormDTO;
 use Letkode\FormSchema\Application\DTO\GroupDTO;
+use Letkode\FormSchema\Application\DTO\InteractionDTO;
 use Letkode\FormSchema\Application\DTO\SectionDTO;
 use Letkode\FormSchema\Application\Filter\FilterCriteria;
 use Letkode\FormSchema\Application\Filter\StructureFilter;
 use Letkode\FormSchema\Domain\Contract\FormSchemaResolverInterface;
+use Letkode\FormSchema\Domain\Contract\InteractionHandlerRegistryInterface;
 use Letkode\FormSchema\Domain\Exception\FormNotFoundException;
 use Letkode\FormSchema\Domain\Exception\UnknownContextException;
 use Letkode\FormSchema\Domain\Repository\FormRepositoryInterface;
 use Letkode\FormSchema\Domain\ValueObject\FieldAttributes;
+use Letkode\FormSchema\Domain\ValueObject\FieldInteraction;
 use Letkode\FormSchema\Infrastructure\Registry\FieldTypeRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\FormRenderRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\GroupRenderRegistry;
@@ -37,6 +40,7 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
         private readonly FormRenderRegistry $formRenderRegistry,
         private readonly SectionRenderRegistry $sectionRenderRegistry,
         private readonly GroupRenderRegistry $groupRenderRegistry,
+        private readonly InteractionHandlerRegistryInterface $interactionHandlerRegistry,
         private readonly string $defaultLocale = 'es',
     ) {
     }
@@ -184,6 +188,17 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
                         ?? $field->parameters['placeholder']
                         ?? null;
 
+                    $interactions = array_map(
+                        function (array $raw): InteractionDTO {
+                            $interaction = FieldInteraction::fromArray($raw);
+                            $handler = $this->interactionHandlerRegistry->get($interaction->action);
+                            $mergedParams = array_replace($handler->getDefaultParams(), $interaction->params);
+
+                            return InteractionDTO::fromInteraction($interaction, $mergedParams);
+                        },
+                        $field->interactions ?? [],
+                    );
+
                     $fieldDTOs[] = new FieldDTO(
                         id: (string) $field->uuid,
                         name: $field->name,
@@ -199,6 +214,7 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
                         style: $field->parameters['style'] ?? [],
                         options: $options,
                         translations: $field->translations,
+                        interactions: $interactions,
                     );
                 }
 

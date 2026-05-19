@@ -76,6 +76,9 @@ class FormField
     #[ORM\Column(type: Types::JSON)]
     public array $attributes = [];
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    public array|null $interactions = null;
+
     #[ORM\ManyToOne(targetEntity: FormGroup::class, inversedBy: 'fields')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     public private(set) FormGroup|null $group = null;

@@ -21,6 +21,7 @@ final readonly class FieldDTO implements \JsonSerializable
         public array $style,
         public array $options,
         public array|null $translations,
+        public array $interactions = [],
     ) {
     }
 
@@ -45,6 +46,10 @@ final readonly class FieldDTO implements \JsonSerializable
                 $this->options,
             ),
             'translations' => $this->translations,
+            'interactions' => array_map(
+                static fn ($i) => $i instanceof \JsonSerializable ? $i->jsonSerialize() : $i,
+                $this->interactions,
+            ),
         ];
     }
 }

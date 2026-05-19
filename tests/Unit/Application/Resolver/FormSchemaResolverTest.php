@@ -20,6 +20,7 @@ use Letkode\FormSchema\Infrastructure\GroupRender\SimpleGroupRender;
 use Letkode\FormSchema\Infrastructure\Registry\FieldTypeRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\FormRenderRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\GroupRenderRegistry;
+use Letkode\FormSchema\Infrastructure\Registry\InteractionHandlerRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\OptionsSourceRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\SectionRenderRegistry;
 use Letkode\FormSchema\Infrastructure\SectionRender\SimpleSectionRender;
@@ -42,6 +43,7 @@ final class FormSchemaResolverTest extends TestCase
         $groupRenderRegistry = new GroupRenderRegistry(new \ArrayIterator([new SimpleGroupRender()]));
         $optionsSourceRegistry = new OptionsSourceRegistry(new \ArrayIterator([]));
         $optionsResolver = new OptionsResolver($optionsSourceRegistry);
+        $interactionHandlerRegistry = new InteractionHandlerRegistry(new \ArrayIterator([]));
 
         $this->resolver = new FormSchemaResolver(
             formRepository: $this->formRepository,
@@ -50,6 +52,7 @@ final class FormSchemaResolverTest extends TestCase
             formRenderRegistry: $formRenderRegistry,
             sectionRenderRegistry: $sectionRenderRegistry,
             groupRenderRegistry: $groupRenderRegistry,
+            interactionHandlerRegistry: $interactionHandlerRegistry,
             defaultLocale: 'es',
         );
     }

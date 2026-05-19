@@ -88,6 +88,7 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Nombre", "placeholder": "Ej: Juan", "description": "Tu nombre legal" },
                 "en": { "name": "First Name", "placeholder": "E.g. John", "description": "Your legal name" }
@@ -115,6 +116,7 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Apellido", "placeholder": "Ej: Pérez" },
                 "en": { "name": "Last Name", "placeholder": "E.g. Smith" }
@@ -142,6 +144,19 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [],
+              "interactions": [
+                {
+                  "trigger": "blur",
+                  "action": "ajax_validate",
+                  "target": null,
+                  "condition": {},
+                  "params": {
+                    "endpoint": "/api/users/check-email",
+                    "method": "GET",
+                    "debounce": 0
+                  }
+                }
+              ],
               "translations": {
                 "es": { "name": "Correo Electrónico", "placeholder": "mail@ejemplo.com" },
                 "en": { "name": "Email", "placeholder": "mail@example.com" }
@@ -169,6 +184,7 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Teléfono", "placeholder": "+56 9 1234 5678" },
                 "en": { "name": "Phone", "placeholder": "+1 555 000 0000" }
@@ -182,7 +198,7 @@
               "description": null,
               "attributes": {
                 "required": true,
-                "readonly": false,
+                "readonly": true,
                 "unique": { "enabled": false, "entity": null, "method": null },
                 "filter": { "enabled": false, "key": null },
                 "show": true,
@@ -196,6 +212,19 @@
               "defaultValue": null,
               "style": ["lg:w-3/12"],
               "options": [],
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "compute",
+                  "target": null,
+                  "condition": {},
+                  "params": {
+                    "expression": "year_diff(today(), {birth_date})",
+                    "sources": ["birth_date"],
+                    "decimals": 0
+                  }
+                }
+              ],
               "translations": {
                 "es": { "name": "Edad" },
                 "en": { "name": "Age" }
@@ -224,6 +253,7 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Contraseña", "description": "Mínimo 8 caracteres" },
                 "en": { "name": "Password", "description": "Minimum 8 characters" }
@@ -251,6 +281,7 @@
               "defaultValue": null,
               "style": [],
               "options": [],
+              "interactions": [],
               "translations": {}
             }
           ]
@@ -321,6 +352,15 @@
               "defaultValue": null,
               "style": ["lg:w-full"],
               "options": [],
+              "interactions": [
+                {
+                  "trigger": "input",
+                  "action": "toggle_required",
+                  "target": "profile_photo",
+                  "condition": { "operator": "falsy" },
+                  "params": {}
+                }
+              ],
               "translations": {
                 "es": { "name": "Biografía", "description": "Cuéntanos sobre ti", "placeholder": "Escribe una breve descripción..." },
                 "en": { "name": "Biography", "description": "Tell us about yourself", "placeholder": "Write a short description..." }
@@ -348,6 +388,17 @@
               "defaultValue": null,
               "style": ["lg:w-4/12"],
               "options": [],
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "set_date_constraint",
+                  "target": "vacation_period",
+                  "condition": {},
+                  "params": {
+                    "constraint": "min"
+                  }
+                }
+              ],
               "translations": {
                 "es": { "name": "Fecha de Nacimiento" },
                 "en": { "name": "Birth Date" }
@@ -375,6 +426,7 @@
               "defaultValue": "2026-05-16T09:00:00",
               "style": ["lg:w-4/12"],
               "options": [],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Fecha y Hora de Ingreso" },
                 "en": { "name": "Entry Date & Time" }
@@ -402,6 +454,7 @@
               "defaultValue": { "from": null, "to": null },
               "style": ["lg:w-6/12"],
               "options": [],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Período de Vacaciones" },
                 "en": { "name": "Vacation Period" }
@@ -429,6 +482,7 @@
               "defaultValue": null,
               "style": ["lg:w-4/12"],
               "options": [],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Foto de Perfil", "description": "JPG o PNG, máximo 2MB" },
                 "en": { "name": "Profile Photo", "description": "JPG or PNG, max 2MB" }
@@ -515,6 +569,22 @@
                 { "value": "1", "text": "Sí", "tag": "yes", "icon": null, "color": null, "position": 1, "extra": {} },
                 { "value": "0", "text": "No", "tag": "no", "icon": null, "color": null, "position": 2, "extra": {} }
               ],
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "toggle_visibility",
+                  "target": "languages",
+                  "condition": { "operator": "truthy" },
+                  "params": {}
+                },
+                {
+                  "trigger": "change",
+                  "action": "toggle_required",
+                  "target": "languages",
+                  "condition": { "operator": "truthy" },
+                  "params": {}
+                }
+              ],
               "translations": {
                 "es": { "name": "Notificaciones Activas" },
                 "en": { "name": "Active Notifications" }
@@ -548,6 +618,7 @@
                 { "value": "4", "text": "Bueno", "tag": "good", "icon": "star", "color": "#84cc16", "position": 4, "extra": {} },
                 { "value": "5", "text": "Excelente", "tag": "excellent", "icon": "star", "color": "#22c55e", "position": 5, "extra": {} }
               ],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Satisfacción General" },
                 "en": { "name": "Overall Satisfaction" }
@@ -580,6 +651,25 @@
                 { "value": "pe", "text": "Perú", "tag": "pe", "icon": null, "color": null, "position": 3, "extra": {} },
                 { "value": "co", "text": "Colombia", "tag": "co", "icon": null, "color": null, "position": 4, "extra": {} }
               ],
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "set_value",
+                  "target": "region",
+                  "condition": {},
+                  "params": { "value": null }
+                },
+                {
+                  "trigger": "change",
+                  "action": "filter_options",
+                  "target": "region",
+                  "condition": {},
+                  "params": {
+                    "mode": "server",
+                    "filter_param": "country_id"
+                  }
+                }
+              ],
               "translations": {
                 "es": { "name": "País", "placeholder": "Selecciona un país" },
                 "en": { "name": "Country", "placeholder": "Select a country" }
@@ -607,10 +697,13 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "rm", "text": "Región Metropolitana", "tag": "rm", "icon": null, "color": null, "position": 1, "extra": { "group": "Centro" } },
-                { "value": "v", "text": "Valparaíso", "tag": "v", "icon": null, "color": null, "position": 2, "extra": { "group": "Centro" } },
-                { "value": "i", "text": "Tarapacá", "tag": "i", "icon": null, "color": null, "position": 3, "extra": { "group": "Norte" } }
+                { "value": "rm", "text": "Región Metropolitana", "tag": "rm", "icon": null, "color": null, "position": 1, "extra": { "group": "Centro", "country_id": "cl" } },
+                { "value": "v",  "text": "Valparaíso",           "tag": "v",  "icon": null, "color": null, "position": 2, "extra": { "group": "Centro", "country_id": "cl" } },
+                { "value": "i",  "text": "Tarapacá",             "tag": "i",  "icon": null, "color": null, "position": 3, "extra": { "group": "Norte",  "country_id": "cl" } },
+                { "value": "ba", "text": "Buenos Aires",         "tag": "ba", "icon": null, "color": null, "position": 4, "extra": { "group": "Centro", "country_id": "ar" } },
+                { "value": "li", "text": "Lima",                 "tag": "li", "icon": null, "color": null, "position": 5, "extra": { "group": "Costa",  "country_id": "pe" } }
               ],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Región", "placeholder": "Selecciona una región" },
                 "en": { "name": "Region", "placeholder": "Select a region" }
@@ -638,11 +731,12 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "es", "text": "Español", "tag": "es", "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "en", "text": "Inglés", "tag": "en", "icon": null, "color": null, "position": 2, "extra": {} },
-                { "value": "pt", "text": "Portugués", "tag": "pt", "icon": null, "color": null, "position": 3, "extra": {} },
-                { "value": "fr", "text": "Francés", "tag": "fr", "icon": null, "color": null, "position": 4, "extra": {} }
+                { "value": "es", "text": "Español",    "tag": "es", "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "en", "text": "Inglés",     "tag": "en", "icon": null, "color": null, "position": 2, "extra": {} },
+                { "value": "pt", "text": "Portugués",  "tag": "pt", "icon": null, "color": null, "position": 3, "extra": {} },
+                { "value": "fr", "text": "Francés",    "tag": "fr", "icon": null, "color": null, "position": 4, "extra": {} }
               ],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Idiomas que habla", "placeholder": "Selecciona idiomas" },
                 "en": { "name": "Spoken Languages", "placeholder": "Select languages" }
@@ -670,10 +764,19 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "male", "text": "Masculino", "tag": "male", "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "female", "text": "Femenino", "tag": "female", "icon": null, "color": null, "position": 2, "extra": {} },
-                { "value": "other", "text": "Otro", "tag": "other", "icon": null, "color": null, "position": 3, "extra": {} },
+                { "value": "male",       "text": "Masculino",           "tag": "male",       "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "female",     "text": "Femenino",            "tag": "female",     "icon": null, "color": null, "position": 2, "extra": {} },
+                { "value": "other",      "text": "Otro",                "tag": "other",      "icon": null, "color": null, "position": 3, "extra": {} },
                 { "value": "prefer_not", "text": "Prefiero no indicar", "tag": "prefer_not", "icon": null, "color": null, "position": 4, "extra": {} }
+              ],
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "toggle_visibility",
+                  "target": "interests",
+                  "condition": { "operator": "not_equals", "value": "prefer_not" },
+                  "params": {}
+                }
               ],
               "translations": {
                 "es": { "name": "Género" },
@@ -702,11 +805,12 @@
               "defaultValue": null,
               "style": ["lg:w-full"],
               "options": [
-                { "value": "tech", "text": "Tecnología", "tag": "tech", "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "sports", "text": "Deportes", "tag": "sports", "icon": null, "color": null, "position": 2, "extra": {} },
-                { "value": "music", "text": "Música", "tag": "music", "icon": null, "color": null, "position": 3, "extra": {} },
-                { "value": "travel", "text": "Viajes", "tag": "travel", "icon": null, "color": null, "position": 4, "extra": {} }
+                { "value": "tech",   "text": "Tecnología", "tag": "tech",   "icon": null, "color": null, "position": 1, "extra": {} },
+                { "value": "sports", "text": "Deportes",   "tag": "sports", "icon": null, "color": null, "position": 2, "extra": {} },
+                { "value": "music",  "text": "Música",     "tag": "music",  "icon": null, "color": null, "position": 3, "extra": {} },
+                { "value": "travel", "text": "Viajes",     "tag": "travel", "icon": null, "color": null, "position": 4, "extra": {} }
               ],
+              "interactions": [],
               "translations": {
                 "es": { "name": "Intereses", "description": "Selecciona todos los que apliquen" },
                 "en": { "name": "Interests", "description": "Select all that apply" }
