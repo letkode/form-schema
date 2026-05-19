@@ -14,4 +14,15 @@ final class TextareaFieldType extends AbstractFieldType
     {
         return 'textarea';
     }
+
+    #[\Override]
+    public function getDefaultParams(): array
+    {
+        return [
+            'size' => 'md',
+            'label_style' => 'default',
+            'icon_leading' => null,
+            'icon_trailing' => null,
+        ];
+    }
 }

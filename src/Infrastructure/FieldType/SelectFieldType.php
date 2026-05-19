@@ -7,12 +7,18 @@ namespace Letkode\FormSchema\Infrastructure\FieldType;
 use Letkode\FormSchema\Attribute\AsFieldType;
 
 #[AsFieldType]
-final class FileFieldType extends AbstractFieldType
+final class SelectFieldType extends AbstractFieldType
 {
     #[\Override]
     public static function getName(): string
     {
-        return 'file';
+        return 'select';
+    }
+
+    #[\Override]
+    public function takesOptions(): bool
+    {
+        return true;
     }
 
     #[\Override]
@@ -20,8 +26,12 @@ final class FileFieldType extends AbstractFieldType
     {
         return [
             'size' => 'md',
-            'label_style' => 'default',
             'multiple' => false,
+            'searchable' => false,
+            'tags_mode' => false,
+            'search_limit' => null,
+            'min_search_length' => null,
+            'max_count_items' => null,
         ];
     }
 }

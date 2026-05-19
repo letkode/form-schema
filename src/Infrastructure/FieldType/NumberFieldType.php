@@ -14,4 +14,17 @@ final class NumberFieldType extends AbstractFieldType
     {
         return 'number';
     }
+
+    #[\Override]
+    public function getDefaultParams(): array
+    {
+        return [
+            'size' => 'md',
+            'label_style' => 'default',
+            'min' => null,
+            'max' => null,
+            'step' => 1,
+            'button_layout' => 'default',
+        ];
+    }
 }

@@ -15,4 +15,6 @@ interface FieldTypeInterface
     public function getDefaultAttributes(): FieldAttributes;
 
     public function formatDefaultValue(mixed $rawValue): mixed;
+
+    public function getDefaultParams(): array;
 }

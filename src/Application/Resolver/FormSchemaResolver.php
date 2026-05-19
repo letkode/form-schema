@@ -199,6 +199,9 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
                         $field->interactions ?? [],
                     );
 
+                    $storedParams = array_diff_key($field->parameters, array_flip(['set_options', 'default_value', 'placeholder', 'style']));
+                    $mergedParams = array_merge($fieldType->getDefaultParams(), $storedParams);
+
                     $fieldDTOs[] = new FieldDTO(
                         id: (string) $field->uuid,
                         name: $field->name,
@@ -206,7 +209,7 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
                         type: $field->type,
                         description: $field->description,
                         attributes: $attrs->toArray(),
-                        parameters: array_diff_key($field->parameters, array_flip(['set_options', 'default_value', 'placeholder', 'style'])),
+                        parameters: $mergedParams,
                         position: $field->position,
                         enabled: $field->enabled,
                         placeholder: $placeholder,

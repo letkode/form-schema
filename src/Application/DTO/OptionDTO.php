@@ -13,7 +13,7 @@ final readonly class OptionDTO implements \JsonSerializable
         public string|null $icon = null,
         public string|null $color = null,
         public int $position = 0,
-        public array $extra = [],
+        public array $data = [],
     ) {
     }
 
@@ -27,7 +27,7 @@ final readonly class OptionDTO implements \JsonSerializable
             'icon' => $this->icon,
             'color' => $this->color,
             'position' => $this->position,
-            'extra' => $this->extra,
+            'data' => $this->data,
         ];
     }
 }

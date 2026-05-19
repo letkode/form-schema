@@ -180,7 +180,7 @@ Cuando un atributo nativo de Symfony resuelve el problema, **se usa ese en lugar
 |---|---|---|
 | `#[Autowire]` | Inyección de parámetros específicos del contenedor | Ej. inyectar `%letkode_form_schema.entity_namespace%` en `OptionsEntitySource`. |
 | `#[AutowireIterator]` | Registries que reciben todos los servicios de un tag | Reemplaza compiler passes en muchos casos (ver 2.8.3). |
-| `#[AutowireLocator]` | Acceso lazy a servicios por nombre | Para resolver `FieldType` por nombre sin instanciar los 18 al arranque. |
+| `#[AutowireLocator]` | Acceso lazy a servicios por nombre | Para resolver `FieldType` por nombre sin instanciar los 21 al arranque. |
 | `#[AsTaggedItem]` | Servicios tag-eados que necesitan `index` o `priority` declarativos | Útil si un `FieldType` custom del proyecto necesita prioridad alta. |
 | `#[AsEventListener]` | `DoctrineCacheInvalidationSubscriber` | Escucha eventos `postUpdate`/`postPersist`/`postRemove` de las entidades del paquete. |
 | `#[When]` | Definiciones condicionales por entorno | Ej. desactivar cache en `test`. |
@@ -249,7 +249,7 @@ Proveer una librería instalable vía Composer que permita:
 
 1. Modelar formularios en BD como `Form → Section → Group → Field` con i18n.
 2. Resolver el schema de un formulario por su `tag` y devolverlo como DTO/array listo para ser consumido por un frontend.
-3. Tener **18 tipos de campo predefinidos** y permitir al proyecto consumidor registrar tipos custom siguiendo el patrón de `Doctrine\DBAL\Types\Type::addType()`.
+3. Tener **21 tipos de campo predefinidos** y permitir al proyecto consumidor registrar tipos custom siguiendo el patrón de `Doctrine\DBAL\Types\Type::addType()`.
 4. Poblar campos tipo lista desde dos fuentes (`options_general` interna, `options_entity` externa al paquete) y permitir registrar más fuentes desde el proyecto.
 5. Permitir extender los atributos y parámetros de cada nivel del schema mediante ValueObjects.
 
@@ -257,28 +257,31 @@ Proveer una librería instalable vía Composer que permita:
 
 ## 4. Tipos de campo predefinidos
 
-| # | Tipo | Toma opciones | Notas |
-|---|---|---|---|
-| 1 | `string` | No | Input single-line |
-| 2 | `email` | No | Input + validación email |
-| 3 | `phone` | No | Input + máscara/validación teléfono |
-| 4 | `number` | No | Input numérico |
-| 5 | `password` | No | Input password |
-| 6 | `hidden` | No | Input hidden |
-| 7 | `textarea` | No | Multi-line |
-| 8 | `date` | No | Date picker |
-| 9 | `datetime` | No | DateTime picker |
-| 10 | `date-range` | No | Rango de fechas (devuelve `['from','to']`) |
-| 11 | `file` | No | Upload |
-| 12 | `switch` | **Sí** | Toggle on/off (típicamente 2 opciones) |
-| 13 | `rating` | **Sí** | Rating con iconos. Las opciones definen ícono y valor |
-| 14 | `list` | **Sí** | Single select |
-| 15 | `list-group` | **Sí** | Single select con opciones agrupadas |
-| 16 | `multilist` | **Sí** | Multi select |
-| 17 | `radio` | **Sí** | Radio buttons |
-| 18 | `checkbox` | **Sí** | Checkboxes (múltiple) |
+| # | Tipo | Toma opciones | FlyonUI | Notas |
+|---|---|---|---|---|
+| 1 | `string` | No | `input` | Input single-line |
+| 2 | `email` | No | `input type="email"` | Input + validación email |
+| 3 | `phone` | No | `input type="tel"` | Input + máscara/validación teléfono |
+| 4 | `number` | No | `data-input-number` | Input numérico con controles |
+| 5 | `password` | No | `data-strong-password` | Input password con indicador de fortaleza |
+| 6 | `hidden` | No | `input type="hidden"` | Input hidden |
+| 7 | `textarea` | No | `textarea` | Multi-line |
+| 8 | `date` | No | Datepicker | Date picker |
+| 9 | `datetime` | No | Datepicker | DateTime picker |
+| 10 | `date-range` | No | Range picker | Rango de fechas (devuelve `{from, to}`) |
+| 11 | `file` | No | `input type="file"` | Upload |
+| 12 | `switch` | **Sí** | Toggle/Switch | Toggle on/off (típicamente 2 opciones) |
+| 13 | `rating` | **Sí** | Rating | Rating con iconos |
+| 14 | `select` | **Sí** | `data-select` | Single/multi select unificado — reemplaza `list`, `list-group`, `multilist` |
+| 15 | `radio` | **Sí** | Radio group | Radio buttons |
+| 16 | `checkbox` | **Sí** | Checkbox group | Checkboxes (múltiple) |
+| 17 | `range` | No | `range` | Slider numérico |
+| 18 | `combobox` | No | `data-combo-box` | Autocompletado con búsqueda |
+| 19 | `pin` | No | `data-pin-input` | PIN / OTP |
+| 20 | `tree` | **Sí** | `data-tree-view` | Árbol jerárquico; opciones con `data.children` |
+| 21 | `duallist` | **Sí** | Custom | Selector doble panel |
 
-> Renombrado de `mood` → `rating` (por convención más estándar).
+> **Eliminados**: `list`, `list-group` y `multilist` fueron unificados en `select`. Ver guía de migración en [CHANGELOG](../CHANGELOG.md) y [docs/field-types.md](../docs/field-types.md).
 
 ---
 
@@ -364,11 +367,14 @@ letkode/form-schema/
 │   │   │   ├── FileFieldType.php
 │   │   │   ├── SwitchFieldType.php
 │   │   │   ├── RatingFieldType.php
-│   │   │   ├── ListFieldType.php
-│   │   │   ├── ListGroupFieldType.php
-│   │   │   ├── MultilistFieldType.php
+│   │   │   ├── SelectFieldType.php
 │   │   │   ├── RadioFieldType.php
-│   │   │   └── CheckboxFieldType.php
+│   │   │   ├── CheckboxFieldType.php
+│   │   │   ├── RangeFieldType.php
+│   │   │   ├── ComboboxFieldType.php
+│   │   │   ├── PinFieldType.php
+│   │   │   ├── TreeFieldType.php
+│   │   │   └── DuallistFieldType.php
 │   │   ├── OptionsSource/
 │   │   │   ├── OptionsGeneralSource.php
 │   │   │   └── OptionsEntitySource.php
@@ -748,6 +754,14 @@ interface FieldTypeInterface
      * Ej: 'date' resuelve "+1 day" a fecha real.
      */
     public function formatDefaultValue(mixed $rawValue): mixed;
+
+    /**
+     * Params UI declarados por el tipo con sus valores por defecto.
+     * El resolver hace array_merge($type->getDefaultParams(), $storedParams)
+     * antes de construir FieldDTO.parameters.
+     * DB siempre sobreescribe los defaults del tipo.
+     */
+    public function getDefaultParams(): array;
 }
 ```
 
@@ -772,19 +786,31 @@ abstract class AbstractFieldType implements FieldTypeInterface
     {
         return $rawValue;
     }
+
+    public function getDefaultParams(): array
+    {
+        return [
+            'size'        => 'md',
+            'label_style' => 'default',
+        ];
+    }
 }
 ```
 
 ### 7.3 Ejemplos de implementación
 
-- **`StringFieldType`** — defaults básicos, no toma opciones.
+- **`StringFieldType`** — defaults de `AbstractFieldType`, no toma opciones.
 - **`DateFieldType`** — implementa `formatDefaultValue` para resolver modifiers tipo `"+1 day"` usando `\DateTimeImmutable::modify()`.
-- **`DateRangeFieldType`** — `formatDefaultValue` devuelve `['from','to']` aplicando `DateRangeHelper` de `letkode/helpers`.
-- **`ListFieldType`** — `takesOptions(): true`. Default `attributes.create/edit/show = true`.
+- **`DateRangeFieldType`** — `formatDefaultValue` devuelve `{from, to}` aplicando `DateRangeHelper` de `letkode/helpers`.
+- **`SelectFieldType`** — `takesOptions(): true`. Unifica `list`, `list-group` y `multilist`. Params: `multiple`, `searchable`, `tags_mode`, etc. FlyonUI: `data-select`.
 - **`SwitchFieldType` / `CheckboxFieldType`** — `takesOptions(): true`. Usan `ValueToBooleanHelper` para normalizar el `default_value`.
-- **`RatingFieldType`** — `takesOptions(): true`. Las opciones aportan `icon` y `value` desde sus `parameters` (`{icon: 'star', color: '#f59e0b'}`).
-- **`EmailFieldType`** — solo declarativo en v1. En v2 podrá usar `IsValidEmailHelper`.
-- **`PasswordFieldType`** — `attributes.extra.min_strength` opcional.
+- **`RatingFieldType`** — `takesOptions(): true`. `getDefaultParams` declara `max_stars: 5`, `half_star: false`.
+- **`RangeFieldType`** — `formatDefaultValue` castea a `int`. Params: `min`, `max`, `step`, `color`, `show_steps`.
+- **`PinFieldType`** — `formatDefaultValue` castea a `string`. Params: `length`, `variant`, `input_type`, `chars_pattern`.
+- **`TreeFieldType`** — `takesOptions(): true`. Opciones con `data.children` recursivo. FlyonUI: `data-tree-view`.
+- **`DuallistFieldType`** — `takesOptions(): true`. `formatDefaultValue` retorna siempre `array`.
+- **`ComboboxFieldType`** — `getDefaultParams` declara `api_url: null`; si presente, el frontend lo usa en lugar de `field.options`.
+- **`PasswordFieldType`** — `getDefaultParams` declara `show_strength: true`, `min_length: 8`, `checks_exclude: []`.
 
 ### 7.4 Registry estilo Doctrine
 
@@ -1522,13 +1548,13 @@ final readonly class OptionDTO implements \JsonSerializable
         public ?string $icon = null,
         public ?string $color = null,
         public int $position = 0,
-        public array $extra = [],
+        public array $data = [],    // data-attrs para interactions; data.children para tree
     ) {}
 }
 
 final readonly class OptionGroupDTO implements \JsonSerializable
 {
-    /** Para list-group: agrupa OptionDTOs bajo un texto. */
+    /** Agrupa OptionDTOs bajo un texto. El frontend puede construir los grupos desde option.data.group o directamente desde este DTO. */
     public function __construct(
         public string $text,
         /** @var list<OptionDTO> */
@@ -1593,7 +1619,9 @@ resolve():
          - Sin $context → incluir todos los fields sin filtrar.
       e. Si $type->takesOptions(): OptionsResolver->resolve($field->parameters['set_options'] ?? [], $locale)
       f. $defaultValue = $type->formatDefaultValue($field->parameters['default_value'])
-      g. Construir FieldDTO con i18n aplicado (name/description/placeholder resueltos al locale activo vía property hook + HasTranslationsTrait) e incluir `translations` completo.
+      g. $storedParams = array_diff_key($field->parameters, ['set_options','default_value','placeholder','style'])
+         $mergedParams = array_merge($type->getDefaultParams(), $storedParams)   // DB gana
+      h. Construir FieldDTO con i18n aplicado (name/description/placeholder resueltos al locale activo vía property hook + HasTranslationsTrait) e incluir `translations` completo. `parameters` = $mergedParams.
    9. Componer GroupDTO (con $groupMeta + $translations) → SectionDTO (con $sectionMeta + $translations) → FormDTO (con $formMeta + $translations).
 toArray(): FormDTO->jsonSerialize()
 ```

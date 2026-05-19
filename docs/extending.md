@@ -14,22 +14,33 @@ use Letkode\FormSchema\Domain\Contract\FieldTypeInterface;
 use Letkode\FormSchema\Domain\ValueObject\FieldAttributes;
 use Letkode\FormSchema\Infrastructure\FieldType\AbstractFieldType;
 
-#[AsFieldType(name: 'color-picker')]
+#[AsFieldType]
 final class ColorPickerFieldType extends AbstractFieldType
 {
     #[\Override]
+    public static function getName(): string
+    {
+        return 'color-picker';
+    }
+
+    #[\Override]
+    public function getDefaultParams(): array
+    {
+        return [
+            'size'   => 'md',
+            'format' => 'hex',   // hex | rgb | hsl
+        ];
+    }
+
+    #[\Override]
     public function getDefaultAttributes(): FieldAttributes
     {
-        return FieldAttributes::fromArray([
-            'required' => false,
-            'format'   => 'hex',   // atributo custom para este tipo
-        ]);
+        return FieldAttributes::fromArray(['required' => false]);
     }
 
     #[\Override]
     public function formatDefaultValue(mixed $rawValue): mixed
     {
-        // Normaliza el valor por defecto
         return is_string($rawValue) ? strtolower($rawValue) : null;
     }
 }

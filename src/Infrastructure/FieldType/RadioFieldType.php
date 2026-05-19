@@ -20,4 +20,15 @@ final class RadioFieldType extends AbstractFieldType
     {
         return true;
     }
+
+    #[\Override]
+    public function getDefaultParams(): array
+    {
+        return [
+            'size' => 'md',
+            'color' => 'primary',
+            'variant' => 'default',
+            'layout' => 'vertical',
+        ];
+    }
 }

@@ -9,7 +9,7 @@
 La librería PHP `form-schema` genera un JSON estructurado (Form → Sections → Groups → Fields) que describe formularios dinámicos almacenados en base de datos. El objetivo es construir un renderer React que consuma ese JSON y renderice el formulario completo con soporte para:
 
 - Múltiples layouts de formulario (simple, stepper, tabs, wizard)
-- 18 tipos de campo, cada uno como componente independiente
+- 21 tipos de campo, cada uno como componente independiente
 - Precarga de valores existentes
 - Validación dinámica generada desde el schema
 - Interacciones reactivas entre campos (show/hide, filter options, compute, etc.)
@@ -56,23 +56,26 @@ FormDTO
                     ├── interactions: FieldInteraction[]   ← sistema de interacciones
                     ├── translations: { [locale]: { name, description, placeholder } } | null
                     └── options: (OptionDTO | OptionGroupDTO)[]
-                          OptionDTO:      { value, text, tag, icon, color, position, extra }
+                          OptionDTO:      { value, text, tag, icon, color, position, data }
                           OptionGroupDTO: { text, options: OptionDTO[] }
 ```
 
 ---
 
-## 3. Tipos de Campo (18)
+## 3. Tipos de Campo (21)
 
 | Categoría  | Tipos de campo |
 |------------|----------------|
 | Texto      | `string`, `email`, `phone`, `password`, `textarea` |
-| Número     | `number` |
-| Selección  | `list`, `list-group`, `multilist`, `radio`, `checkbox` |
+| Número     | `number`, `range` |
+| Selección  | `select`, `radio`, `checkbox`, `combobox`, `tree`, `duallist` |
 | Toggle     | `switch`, `rating` |
+| PIN        | `pin` |
 | Fecha      | `date`, `datetime`, `date-range` |
 | Archivo    | `file` |
 | Oculto     | `hidden` |
+
+> **Migración**: `list` → `select`, `list-group` → `select` (grouping via `option.data.group`), `multilist` → `select` con `params.multiple: true`.
 
 ---
 
@@ -125,13 +128,16 @@ FormDTO
                                       ├── DateField
                                       ├── DateTimeField
                                       ├── DateRangeField
-                                      ├── ListField
-                                      ├── ListGroupField
-                                      ├── MultilistField
+                                      ├── SelectField
                                       ├── RadioField
                                       ├── CheckboxField
                                       ├── SwitchField
                                       ├── RatingField
+                                      ├── RangeField
+                                      ├── ComboboxField
+                                      ├── PinField
+                                      ├── TreeField
+                                      ├── DuallistField
                                       ├── FileField
                                       └── HiddenField
 ```
@@ -341,7 +347,7 @@ const builtInExecutors: Record<string, ActionExecutor> = {
   toggle_visibility:    toggleVisibilityExecutor,
   toggle_required:      toggleRequiredExecutor,
   set_value:            setValueExecutor,
-  filter_options:       filterOptionsExecutor,   // mode=server → onLoadOptions, mode=client → filtra por option.extra
+  filter_options:       filterOptionsExecutor,   // mode=server → onLoadOptions, mode=client → filtra por option.data
   ajax_validate:        ajaxValidateExecutor,     // implementado como .refine() async en Zod + debounce
   set_date_constraint:  setDateConstraintExecutor,
   compute:              computeExecutor,          // usa expr-eval, no eval()
@@ -475,26 +481,73 @@ function nextStep() {
 
 > Los prompts/templates HTML específicos de FlyonUI para cada campo serán entregados por el usuario campo a campo durante la implementación.
 
-| Tipo de campo | Componente FlyonUI |
-|---------------|-------------------|
-| `string` | Input text |
-| `email` | Input type="email" |
-| `phone` | Input type="tel" |
-| `number` | Input type="number" |
-| `password` | Input type="password" con toggle show/hide |
-| `textarea` | Textarea |
-| `list` | Select (single) |
-| `list-group` | Select con optgroup |
-| `multilist` | Select multiple o custom multi-select |
-| `radio` | Radio group |
-| `checkbox` | Checkbox (single) o Checkbox group (si tiene options) |
-| `switch` | Toggle / Switch |
-| `rating` | Rating component |
-| `date` | Input type="date" o FlyonUI Datepicker |
-| `datetime` | Input type="datetime-local" o FlyonUI Datepicker |
-| `date-range` | Dos inputs date (from/to) o FlyonUI Range picker |
-| `file` | Input type="file" + overlay de estado de upload |
-| `hidden` | input type="hidden" (no renderizado visualmente) |
+| Tipo de campo | Componente FlyonUI | Params clave |
+|---------------|--------------------|--------------|
+| `string`      | Input text (`input`) | `size`, `label_style` |
+| `email`       | Input type="email" | `size`, `label_style` |
+| `phone`       | Input type="tel" | `size`, `label_style` |
+| `number`      | `input-number` (`data-input-number`) | `size`, `min`, `max`, `step`, `button_layout` |
+| `password`    | `strong-password` + toggle (`data-strong-password`) | `size`, `show_strength`, `min_length`, `checks_exclude` |
+| `textarea`    | Textarea (`textarea`) | `size`, `label_style`, `icon_leading`, `icon_trailing` |
+| `select`      | `advanced-select` (`data-select`) | `size`, `multiple`, `searchable`, `tags_mode`, `search_limit`, `min_search_length`, `max_count_items` |
+| `radio`       | Radio group | `size`, `color`, `variant`, `layout` |
+| `checkbox`    | Checkbox group | `size`, `color`, `layout` |
+| `switch`      | Toggle / Switch | `size`, `color`, `variant`, `layout` |
+| `rating`      | Rating component | `size`, `color`, `max_stars`, `half_star` |
+| `range`       | Range input (`range`, `range-{color}`) | `size`, `color`, `min`, `max`, `step`, `show_steps` |
+| `combobox`    | `combo-box` (`data-combo-box`) | `size`, `open_on_focus`, `min_search_length`, `api_url` |
+| `pin`         | `pin-input` (`data-pin-input`) | `size`, `variant`, `length`, `input_type`, `chars_pattern` |
+| `tree`        | `tree-view` (`data-tree-view`, `controlBy: "checkbox"`) | `selection_mode`, `auto_select_children`, `expanded_by_default` |
+| `duallist`    | Custom dual-panel (sin referencia FlyonUI directa) | `size`, `searchable`, `source_label`, `target_label`, `show_move_all_buttons` |
+| `date`        | Input type="date" o FlyonUI Datepicker | `size` |
+| `datetime`    | Input type="datetime-local" o FlyonUI Datepicker | `size` |
+| `date-range`  | Dos inputs date (from/to) o FlyonUI Range picker | `size` |
+| `file`        | Input type="file" + overlay de estado de upload | `size`, `label_style`, `multiple` |
+| `hidden`      | input type="hidden" (no renderizado visualmente) | — |
+
+### FieldType params — comportamiento base
+
+Todos los tipos reciben los params de `AbstractFieldType` como mínimo (`size: 'md'`, `label_style: 'default'`). El resolver mezcla los defaults del tipo con los params almacenados en DB — DB siempre gana (`array_merge($defaults, $storedParams)`).
+
+### `option.data` — campo de extensibilidad
+
+Cada `OptionDTO` tiene un campo `data: object` (default `{}`) que sirve para dos propósitos:
+
+1. **Data-attrs para interactions**: pares clave-valor arbitrarios que el frontend aplica como `data-*` en el DOM, habilitando `filter_options` en modo `client`.
+   ```json
+   { "value": "rm", "text": "Región Metropolitana", "data": { "country_id": "cl", "group": "Centro" } }
+   ```
+
+2. **Children para `tree`**: la jerarquía del árbol se almacena en `data.children` como array recursivo de opciones. `data.is_dir` distingue nodos rama de nodos hoja.
+   ```json
+   {
+     "value": "docs", "text": "Documentos",
+     "data": {
+       "is_dir": true,
+       "children": [
+         { "value": "docs_contracts", "text": "Contratos", "data": { "is_dir": false } }
+       ]
+     }
+   }
+   ```
+
+Los FieldTypes que no usan `data` simplemente lo omiten — el frontend lo trata como `{}`.
+
+### `select` — migración de tipos legacy
+
+| Tipo anterior | Equivalente `select` |
+|--------------|----------------------|
+| `list`       | `select` con defaults (`multiple: false`) |
+| `list-group` | `select` + grouping via `option.data.group` |
+| `multilist`  | `select` con `params.multiple: true` |
+
+### `tree` — modo radio
+
+FlyonUI tree-view solo soporta `controlBy: "checkbox"` nativo. El modo `selection_mode: 'radio'` es gestionado por el frontend limitando la selección a un único nodo.
+
+### `combobox` — options estáticas vs API
+
+Si `params.api_url` está presente, el frontend lo usa para cargar opciones bajo demanda. Si está ausente, usa el array `field.options` del schema (estático).
 
 ### Estructura base de un campo con FlyonUI
 
@@ -525,24 +578,27 @@ Todos los campos comparten esta estructura FlyonUI de label + input + error:
 
 ```tsx
 const FIELD_COMPONENTS: Record<string, React.ComponentType<FieldProps>> = {
-  string:      StringField,
-  email:       EmailField,
-  phone:       PhoneField,
-  number:      NumberField,
-  password:    PasswordField,
-  textarea:    TextareaField,
-  date:        DateField,
-  datetime:    DateTimeField,
+  string:       StringField,
+  email:        EmailField,
+  phone:        PhoneField,
+  number:       NumberField,
+  password:     PasswordField,
+  textarea:     TextareaField,
+  date:         DateField,
+  datetime:     DateTimeField,
   'date-range': DateRangeField,
-  list:        ListField,
-  'list-group': ListGroupField,
-  multilist:   MultilistField,
-  radio:       RadioField,
-  checkbox:    CheckboxField,
-  switch:      SwitchField,
-  rating:      RatingField,
-  file:        FileField,
-  hidden:      HiddenField,
+  select:       SelectField,
+  radio:        RadioField,
+  checkbox:     CheckboxField,
+  switch:       SwitchField,
+  rating:       RatingField,
+  range:        RangeField,
+  combobox:     ComboboxField,
+  pin:          PinField,
+  tree:         TreeField,
+  duallist:     DuallistField,
+  file:         FileField,
+  hidden:       HiddenField,
 }
 
 function FieldRenderer({ field }: { field: FieldDTO }) {
@@ -620,13 +676,16 @@ src/
         DateField.tsx
         DateTimeField.tsx
         DateRangeField.tsx
-        ListField.tsx
-        ListGroupField.tsx
-        MultilistField.tsx
+        SelectField.tsx               ← advanced-select (FlyonUI data-select)
         RadioField.tsx
         CheckboxField.tsx
         SwitchField.tsx
         RatingField.tsx
+        RangeField.tsx
+        ComboboxField.tsx             ← FlyonUI data-combo-box
+        PinField.tsx                  ← FlyonUI data-pin-input
+        TreeField.tsx                 ← FlyonUI data-tree-view (controlBy: "checkbox")
+        DuallistField.tsx             ← custom dual-panel component
         FileField.tsx                 ← eager upload + FlyonUI upload state UI
         HiddenField.tsx
       │
@@ -730,8 +789,8 @@ export interface FieldDTO {
 export type FieldType =
   | 'string' | 'email' | 'phone' | 'number' | 'password'
   | 'textarea' | 'date' | 'datetime' | 'date-range'
-  | 'list' | 'list-group' | 'multilist'
-  | 'radio' | 'checkbox' | 'switch' | 'rating'
+  | 'select' | 'radio' | 'checkbox' | 'switch' | 'rating'
+  | 'range' | 'combobox' | 'pin' | 'tree' | 'duallist'
   | 'file' | 'hidden'
 
 export interface FieldAttributes {
@@ -750,7 +809,7 @@ export interface OptionDTO {
   icon: string | null
   color: string | null
   position: number
-  extra: Record<string, unknown>
+  data: Record<string, unknown>   // data-attrs para interactions; `data.children` para tree
 }
 
 export interface OptionGroupDTO {
@@ -829,6 +888,6 @@ export type FileUploadState =
 6. **Section renders** — Simple → Accordion → Collapsible → Tabs
 7. **Group renders** — Simple → Matrix → Tabs
 8. **`FieldRenderer.tsx`** — dispatcher (con chequeo de `hiddenFields` del store)
-9. **Field components** — campo por campo (se solicita el prompt FlyonUI al usuario antes de cada uno)
+9. **Field components** — campo por campo (se solicita el prompt FlyonUI al usuario antes de cada uno): `string`, `email`, `phone`, `number`, `password`, `textarea`, `date`, `datetime`, `date-range`, `select`, `radio`, `checkbox`, `switch`, `rating`, `range`, `combobox`, `pin`, `tree`, `duallist`, `file`, `hidden`
 10. **Sistema de interacciones** — `evaluateCondition` → executors → `useFieldInteractions`
 11. **`FileField.tsx`** — flujo eager upload completo con estados FlyonUI

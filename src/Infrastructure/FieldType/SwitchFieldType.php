@@ -30,4 +30,15 @@ final class SwitchFieldType extends AbstractFieldType
 
         return \in_array($rawValue, [true, 1, '1', 'true', 'yes', 'si', 'SI', 'YES', 'TRUE'], true);
     }
+
+    #[\Override]
+    public function getDefaultParams(): array
+    {
+        return [
+            'size' => 'md',
+            'color' => 'primary',
+            'variant' => 'solid',
+            'layout' => 'vertical',
+        ];
+    }
 }

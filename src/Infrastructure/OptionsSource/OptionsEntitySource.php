@@ -65,7 +65,7 @@ final class OptionsEntitySource implements OptionsSourceInterface
                     value: $item[$idColumn] ?? $item['id'] ?? '',
                     text: $item[$textColumn] ?? $item['text'] ?? '',
                     position: $item['position'] ?? $position,
-                    extra: array_diff_key($item, array_flip([$idColumn, $textColumn, 'position'])),
+                    data: array_diff_key($item, array_flip([$idColumn, $textColumn, 'position'])),
                 );
             } elseif (\is_object($item)) {
                 $options[] = new OptionDTO(

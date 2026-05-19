@@ -295,6 +295,38 @@
               "options": [],
               "interactions": [],
               "translations": {}
+            },
+            {
+              "id": "01930a1b-0001-7e4f-8a9b-000000000008",
+              "name": "PIN de Seguridad",
+              "tag": "security_pin",
+              "type": "pin",
+              "description": "Código numérico de 4 dígitos",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": false,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {
+                "length": 4,
+                "input_type": "password",
+                "chars_pattern": "^[0-9]+$"
+              },
+              "position": 8,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": null,
+              "style": ["lg:w-4/12"],
+              "options": [],
+              "interactions": [],
+              "translations": {
+                "es": { "name": "PIN de Seguridad", "description": "Código numérico de 4 dígitos" },
+                "en": { "name": "Security PIN", "description": "4-digit numeric code" }
+              }
             }
           ]
         }
@@ -507,6 +539,39 @@
                 "es": { "name": "Foto de Perfil", "description": "JPG o PNG, máximo 2MB" },
                 "en": { "name": "Profile Photo", "description": "JPG or PNG, max 2MB" }
               }
+            },
+            {
+              "id": "01930a1b-0002-7e4f-8a9b-000000000006",
+              "name": "Experiencia de Usuario",
+              "tag": "ux_score",
+              "type": "range",
+              "description": "¿Qué tan cómodo te sientes con tecnología?",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {
+                "min": 1,
+                "max": 10,
+                "step": 1,
+                "show_steps": true
+              },
+              "position": 6,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": 5,
+              "style": ["lg:w-6/12"],
+              "options": [],
+              "interactions": [],
+              "translations": {
+                "es": { "name": "Experiencia de Usuario", "description": "¿Qué tan cómodo te sientes con tecnología?" },
+                "en": { "name": "User Experience", "description": "How comfortable are you with technology?" }
+              }
             }
           ]
         }
@@ -586,8 +651,8 @@
               "defaultValue": true,
               "style": ["lg:w-4/12"],
               "options": [
-                { "value": "1", "text": "Sí", "tag": "yes", "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "0", "text": "No", "tag": "no", "icon": null, "color": null, "position": 2, "extra": {} }
+                { "value": "1", "text": "Sí", "tag": "yes", "icon": null, "color": null, "position": 1, "data": {} },
+                { "value": "0", "text": "No", "tag": "no", "icon": null, "color": null, "position": 2, "data": {} }
               ],
               "interactions": [
                 {
@@ -632,11 +697,11 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "1", "text": "Muy malo", "tag": "very_bad", "icon": "star", "color": "#ef4444", "position": 1, "extra": {} },
-                { "value": "2", "text": "Malo", "tag": "bad", "icon": "star", "color": "#f97316", "position": 2, "extra": {} },
-                { "value": "3", "text": "Regular", "tag": "regular", "icon": "star", "color": "#eab308", "position": 3, "extra": {} },
-                { "value": "4", "text": "Bueno", "tag": "good", "icon": "star", "color": "#84cc16", "position": 4, "extra": {} },
-                { "value": "5", "text": "Excelente", "tag": "excellent", "icon": "star", "color": "#22c55e", "position": 5, "extra": {} }
+                { "value": "1", "text": "Muy malo",   "tag": "very_bad",  "icon": "star", "color": "#ef4444", "position": 1, "data": {} },
+                { "value": "2", "text": "Malo",        "tag": "bad",       "icon": "star", "color": "#f97316", "position": 2, "data": {} },
+                { "value": "3", "text": "Regular",     "tag": "regular",   "icon": "star", "color": "#eab308", "position": 3, "data": {} },
+                { "value": "4", "text": "Bueno",       "tag": "good",      "icon": "star", "color": "#84cc16", "position": 4, "data": {} },
+                { "value": "5", "text": "Excelente",   "tag": "excellent", "icon": "star", "color": "#22c55e", "position": 5, "data": {} }
               ],
               "interactions": [
                 {
@@ -656,7 +721,7 @@
               "id": "01930a1b-0003-7e4f-8a9b-000000000003",
               "name": "País",
               "tag": "country",
-              "type": "list",
+              "type": "select",
               "description": null,
               "attributes": {
                 "required": true,
@@ -667,17 +732,19 @@
                 "edit": true,
                 "create": true
               },
-              "parameters": {},
+              "parameters": {
+                "searchable": true
+              },
               "position": 3,
               "enabled": true,
               "placeholder": "Selecciona un país",
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "cl", "text": "Chile", "tag": "cl", "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "ar", "text": "Argentina", "tag": "ar", "icon": null, "color": null, "position": 2, "extra": {} },
-                { "value": "pe", "text": "Perú", "tag": "pe", "icon": null, "color": null, "position": 3, "extra": {} },
-                { "value": "co", "text": "Colombia", "tag": "co", "icon": null, "color": null, "position": 4, "extra": {} }
+                { "value": "cl", "text": "Chile",     "tag": "cl", "icon": null, "color": null, "position": 1, "data": {} },
+                { "value": "ar", "text": "Argentina", "tag": "ar", "icon": null, "color": null, "position": 2, "data": {} },
+                { "value": "pe", "text": "Perú",      "tag": "pe", "icon": null, "color": null, "position": 3, "data": {} },
+                { "value": "co", "text": "Colombia",  "tag": "co", "icon": null, "color": null, "position": 4, "data": {} }
               ],
               "interactions": [
                 {
@@ -707,7 +774,7 @@
               "id": "01930a1b-0003-7e4f-8a9b-000000000004",
               "name": "Región",
               "tag": "region",
-              "type": "list-group",
+              "type": "select",
               "description": null,
               "attributes": {
                 "required": true,
@@ -718,18 +785,20 @@
                 "edit": true,
                 "create": true
               },
-              "parameters": {},
+              "parameters": {
+                "searchable": true
+              },
               "position": 4,
               "enabled": true,
               "placeholder": "Selecciona una región",
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "rm", "text": "Región Metropolitana", "tag": "rm", "icon": null, "color": null, "position": 1, "extra": { "group": "Centro", "country_id": "cl" } },
-                { "value": "v",  "text": "Valparaíso",           "tag": "v",  "icon": null, "color": null, "position": 2, "extra": { "group": "Centro", "country_id": "cl" } },
-                { "value": "i",  "text": "Tarapacá",             "tag": "i",  "icon": null, "color": null, "position": 3, "extra": { "group": "Norte",  "country_id": "cl" } },
-                { "value": "ba", "text": "Buenos Aires",         "tag": "ba", "icon": null, "color": null, "position": 4, "extra": { "group": "Centro", "country_id": "ar" } },
-                { "value": "li", "text": "Lima",                 "tag": "li", "icon": null, "color": null, "position": 5, "extra": { "group": "Costa",  "country_id": "pe" } }
+                { "value": "rm", "text": "Región Metropolitana", "tag": "rm", "icon": null, "color": null, "position": 1, "data": { "group": "Centro", "country_id": "cl" } },
+                { "value": "v",  "text": "Valparaíso",           "tag": "v",  "icon": null, "color": null, "position": 2, "data": { "group": "Centro", "country_id": "cl" } },
+                { "value": "i",  "text": "Tarapacá",             "tag": "i",  "icon": null, "color": null, "position": 3, "data": { "group": "Norte",  "country_id": "cl" } },
+                { "value": "ba", "text": "Buenos Aires",         "tag": "ba", "icon": null, "color": null, "position": 4, "data": { "group": "Centro", "country_id": "ar" } },
+                { "value": "li", "text": "Lima",                 "tag": "li", "icon": null, "color": null, "position": 5, "data": { "group": "Costa",  "country_id": "pe" } }
               ],
               "interactions": [],
               "translations": {
@@ -741,7 +810,7 @@
               "id": "01930a1b-0003-7e4f-8a9b-000000000005",
               "name": "Idiomas que habla",
               "tag": "languages",
-              "type": "multilist",
+              "type": "select",
               "description": null,
               "attributes": {
                 "required": false,
@@ -752,17 +821,20 @@
                 "edit": true,
                 "create": true
               },
-              "parameters": {},
+              "parameters": {
+                "multiple": true,
+                "searchable": true
+              },
               "position": 5,
               "enabled": true,
               "placeholder": "Selecciona idiomas",
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "es", "text": "Español",    "tag": "es", "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "en", "text": "Inglés",     "tag": "en", "icon": null, "color": null, "position": 2, "extra": {} },
-                { "value": "pt", "text": "Portugués",  "tag": "pt", "icon": null, "color": null, "position": 3, "extra": {} },
-                { "value": "fr", "text": "Francés",    "tag": "fr", "icon": null, "color": null, "position": 4, "extra": {} }
+                { "value": "es", "text": "Español",   "tag": "es", "icon": null, "color": null, "position": 1, "data": {} },
+                { "value": "en", "text": "Inglés",    "tag": "en", "icon": null, "color": null, "position": 2, "data": {} },
+                { "value": "pt", "text": "Portugués", "tag": "pt", "icon": null, "color": null, "position": 3, "data": {} },
+                { "value": "fr", "text": "Francés",   "tag": "fr", "icon": null, "color": null, "position": 4, "data": {} }
               ],
               "interactions": [],
               "translations": {
@@ -792,10 +864,10 @@
               "defaultValue": null,
               "style": ["lg:w-6/12"],
               "options": [
-                { "value": "male",       "text": "Masculino",           "tag": "male",       "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "female",     "text": "Femenino",            "tag": "female",     "icon": null, "color": null, "position": 2, "extra": {} },
-                { "value": "other",      "text": "Otro",                "tag": "other",      "icon": null, "color": null, "position": 3, "extra": {} },
-                { "value": "prefer_not", "text": "Prefiero no indicar", "tag": "prefer_not", "icon": null, "color": null, "position": 4, "extra": {} }
+                { "value": "male",       "text": "Masculino",           "tag": "male",       "icon": null, "color": null, "position": 1, "data": {} },
+                { "value": "female",     "text": "Femenino",            "tag": "female",     "icon": null, "color": null, "position": 2, "data": {} },
+                { "value": "other",      "text": "Otro",                "tag": "other",      "icon": null, "color": null, "position": 3, "data": {} },
+                { "value": "prefer_not", "text": "Prefiero no indicar", "tag": "prefer_not", "icon": null, "color": null, "position": 4, "data": {} }
               ],
               "interactions": [
                 {
@@ -840,15 +912,103 @@
               "defaultValue": null,
               "style": ["lg:w-full"],
               "options": [
-                { "value": "tech",   "text": "Tecnología", "tag": "tech",   "icon": null, "color": null, "position": 1, "extra": {} },
-                { "value": "sports", "text": "Deportes",   "tag": "sports", "icon": null, "color": null, "position": 2, "extra": {} },
-                { "value": "music",  "text": "Música",     "tag": "music",  "icon": null, "color": null, "position": 3, "extra": {} },
-                { "value": "travel", "text": "Viajes",     "tag": "travel", "icon": null, "color": null, "position": 4, "extra": {} }
+                { "value": "tech",   "text": "Tecnología", "tag": "tech",   "icon": null, "color": null, "position": 1, "data": {} },
+                { "value": "sports", "text": "Deportes",   "tag": "sports", "icon": null, "color": null, "position": 2, "data": {} },
+                { "value": "music",  "text": "Música",     "tag": "music",  "icon": null, "color": null, "position": 3, "data": {} },
+                { "value": "travel", "text": "Viajes",     "tag": "travel", "icon": null, "color": null, "position": 4, "data": {} }
               ],
               "interactions": [],
               "translations": {
                 "es": { "name": "Intereses", "description": "Selecciona todos los que apliquen" },
                 "en": { "name": "Interests", "description": "Select all that apply" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000008",
+              "name": "Habilidades asignadas",
+              "tag": "assigned_skills",
+              "type": "duallist",
+              "description": "Mueve las habilidades que aplican a la derecha",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {
+                "source_label": "Disponibles",
+                "target_label": "Asignadas"
+              },
+              "position": 8,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": [],
+              "style": ["lg:w-full"],
+              "options": [
+                { "value": "php",        "text": "PHP",        "tag": "php",        "icon": null, "color": null, "position": 1, "data": {} },
+                { "value": "js",         "text": "JavaScript", "tag": "js",         "icon": null, "color": null, "position": 2, "data": {} },
+                { "value": "python",     "text": "Python",     "tag": "python",     "icon": null, "color": null, "position": 3, "data": {} },
+                { "value": "typescript", "text": "TypeScript", "tag": "typescript", "icon": null, "color": null, "position": 4, "data": {} }
+              ],
+              "interactions": [],
+              "translations": {
+                "es": { "name": "Habilidades asignadas", "description": "Mueve las habilidades que aplican a la derecha" },
+                "en": { "name": "Assigned Skills", "description": "Move applicable skills to the right" }
+              }
+            },
+            {
+              "id": "01930a1b-0003-7e4f-8a9b-000000000009",
+              "name": "Estructura de Carpetas",
+              "tag": "folder_tree",
+              "type": "tree",
+              "description": "Selecciona las carpetas a las que tendrás acceso",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": { "enabled": false, "entity": null, "method": null },
+                "filter": { "enabled": false, "key": null },
+                "show": true,
+                "edit": true,
+                "create": true
+              },
+              "parameters": {
+                "selection_mode": "checkbox",
+                "expanded_by_default": true
+              },
+              "position": 9,
+              "enabled": true,
+              "placeholder": null,
+              "defaultValue": [],
+              "style": ["lg:w-6/12"],
+              "options": [
+                {
+                  "value": "docs", "text": "Documentos", "tag": "docs", "icon": "tabler--folder", "color": null, "position": 1,
+                  "data": {
+                    "is_dir": true,
+                    "children": [
+                      { "value": "docs_contracts", "text": "Contratos",  "tag": "docs_contracts", "icon": "tabler--file", "color": null, "position": 1, "data": { "is_dir": false } },
+                      { "value": "docs_reports",   "text": "Reportes",   "tag": "docs_reports",   "icon": "tabler--file", "color": null, "position": 2, "data": { "is_dir": false } }
+                    ]
+                  }
+                },
+                {
+                  "value": "media", "text": "Multimedia", "tag": "media", "icon": "tabler--folder", "color": null, "position": 2,
+                  "data": {
+                    "is_dir": true,
+                    "children": [
+                      { "value": "media_images", "text": "Imágenes", "tag": "media_images", "icon": "tabler--photo", "color": null, "position": 1, "data": { "is_dir": false } },
+                      { "value": "media_videos",  "text": "Videos",   "tag": "media_videos",  "icon": "tabler--video", "color": null, "position": 2, "data": { "is_dir": false } }
+                    ]
+                  }
+                }
+              ],
+              "interactions": [],
+              "translations": {
+                "es": { "name": "Estructura de Carpetas", "description": "Selecciona las carpetas a las que tendrás acceso" },
+                "en": { "name": "Folder Structure", "description": "Select the folders you will have access to" }
               }
             }
           ]

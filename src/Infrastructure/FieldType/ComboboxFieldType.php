@@ -7,12 +7,12 @@ namespace Letkode\FormSchema\Infrastructure\FieldType;
 use Letkode\FormSchema\Attribute\AsFieldType;
 
 #[AsFieldType]
-final class PasswordFieldType extends AbstractFieldType
+final class ComboboxFieldType extends AbstractFieldType
 {
     #[\Override]
     public static function getName(): string
     {
-        return 'password';
+        return 'combobox';
     }
 
     #[\Override]
@@ -20,10 +20,9 @@ final class PasswordFieldType extends AbstractFieldType
     {
         return [
             'size' => 'md',
-            'label_style' => 'default',
-            'show_strength' => true,
-            'min_length' => 8,
-            'checks_exclude' => [],
+            'open_on_focus' => false,
+            'min_search_length' => 0,
+            'api_url' => null,
         ];
     }
 }

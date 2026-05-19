@@ -26,4 +26,13 @@ abstract class AbstractFieldType implements FieldTypeInterface
     {
         return $rawValue;
     }
+
+    #[\Override]
+    public function getDefaultParams(): array
+    {
+        return [
+            'size' => 'md',
+            'label_style' => 'default',
+        ];
+    }
 }

@@ -74,7 +74,7 @@ final class OptionsGeneralSource implements OptionsSourceInterface
                 icon: $value->getParameter('icon'),
                 color: $value->getParameter('color'),
                 position: $value->position,
-                extra: array_diff_key($value->parameters, array_flip(['icon', 'color'])),
+                data: array_diff_key($value->parameters, array_flip(['icon', 'color'])),
             );
         }
 

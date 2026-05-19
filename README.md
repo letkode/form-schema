@@ -2,7 +2,7 @@
 
 Symfony Bundle para formularios dinámicos configurables desde base de datos.
 
-Modela formularios en una jerarquía **Form → Section → Group → Field**, con i18n dinámico, 18 tipos de campo predefinidos y extensibles, opciones desde catálogo interno o repositorios del proyecto, renders estructurales en 3 niveles y caché PSR-6 opt-in.
+Modela formularios en una jerarquía **Form → Section → Group → Field**, con i18n dinámico, 21 tipos de campo predefinidos y extensibles, opciones desde catálogo interno o repositorios del proyecto, renders estructurales en 3 niveles y caché PSR-6 opt-in.
 
 **Requiere** PHP 8.4 · Symfony 7.x · Doctrine ORM ^3.4
 
@@ -15,7 +15,7 @@ Modela formularios en una jerarquía **Form → Section → Group → Field**, c
 | [Instalación](docs/installation.md) | Composer, bundle, migraciones, comando de verificación |
 | [Configuración](docs/configuration.md) | Todas las opciones del bundle con valores por defecto |
 | [Resolver](docs/resolver.md) | API del `FormSchemaResolver`, fluent builder, DTOs de salida |
-| [Tipos de campo](docs/field-types.md) | Los 18 tipos built-in, atributos, parámetros y opciones |
+| [Tipos de campo](docs/field-types.md) | Los 21 tipos built-in, atributos, parámetros, params UI y `option.data` |
 | [Fuentes de opciones](docs/options-sources.md) | `general` (catálogo BD), `entity` (repositorios del proyecto) |
 | [Renders](docs/renders.md) | Renders de Form, Section y Group disponibles y su configuración |
 | [Caché](docs/cache.md) | Activar caché PSR-6, invalidación automática y manual |
