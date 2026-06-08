@@ -8,12 +8,12 @@ use Letkode\FormSchema\Attribute\AsGroupRender;
 use Letkode\FormSchema\Domain\Contract\GroupRenderInterface;
 
 #[AsGroupRender]
-final class SimpleGroupRender implements GroupRenderInterface
+final class DefaultGroupRender implements GroupRenderInterface
 {
     #[\Override]
     public static function getName(): string
     {
-        return 'simple';
+        return 'default';
     }
 
     #[\Override]

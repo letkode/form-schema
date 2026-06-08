@@ -14,7 +14,6 @@ services:
             - '../../Application/DTO/'
             - '../../Application/Filter/'
             - '../../Attribute/'
-            - '../../Migrations/'
 
     Letkode\FormSchema\Application\Resolver\FormSchemaResolver:
         arguments:
@@ -80,5 +79,3 @@ services:
             $prefix: '%letkode_form_schema.cache.key_prefix%'
         public: true
 
-    Letkode\FormSchema\Command\LetkodeFormSchemaInstallCommand:
-        tags: ['console.command']

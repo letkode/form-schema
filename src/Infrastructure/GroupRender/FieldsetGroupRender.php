@@ -8,20 +8,20 @@ use Letkode\FormSchema\Attribute\AsGroupRender;
 use Letkode\FormSchema\Domain\Contract\GroupRenderInterface;
 
 #[AsGroupRender]
-final class TabsGroupRender implements GroupRenderInterface
+final class FieldsetGroupRender implements GroupRenderInterface
 {
     #[\Override]
     public static function getName(): string
     {
-        return 'tabs';
+        return 'fieldset';
     }
 
     #[\Override]
     public function renderMeta(array $parameters): array
     {
         return [
-            'position' => $parameters['tabs']['position'] ?? 'top',
-            'lazy_load' => $parameters['tabs']['lazy_load'] ?? false,
+            'legend' => (bool) ($parameters['legend'] ?? true),
+            'legend_custom' => $parameters['legend_custom'] ?? null,
         ];
     }
 }

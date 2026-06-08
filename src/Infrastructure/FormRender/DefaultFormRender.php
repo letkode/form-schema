@@ -8,12 +8,12 @@ use Letkode\FormSchema\Attribute\AsFormRender;
 use Letkode\FormSchema\Domain\Contract\FormRenderInterface;
 
 #[AsFormRender]
-final class SimpleFormRender implements FormRenderInterface
+final class DefaultFormRender implements FormRenderInterface
 {
     #[\Override]
     public static function getName(): string
     {
-        return 'simple';
+        return 'default';
     }
 
     #[\Override]

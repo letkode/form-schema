@@ -20,7 +20,7 @@ final class StepperFormRender implements FormRenderInterface
     public function renderMeta(array $parameters): array
     {
         return [
-            'navigation' => $parameters['stepper']['navigation'] ?? 'horizontal',
+            'orientation' => $parameters['stepper']['orientation'] ?? 'horizontal',
             'show_progress' => $parameters['stepper']['show_progress'] ?? true,
             'allow_skip' => $parameters['stepper']['allow_skip'] ?? false,
             'persist_on_navigate' => $parameters['stepper']['persist_on_navigate'] ?? true,

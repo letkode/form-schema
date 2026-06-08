@@ -20,6 +20,7 @@ final class TabsSectionRender implements SectionRenderInterface
     public function renderMeta(array $parameters): array
     {
         return [
+            'orientation' => $parameters['tabs']['orientation'] ?? 'horizontal',
             'position' => $parameters['tabs']['position'] ?? 'top',
             'lazy_load' => $parameters['tabs']['lazy_load'] ?? false,
         ];
