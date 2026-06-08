@@ -19,9 +19,13 @@ enum FieldTypeEnum: string
     case File = 'file';
     case Switch = 'switch';
     case Rating = 'rating';
-    case List = 'list';
-    case ListGroup = 'list-group';
-    case Multilist = 'multilist';
+    case Select = 'select';
+    case SelectMultiple = 'select-multiple';
     case Radio = 'radio';
     case Checkbox = 'checkbox';
+    case Range = 'range';
+    case Combobox = 'combobox';
+    case Pin = 'pin';
+    case Tree = 'tree';
+    case Duallist = 'duallist';
 }

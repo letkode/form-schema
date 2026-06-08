@@ -7,18 +7,28 @@ namespace Letkode\FormSchema\Infrastructure\FieldType;
 use Letkode\FormSchema\Attribute\AsFieldType;
 
 #[AsFieldType]
-final class SelectFieldType extends AbstractFieldType
+final class SelectMultipleFieldType extends AbstractFieldType
 {
     #[\Override]
     public static function getName(): string
     {
-        return 'select';
+        return 'select-multiple';
     }
 
     #[\Override]
     public function takesOptions(): bool
     {
         return true;
+    }
+
+    #[\Override]
+    public function formatDefaultValue(mixed $rawValue): mixed
+    {
+        if (\is_array($rawValue)) {
+            return $rawValue;
+        }
+
+        return null !== $rawValue ? [$rawValue] : [];
     }
 
     #[\Override]
@@ -30,6 +40,7 @@ final class SelectFieldType extends AbstractFieldType
             'tags_mode' => false,
             'search_limit' => null,
             'min_search_length' => null,
+            'max_count_items' => null,
         ];
     }
 }
