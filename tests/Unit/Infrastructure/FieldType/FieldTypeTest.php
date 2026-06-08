@@ -21,6 +21,7 @@ use Letkode\FormSchema\Infrastructure\FieldType\RadioFieldType;
 use Letkode\FormSchema\Infrastructure\FieldType\RangeFieldType;
 use Letkode\FormSchema\Infrastructure\FieldType\RatingFieldType;
 use Letkode\FormSchema\Infrastructure\FieldType\SelectFieldType;
+use Letkode\FormSchema\Infrastructure\FieldType\SelectMultipleFieldType;
 use Letkode\FormSchema\Infrastructure\FieldType\StringFieldType;
 use Letkode\FormSchema\Infrastructure\FieldType\SwitchFieldType;
 use Letkode\FormSchema\Infrastructure\FieldType\TextareaFieldType;
@@ -98,11 +99,25 @@ final class FieldTypeTest extends TestCase
     }
 
     #[Test]
-    public function testSelectFieldTypeDefaultParamsHasMultiple(): void
+    public function testSelectFieldTypeDefaultParamsHasNoMultiple(): void
     {
         $params = new SelectFieldType()->getDefaultParams();
-        self::assertArrayHasKey('multiple', $params);
-        self::assertFalse($params['multiple']);
+        self::assertArrayNotHasKey('multiple', $params);
+    }
+
+    #[Test]
+    public function testSelectMultipleFieldTypeTakesOptions(): void
+    {
+        self::assertTrue(new SelectMultipleFieldType()->takesOptions());
+    }
+
+    #[Test]
+    public function testSelectMultipleFieldTypeFormatsToArray(): void
+    {
+        $type = new SelectMultipleFieldType();
+        self::assertSame([], $type->formatDefaultValue(null));
+        self::assertSame(['es'], $type->formatDefaultValue('es'));
+        self::assertSame(['es', 'en'], $type->formatDefaultValue(['es', 'en']));
     }
 
     #[Test]
@@ -126,6 +141,7 @@ final class FieldTypeTest extends TestCase
             new RangeFieldType(),
             new RatingFieldType(),
             new SelectFieldType(),
+            new SelectMultipleFieldType(),
             new StringFieldType(),
             new SwitchFieldType(),
             new TextareaFieldType(),
@@ -135,7 +151,7 @@ final class FieldTypeTest extends TestCase
         $names = array_map(static fn ($t) => $t::getName(), $types);
         $unique = array_unique($names);
 
-        self::assertCount(21, $types);
+        self::assertCount(22, $types);
         self::assertCount(\count($names), $unique, 'Duplicate field type names found: ' . implode(', ', array_diff_assoc($names, $unique)));
     }
 }

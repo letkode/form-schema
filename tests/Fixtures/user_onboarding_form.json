@@ -1,129 +1,125 @@
 {
-  "id": "01930a1b-2c3d-7e4f-8a9b-0c1d2e3f4a5b",
-  "name": "Formulario de Onboarding",
-  "tag": "user_onboarding",
+  "id": "02940a1b-0000-7e4f-8a9b-000000000001",
+  "name": "Formulario de Cobertura Completa",
+  "tag": "coverage_form",
   "locale": "es",
   "default_locale": "es",
   "enabled": true,
   "parameters": {
-    "type_render": "stepper",
-    "stepper": {
-      "navigation": "horizontal",
-      "show_progress": true,
-      "allow_skip": false,
-      "persist_on_navigate": true
-    }
+    "type_render": "stepper"
   },
   "render": {
     "type": "stepper",
     "metadata": {
-      "navigation": "horizontal",
+      "orientation": "horizontal",
       "show_progress": true,
       "allow_skip": false,
       "persist_on_navigate": true
     }
   },
   "translations": {
-    "es": { "name": "Formulario de Onboarding" },
-    "en": { "name": "Onboarding Form" }
+    "es": {
+      "name": "Formulario de Cobertura Completa"
+    },
+    "en": {
+      "name": "Full Coverage Form"
+    }
   },
   "sections": [
     {
-      "id": "01930a1b-2c3d-7e4f-8a9b-1a2b3c4d5e6f",
-      "name": "Datos Personales",
-      "tag": "personal_data",
-      "description": "Ingresa tu información personal",
+      "id": "02940a1b-1000-7e4f-8a9b-000000000001",
+      "name": "Datos de Identidad",
+      "tag": "identity",
+      "description": "Información personal y credenciales de acceso",
       "position": 1,
       "enabled": true,
       "parameters": {
-        "type_render": "simple"
+        "type_render": "default"
       },
-      "render": { "type": "simple", "metadata": {} },
+      "render": {
+        "type": "default",
+        "metadata": {}
+      },
       "translations": {
         "es": {
-          "name": "Datos Personales",
-          "description": "Ingresa tu información personal"
+          "name": "Datos de Identidad",
+          "description": "Información personal y credenciales de acceso"
         },
         "en": {
-          "name": "Personal Data",
-          "description": "Enter your personal information"
+          "name": "Identity Data",
+          "description": "Personal information and access credentials"
         }
       },
       "groups": [
         {
-          "id": "01930a1b-2c3d-7e4f-8a9b-2a2b3c4d5e6f",
-          "name": "Información Básica",
-          "tag": "basic_info",
+          "id": "02940a1b-2000-7e4f-8a9b-000000000001",
+          "name": "Información de Contacto",
+          "tag": "contact_info",
           "description": null,
           "position": 1,
           "enabled": true,
           "parameters": {
-            "type_render": "simple"
+            "type_render": "default"
           },
-          "render": { "type": "simple", "metadata": {} },
+          "render": {
+            "type": "default",
+            "metadata": {}
+          },
           "translations": {
-            "es": { "name": "Información Básica" },
-            "en": { "name": "Basic Information" }
+            "es": {
+              "name": "Información de Contacto"
+            },
+            "en": {
+              "name": "Contact Information"
+            }
           },
           "fields": [
             {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000001",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000001",
               "name": "Nombre",
               "tag": "first_name",
-              "type": "string",
-              "description": "Tu nombre legal",
-              "attributes": {
-                "required": true,
-                "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
-              },
-              "parameters": {},
-              "position": 1,
-              "enabled": true,
-              "placeholder": "Ej: Juan",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
-              "options": [],
-              "interactions": [],
-              "translations": {
-                "es": { "name": "Nombre", "placeholder": "Ej: Juan", "description": "Tu nombre legal" },
-                "en": { "name": "First Name", "placeholder": "E.g. John", "description": "Your legal name" }
-              }
-            },
-            {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000002",
-              "name": "Apellido",
-              "tag": "last_name",
               "type": "string",
               "description": null,
               "attributes": {
                 "required": true,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
-              "parameters": {},
-              "position": 2,
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 1,
               "enabled": true,
-              "placeholder": "Ej: Pérez",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
+              "placeholder": "Ej: Juan",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
               "options": [],
-              "interactions": [],
               "translations": {
-                "es": { "name": "Apellido", "placeholder": "Ej: Pérez" },
-                "en": { "name": "Last Name", "placeholder": "E.g. Smith" }
-              }
+                "es": {
+                  "name": "Nombre",
+                  "placeholder": "Ej: Juan"
+                },
+                "en": {
+                  "name": "First Name",
+                  "placeholder": "E.g. John"
+                }
+              },
+              "interactions": []
             },
             {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000003",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000002",
               "name": "Correo Electrónico",
               "tag": "email",
               "type": "email",
@@ -131,19 +127,43 @@
               "attributes": {
                 "required": true,
                 "readonly": false,
-                "unique": { "enabled": true, "entity": "App\\Entity\\User", "method": "findOneByEmail" },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": false,
-                "create": true
+                "unique": {
+                  "enabled": true,
+                  "entity": "App\\Entity\\User",
+                  "method": "findOneByEmail"
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "edit": {
+                    "readonly": true
+                  }
+                }
               },
-              "parameters": {},
-              "position": 3,
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 2,
               "enabled": true,
-              "placeholder": "mail@ejemplo.com",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
+              "placeholder": "usuario@ejemplo.com",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
               "options": [],
+              "translations": {
+                "es": {
+                  "name": "Correo Electrónico",
+                  "placeholder": "usuario@ejemplo.com"
+                },
+                "en": {
+                  "name": "Email",
+                  "placeholder": "user@example.com"
+                }
+              },
               "interactions": [
                 {
                   "trigger": "blur",
@@ -153,17 +173,13 @@
                   "params": {
                     "endpoint": "/api/users/check-email",
                     "method": "GET",
-                    "debounce": 0
+                    "debounce": 500
                   }
                 }
-              ],
-              "translations": {
-                "es": { "name": "Correo Electrónico", "placeholder": "mail@ejemplo.com" },
-                "en": { "name": "Email", "placeholder": "mail@example.com" }
-              }
+              ]
             },
             {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000004",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000003",
               "name": "Teléfono",
               "tag": "phone",
               "type": "phone",
@@ -171,108 +187,43 @@
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
-              "parameters": {},
-              "position": 4,
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 3,
               "enabled": true,
               "placeholder": "+56 9 1234 5678",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
-              "options": [],
-              "interactions": [
-                {
-                  "trigger": "input",
-                  "action": "ajax_validate",
-                  "target": null,
-                  "condition": {},
-                  "params": {
-                    "endpoint": "/api/users/check-phone",
-                    "method": "GET",
-                    "debounce": 300
-                  }
-                }
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
               ],
-              "translations": {
-                "es": { "name": "Teléfono", "placeholder": "+56 9 1234 5678" },
-                "en": { "name": "Phone", "placeholder": "+1 555 000 0000" }
-              }
-            },
-            {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000005",
-              "name": "Edad",
-              "tag": "age",
-              "type": "number",
-              "description": null,
-              "attributes": {
-                "required": true,
-                "readonly": true,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
-              },
-              "parameters": {},
-              "position": 5,
-              "enabled": true,
-              "placeholder": "25",
-              "defaultValue": null,
-              "style": ["lg:w-3/12"],
               "options": [],
-              "interactions": [
-                {
-                  "trigger": "change",
-                  "action": "compute",
-                  "target": null,
-                  "condition": {},
-                  "params": {
-                    "expression": "year_diff(today(), {birth_date})",
-                    "sources": ["birth_date"],
-                    "decimals": 0
-                  }
+              "translations": {
+                "es": {
+                  "name": "Teléfono",
+                  "placeholder": "+56 9 1234 5678"
+                },
+                "en": {
+                  "name": "Phone",
+                  "placeholder": "+1 555 000 0000"
                 }
-              ],
-              "translations": {
-                "es": { "name": "Edad" },
-                "en": { "name": "Age" }
-              }
-            },
-            {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000006",
-              "name": "Contraseña",
-              "tag": "password",
-              "type": "password",
-              "description": "Mínimo 8 caracteres",
-              "attributes": {
-                "required": true,
-                "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": false,
-                "edit": true,
-                "create": true,
-                "min_strength": 2
               },
-              "parameters": {},
-              "position": 6,
-              "enabled": true,
-              "placeholder": "••••••••",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
-              "options": [],
-              "interactions": [],
-              "translations": {
-                "es": { "name": "Contraseña", "description": "Mínimo 8 caracteres" },
-                "en": { "name": "Password", "description": "Minimum 8 characters" }
-              }
+              "interactions": []
             },
             {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000007",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000004",
               "name": "Token de Referido",
               "tag": "referral_token",
               "type": "hidden",
@@ -280,24 +231,120 @@
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": false,
-                "edit": false,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "show": {
+                    "enabled": false
+                  },
+                  "edit": {
+                    "enabled": false
+                  }
+                }
               },
-              "parameters": {},
-              "position": 7,
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 4,
               "enabled": true,
               "placeholder": null,
-              "defaultValue": null,
+              "default_value": null,
               "style": [],
               "options": [],
-              "interactions": [],
-              "translations": {}
+              "translations": {},
+              "interactions": []
+            }
+          ]
+        },
+        {
+          "id": "02940a1b-2000-7e4f-8a9b-000000000002",
+          "name": "Credenciales de Acceso",
+          "tag": "security_credentials",
+          "description": null,
+          "position": 2,
+          "enabled": true,
+          "parameters": {
+            "type_render": "fieldset",
+            "legend": true,
+            "legend_custom": null
+          },
+          "render": {
+            "type": "fieldset",
+            "metadata": {
+              "legend": true,
+              "legend_custom": null
+            }
+          },
+          "translations": {
+            "es": {
+              "name": "Credenciales de Acceso"
+            },
+            "en": {
+              "name": "Access Credentials"
+            }
+          },
+          "fields": [
+            {
+              "id": "02940a1b-3000-7e4f-8a9b-000000000005",
+              "name": "Contraseña",
+              "tag": "password",
+              "type": "password",
+              "description": "Mínimo 8 caracteres",
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "show": {
+                    "enabled": false
+                  }
+                }
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "show_strength": true,
+                "min_length": 8,
+                "checks_exclude": []
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": "••••••••",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Contraseña",
+                  "description": "Mínimo 8 caracteres"
+                },
+                "en": {
+                  "name": "Password",
+                  "description": "Minimum 8 characters"
+                }
+              },
+              "interactions": []
             },
             {
-              "id": "01930a1b-0001-7e4f-8a9b-000000000008",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000006",
               "name": "PIN de Seguridad",
               "tag": "security_pin",
               "type": "pin",
@@ -305,37 +352,56 @@
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": false,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "show": {
+                    "enabled": false
+                  }
+                }
               },
               "parameters": {
+                "size": "md",
+                "variant": "outline",
                 "length": 4,
                 "input_type": "password",
                 "chars_pattern": "^[0-9]+$"
               },
-              "position": 8,
+              "position": 2,
               "enabled": true,
               "placeholder": null,
-              "defaultValue": null,
-              "style": ["lg:w-4/12"],
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
               "options": [],
-              "interactions": [],
               "translations": {
-                "es": { "name": "PIN de Seguridad", "description": "Código numérico de 4 dígitos" },
-                "en": { "name": "Security PIN", "description": "4-digit numeric code" }
-              }
+                "es": {
+                  "name": "PIN de Seguridad",
+                  "description": "Código numérico de 4 dígitos"
+                },
+                "en": {
+                  "name": "Security PIN",
+                  "description": "4-digit numeric code"
+                }
+              },
+              "interactions": []
             }
           ]
         }
       ]
     },
     {
-      "id": "01930a1b-2c3d-7e4f-8a9b-3a2b3c4d5e6f",
-      "name": "Información Adicional",
-      "tag": "additional_info",
+      "id": "02940a1b-1000-7e4f-8a9b-000000000002",
+      "name": "Perfil Laboral",
+      "tag": "work_profile",
       "description": null,
       "position": 2,
       "enabled": true,
@@ -354,64 +420,279 @@
         }
       },
       "translations": {
-        "es": { "name": "Información Adicional" },
-        "en": { "name": "Additional Information" }
+        "es": {
+          "name": "Perfil Laboral"
+        },
+        "en": {
+          "name": "Work Profile"
+        }
       },
       "groups": [
         {
-          "id": "01930a1b-2c3d-7e4f-8a9b-4a2b3c4d5e6f",
-          "name": "Perfil",
-          "tag": "profile",
+          "id": "02940a1b-2000-7e4f-8a9b-000000000003",
+          "name": "Cargo y Posición",
+          "tag": "position_group",
           "description": null,
           "position": 1,
           "enabled": true,
           "parameters": {
-            "type_render": "simple"
+            "type_render": "default"
           },
-          "render": { "type": "simple", "metadata": {} },
+          "render": {
+            "type": "default",
+            "metadata": {}
+          },
           "translations": {
-            "es": { "name": "Perfil" },
-            "en": { "name": "Profile" }
+            "es": {
+              "name": "Cargo y Posición"
+            },
+            "en": {
+              "name": "Role & Position"
+            }
           },
           "fields": [
             {
-              "id": "01930a1b-0002-7e4f-8a9b-000000000001",
-              "name": "Biografía",
-              "tag": "bio",
-              "type": "textarea",
-              "description": "Cuéntanos sobre ti",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000007",
+              "name": "Departamento",
+              "tag": "department",
+              "type": "select",
+              "description": null,
               "attributes": {
-                "required": false,
+                "required": true,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
-              "parameters": {},
+              "parameters": {
+                "size": "md",
+                "searchable": true,
+                "tags_mode": false,
+                "search_limit": null,
+                "min_search_length": null
+              },
               "position": 1,
               "enabled": true,
-              "placeholder": "Escribe una breve descripción...",
-              "defaultValue": null,
-              "style": ["lg:w-full"],
-              "options": [],
-              "interactions": [
+              "placeholder": "Selecciona un departamento",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [
                 {
-                  "trigger": "input",
-                  "action": "toggle_required",
-                  "target": "profile_photo",
-                  "condition": { "operator": "falsy" },
-                  "params": {}
+                  "value": "engineering",
+                  "label": "Ingeniería",
+                  "tag": "engineering",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "product",
+                  "label": "Producto",
+                  "tag": "product",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "design",
+                  "label": "Diseño",
+                  "tag": "design",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "hr",
+                  "label": "Recursos Humanos",
+                  "tag": "hr",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
                 }
               ],
               "translations": {
-                "es": { "name": "Biografía", "description": "Cuéntanos sobre ti", "placeholder": "Escribe una breve descripción..." },
-                "en": { "name": "Biography", "description": "Tell us about yourself", "placeholder": "Write a short description..." }
-              }
+                "es": {
+                  "name": "Departamento",
+                  "placeholder": "Selecciona un departamento"
+                },
+                "en": {
+                  "name": "Department",
+                  "placeholder": "Select a department"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "set_value",
+                  "target": "job_title",
+                  "condition": {},
+                  "params": {
+                    "value": null
+                  }
+                },
+                {
+                  "trigger": "change",
+                  "action": "filter_options",
+                  "target": "job_title",
+                  "condition": {},
+                  "params": {
+                    "mode": "client",
+                    "filter_key": "department_id"
+                  }
+                }
+              ]
             },
             {
-              "id": "01930a1b-0002-7e4f-8a9b-000000000002",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000008",
+              "name": "Título del Puesto",
+              "tag": "job_title",
+              "type": "combobox",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "open_on_focus": false,
+                "min_search_length": 2,
+                "api_url": "/api/job-titles"
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": "Busca o escribe el puesto...",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Título del Puesto",
+                  "placeholder": "Busca o escribe el puesto..."
+                },
+                "en": {
+                  "name": "Job Title",
+                  "placeholder": "Search or type the position..."
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "02940a1b-3000-7e4f-8a9b-000000000009",
+              "name": "Edad",
+              "tag": "age",
+              "type": "number",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": true,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "min": 18,
+                "max": 99,
+                "step": 1,
+                "button_layout": "default"
+              },
+              "position": 3,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": null,
+              "style": [
+                "lg:w-3/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Edad"
+                },
+                "en": {
+                  "name": "Age"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "compute",
+                  "target": null,
+                  "condition": {},
+                  "params": {
+                    "expression": "year_diff(today(), {birth_date})",
+                    "sources": [
+                      "birth_date"
+                    ],
+                    "decimals": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "02940a1b-2000-7e4f-8a9b-000000000004",
+          "name": "Fechas Contractuales",
+          "tag": "contract_dates",
+          "description": null,
+          "position": 2,
+          "enabled": true,
+          "parameters": {
+            "type_render": "fieldset",
+            "legend": true,
+            "legend_custom": "Vigencia del Contrato"
+          },
+          "render": {
+            "type": "fieldset",
+            "metadata": {
+              "legend": true,
+              "legend_custom": "Vigencia del Contrato"
+            }
+          },
+          "translations": {
+            "es": {
+              "name": "Fechas Contractuales"
+            },
+            "en": {
+              "name": "Contract Dates"
+            }
+          },
+          "fields": [
+            {
+              "id": "02940a1b-3000-7e4f-8a9b-000000000010",
               "name": "Fecha de Nacimiento",
               "tag": "birth_date",
               "type": "date",
@@ -419,264 +700,370 @@
               "attributes": {
                 "required": true,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
-              "parameters": {},
-              "position": 2,
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 1,
               "enabled": true,
               "placeholder": "DD/MM/YYYY",
-              "defaultValue": null,
-              "style": ["lg:w-4/12"],
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
               "options": [],
+              "translations": {
+                "es": {
+                  "name": "Fecha de Nacimiento"
+                },
+                "en": {
+                  "name": "Birth Date"
+                }
+              },
               "interactions": [
                 {
                   "trigger": "change",
                   "action": "set_date_constraint",
-                  "target": "vacation_period",
+                  "target": "contract_period",
                   "condition": {},
                   "params": {
                     "constraint": "min"
                   }
                 }
-              ],
-              "translations": {
-                "es": { "name": "Fecha de Nacimiento" },
-                "en": { "name": "Birth Date" }
-              }
+              ]
             },
             {
-              "id": "01930a1b-0002-7e4f-8a9b-000000000003",
-              "name": "Fecha y Hora de Ingreso",
-              "tag": "entry_datetime",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000011",
+              "name": "Fecha y Hora de Inicio",
+              "tag": "start_datetime",
               "type": "datetime",
               "description": null,
               "attributes": {
-                "required": false,
+                "required": true,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
-              "parameters": {},
-              "position": 3,
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 2,
               "enabled": true,
               "placeholder": "DD/MM/YYYY HH:MM",
-              "defaultValue": "2026-05-16T09:00:00",
-              "style": ["lg:w-4/12"],
-              "options": [],
-              "interactions": [
-                {
-                  "trigger": "change",
-                  "action": "set_date_constraint",
-                  "target": "vacation_period",
-                  "condition": {},
-                  "params": { "constraint": "min" }
-                }
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
               ],
+              "options": [],
               "translations": {
-                "es": { "name": "Fecha y Hora de Ingreso" },
-                "en": { "name": "Entry Date & Time" }
-              }
+                "es": {
+                  "name": "Fecha y Hora de Inicio"
+                },
+                "en": {
+                  "name": "Start Date & Time"
+                }
+              },
+              "interactions": []
             },
             {
-              "id": "01930a1b-0002-7e4f-8a9b-000000000004",
-              "name": "Período de Vacaciones",
-              "tag": "vacation_period",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000012",
+              "name": "Período Contractual",
+              "tag": "contract_period",
               "type": "date-range",
               "description": null,
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
-              },
-              "parameters": {},
-              "position": 4,
-              "enabled": true,
-              "placeholder": null,
-              "defaultValue": { "from": null, "to": null },
-              "style": ["lg:w-6/12"],
-              "options": [],
-              "interactions": [],
-              "translations": {
-                "es": { "name": "Período de Vacaciones" },
-                "en": { "name": "Vacation Period" }
-              }
-            },
-            {
-              "id": "01930a1b-0002-7e4f-8a9b-000000000005",
-              "name": "Foto de Perfil",
-              "tag": "profile_photo",
-              "type": "file",
-              "description": "JPG o PNG, máximo 2MB",
-              "attributes": {
-                "required": false,
-                "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
-              },
-              "parameters": {},
-              "position": 5,
-              "enabled": true,
-              "placeholder": null,
-              "defaultValue": null,
-              "style": ["lg:w-4/12"],
-              "options": [],
-              "interactions": [],
-              "translations": {
-                "es": { "name": "Foto de Perfil", "description": "JPG o PNG, máximo 2MB" },
-                "en": { "name": "Profile Photo", "description": "JPG or PNG, max 2MB" }
-              }
-            },
-            {
-              "id": "01930a1b-0002-7e4f-8a9b-000000000006",
-              "name": "Experiencia de Usuario",
-              "tag": "ux_score",
-              "type": "range",
-              "description": "¿Qué tan cómodo te sientes con tecnología?",
-              "attributes": {
-                "required": false,
-                "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
               "parameters": {
-                "min": 1,
-                "max": 10,
-                "step": 1,
-                "show_steps": true
+                "size": "md",
+                "label_style": "default"
               },
-              "position": 6,
+              "position": 3,
               "enabled": true,
               "placeholder": null,
-              "defaultValue": 5,
-              "style": ["lg:w-6/12"],
+              "default_value": {
+                "from": null,
+                "to": null
+              },
+              "style": [
+                "lg:w-6/12"
+              ],
               "options": [],
-              "interactions": [],
               "translations": {
-                "es": { "name": "Experiencia de Usuario", "description": "¿Qué tan cómodo te sientes con tecnología?" },
-                "en": { "name": "User Experience", "description": "How comfortable are you with technology?" }
-              }
+                "es": {
+                  "name": "Período Contractual"
+                },
+                "en": {
+                  "name": "Contract Period"
+                }
+              },
+              "interactions": []
             }
           ]
         }
       ]
     },
     {
-      "id": "01930a1b-2c3d-7e4f-8a9b-5a2b3c4d5e6f",
-      "name": "Preferencias",
-      "tag": "preferences",
+      "id": "02940a1b-1000-7e4f-8a9b-000000000003",
+      "name": "Configuración Personal",
+      "tag": "personal_config",
       "description": null,
       "position": 3,
       "enabled": true,
       "parameters": {
-        "type_render": "tabs",
-        "tabs": {
-          "position": "top",
-          "lazy_load": false
+        "type_render": "collapsible",
+        "collapsible": {
+          "default_collapsed": false
         }
       },
       "render": {
-        "type": "tabs",
+        "type": "collapsible",
         "metadata": {
-          "position": "top",
-          "lazy_load": false
+          "default_collapsed": false
         }
       },
       "translations": {
-        "es": { "name": "Preferencias" },
-        "en": { "name": "Preferences" }
+        "es": {
+          "name": "Configuración Personal"
+        },
+        "en": {
+          "name": "Personal Configuration"
+        }
       },
       "groups": [
         {
-          "id": "01930a1b-2c3d-7e4f-8a9b-6a2b3c4d5e6f",
-          "name": "Selecciones",
-          "tag": "selections",
+          "id": "02940a1b-2000-7e4f-8a9b-000000000005",
+          "name": "Notificaciones",
+          "tag": "notifications_matrix",
           "description": null,
           "position": 1,
           "enabled": true,
           "parameters": {
             "type_render": "matrix",
             "matrix": {
-              "rows": ["Opción A", "Opción B"],
-              "cols": ["Lunes", "Miércoles", "Viernes"]
+              "rows": [
+                "Email",
+                "SMS",
+                "Push"
+              ],
+              "cols": [
+                "Diario",
+                "Semanal",
+                "Mensual"
+              ]
             }
           },
           "render": {
             "type": "matrix",
             "metadata": {
-              "rows": ["Opción A", "Opción B"],
-              "cols": ["Lunes", "Miércoles", "Viernes"]
+              "rows": [
+                "Email",
+                "SMS",
+                "Push"
+              ],
+              "cols": [
+                "Diario",
+                "Semanal",
+                "Mensual"
+              ]
             }
           },
           "translations": {
-            "es": { "name": "Selecciones" },
-            "en": { "name": "Selections" }
+            "es": {
+              "name": "Notificaciones"
+            },
+            "en": {
+              "name": "Notifications"
+            }
           },
           "fields": [
             {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000001",
-              "name": "Notificaciones Activas",
-              "tag": "notifications_enabled",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000013",
+              "name": "Notificaciones por Email",
+              "tag": "email_notifications",
               "type": "switch",
               "description": null,
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
-              "parameters": {},
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "variant": "solid",
+                "layout": "vertical"
+              },
               "position": 1,
               "enabled": true,
               "placeholder": null,
-              "defaultValue": true,
-              "style": ["lg:w-4/12"],
-              "options": [
-                { "value": "1", "text": "Sí", "tag": "yes", "icon": null, "color": null, "position": 1, "data": {} },
-                { "value": "0", "text": "No", "tag": "no", "icon": null, "color": null, "position": 2, "data": {} }
+              "default_value": true,
+              "style": [
+                "lg:w-4/12"
               ],
+              "options": [
+                {
+                  "value": "1",
+                  "label": "Sí",
+                  "tag": "yes",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "0",
+                  "label": "No",
+                  "tag": "no",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Notificaciones por Email"
+                },
+                "en": {
+                  "name": "Email Notifications"
+                }
+              },
               "interactions": [
                 {
                   "trigger": "change",
                   "action": "toggle_visibility",
-                  "target": "languages",
-                  "condition": { "operator": "truthy" },
+                  "target": "bio",
+                  "condition": {
+                    "operator": "truthy"
+                  },
                   "params": {}
                 },
                 {
                   "trigger": "change",
                   "action": "toggle_required",
-                  "target": "languages",
-                  "condition": { "operator": "truthy" },
+                  "target": "bio",
+                  "condition": {
+                    "operator": "truthy"
+                  },
                   "params": {}
+                }
+              ]
+            },
+            {
+              "id": "02940a1b-3000-7e4f-8a9b-000000000014",
+              "name": "Frecuencia de Notificación",
+              "tag": "notification_frequency",
+              "type": "radio",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "variant": "default",
+                "layout": "horizontal"
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": "daily",
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [
+                {
+                  "value": "daily",
+                  "label": "Diario",
+                  "tag": "daily",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "weekly",
+                  "label": "Semanal",
+                  "tag": "weekly",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "monthly",
+                  "label": "Mensual",
+                  "tag": "monthly",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
                 }
               ],
               "translations": {
-                "es": { "name": "Notificaciones Activas" },
-                "en": { "name": "Active Notifications" }
-              }
+                "es": {
+                  "name": "Frecuencia de Notificación"
+                },
+                "en": {
+                  "name": "Notification Frequency"
+                }
+              },
+              "interactions": []
             },
             {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000002",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000015",
               "name": "Satisfacción General",
               "tag": "satisfaction_rating",
               "type": "rating",
@@ -684,214 +1071,412 @@
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
-              },
-              "parameters": {},
-              "position": 2,
-              "enabled": true,
-              "placeholder": null,
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
-              "options": [
-                { "value": "1", "text": "Muy malo",   "tag": "very_bad",  "icon": "star", "color": "#ef4444", "position": 1, "data": {} },
-                { "value": "2", "text": "Malo",        "tag": "bad",       "icon": "star", "color": "#f97316", "position": 2, "data": {} },
-                { "value": "3", "text": "Regular",     "tag": "regular",   "icon": "star", "color": "#eab308", "position": 3, "data": {} },
-                { "value": "4", "text": "Bueno",       "tag": "good",      "icon": "star", "color": "#84cc16", "position": 4, "data": {} },
-                { "value": "5", "text": "Excelente",   "tag": "excellent", "icon": "star", "color": "#22c55e", "position": 5, "data": {} }
-              ],
-              "interactions": [
-                {
-                  "trigger": "change",
-                  "action": "toggle_visibility",
-                  "target": "bio",
-                  "condition": { "operator": "in", "value": [1, 2] },
-                  "params": {}
-                }
-              ],
-              "translations": {
-                "es": { "name": "Satisfacción General" },
-                "en": { "name": "Overall Satisfaction" }
-              }
-            },
-            {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000003",
-              "name": "País",
-              "tag": "country",
-              "type": "select",
-              "description": null,
-              "attributes": {
-                "required": true,
-                "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": true, "key": "country_id" },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
               "parameters": {
-                "searchable": true
+                "size": "md",
+                "color": "primary",
+                "max_stars": 5,
+                "half_star": false
               },
               "position": 3,
               "enabled": true,
-              "placeholder": "Selecciona un país",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
-              "options": [
-                { "value": "cl", "text": "Chile",     "tag": "cl", "icon": null, "color": null, "position": 1, "data": {} },
-                { "value": "ar", "text": "Argentina", "tag": "ar", "icon": null, "color": null, "position": 2, "data": {} },
-                { "value": "pe", "text": "Perú",      "tag": "pe", "icon": null, "color": null, "position": 3, "data": {} },
-                { "value": "co", "text": "Colombia",  "tag": "co", "icon": null, "color": null, "position": 4, "data": {} }
+              "placeholder": null,
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
               ],
-              "interactions": [
+              "options": [
                 {
-                  "trigger": "change",
-                  "action": "set_value",
-                  "target": "region",
-                  "condition": {},
-                  "params": { "value": null }
+                  "value": "1",
+                  "label": "Muy malo",
+                  "tag": "very_bad",
+                  "icon": "star",
+                  "color": "#ef4444",
+                  "position": 1,
+                  "data": {}
                 },
                 {
-                  "trigger": "change",
-                  "action": "filter_options",
-                  "target": "region",
-                  "condition": {},
-                  "params": {
-                    "mode": "client",
-                    "filter_key": "country_id"
-                  }
+                  "value": "2",
+                  "label": "Malo",
+                  "tag": "bad",
+                  "icon": "star",
+                  "color": "#f97316",
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "3",
+                  "label": "Regular",
+                  "tag": "regular",
+                  "icon": "star",
+                  "color": "#eab308",
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "4",
+                  "label": "Bueno",
+                  "tag": "good",
+                  "icon": "star",
+                  "color": "#84cc16",
+                  "position": 4,
+                  "data": {}
+                },
+                {
+                  "value": "5",
+                  "label": "Excelente",
+                  "tag": "excellent",
+                  "icon": "star",
+                  "color": "#22c55e",
+                  "position": 5,
+                  "data": {}
                 }
               ],
               "translations": {
-                "es": { "name": "País", "placeholder": "Selecciona un país" },
-                "en": { "name": "Country", "placeholder": "Select a country" }
-              }
+                "es": {
+                  "name": "Satisfacción General"
+                },
+                "en": {
+                  "name": "Overall Satisfaction"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        },
+        {
+          "id": "02940a1b-2000-7e4f-8a9b-000000000006",
+          "name": "Preferencias de Presentación",
+          "tag": "display_prefs",
+          "description": null,
+          "position": 2,
+          "enabled": true,
+          "parameters": {
+            "type_render": "tabs",
+            "tabs": {
+              "position": "top",
+              "lazy_load": true
+            }
+          },
+          "render": {
+            "type": "tabs",
+            "metadata": {
+              "position": "top",
+              "lazy_load": true
+            }
+          },
+          "translations": {
+            "es": {
+              "name": "Preferencias de Presentación"
             },
+            "en": {
+              "name": "Display Preferences"
+            }
+          },
+          "fields": [
             {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000004",
-              "name": "Región",
-              "tag": "region",
-              "type": "select",
-              "description": null,
+              "id": "02940a1b-3000-7e4f-8a9b-000000000016",
+              "name": "Experiencia Profesional",
+              "tag": "work_experience",
+              "type": "range",
+              "description": "Años de experiencia en el área",
               "attributes": {
-                "required": true,
+                "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
               "parameters": {
-                "searchable": true
+                "size": "md",
+                "color": "primary",
+                "min": 0,
+                "max": 30,
+                "step": 1,
+                "show_steps": true
               },
-              "position": 4,
+              "position": 1,
               "enabled": true,
-              "placeholder": "Selecciona una región",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
-              "options": [
-                { "value": "rm", "text": "Región Metropolitana", "tag": "rm", "icon": null, "color": null, "position": 1, "data": { "group": "Centro", "country_id": "cl" } },
-                { "value": "v",  "text": "Valparaíso",           "tag": "v",  "icon": null, "color": null, "position": 2, "data": { "group": "Centro", "country_id": "cl" } },
-                { "value": "i",  "text": "Tarapacá",             "tag": "i",  "icon": null, "color": null, "position": 3, "data": { "group": "Norte",  "country_id": "cl" } },
-                { "value": "ba", "text": "Buenos Aires",         "tag": "ba", "icon": null, "color": null, "position": 4, "data": { "group": "Centro", "country_id": "ar" } },
-                { "value": "li", "text": "Lima",                 "tag": "li", "icon": null, "color": null, "position": 5, "data": { "group": "Costa",  "country_id": "pe" } }
+              "placeholder": null,
+              "default_value": 0,
+              "style": [
+                "lg:w-6/12"
               ],
-              "interactions": [],
+              "options": [],
               "translations": {
-                "es": { "name": "Región", "placeholder": "Selecciona una región" },
-                "en": { "name": "Region", "placeholder": "Select a region" }
-              }
+                "es": {
+                  "name": "Experiencia Profesional",
+                  "description": "Años de experiencia en el área"
+                },
+                "en": {
+                  "name": "Professional Experience",
+                  "description": "Years of experience in the area"
+                }
+              },
+              "interactions": []
             },
             {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000005",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000017",
+              "name": "Foto de Perfil",
+              "tag": "profile_photo",
+              "type": "file",
+              "description": "JPG o PNG, máximo 2MB",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "edit": {
+                    "required": true
+                  }
+                }
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "multiple": false
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Foto de Perfil",
+                  "description": "JPG o PNG, máximo 2MB"
+                },
+                "en": {
+                  "name": "Profile Photo",
+                  "description": "JPG or PNG, max 2MB"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "02940a1b-3000-7e4f-8a9b-000000000018",
+              "name": "Biografía",
+              "tag": "bio",
+              "type": "textarea",
+              "description": "Cuéntanos sobre ti",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "icon_leading": null,
+                "icon_trailing": null
+              },
+              "position": 3,
+              "enabled": true,
+              "placeholder": "Escribe una breve descripción...",
+              "default_value": null,
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Biografía",
+                  "description": "Cuéntanos sobre ti",
+                  "placeholder": "Escribe una breve descripción..."
+                },
+                "en": {
+                  "name": "Biography",
+                  "description": "Tell us about yourself",
+                  "placeholder": "Write a short description..."
+                }
+              },
+              "interactions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02940a1b-1000-7e4f-8a9b-000000000004",
+      "name": "Habilidades y Acceso",
+      "tag": "skills_access",
+      "description": null,
+      "position": 4,
+      "enabled": true,
+      "parameters": {
+        "type_render": "default",
+        "tabs": {
+          "position": "top",
+          "lazy_load": false
+        }
+      },
+      "render": {
+        "type": "default",
+        "metadata": {
+          "position": "top",
+          "lazy_load": false
+        }
+      },
+      "translations": {
+        "es": {
+          "name": "Habilidades y Acceso"
+        },
+        "en": {
+          "name": "Skills & Access"
+        }
+      },
+      "groups": [
+        {
+          "id": "02940a1b-2000-7e4f-8a9b-000000000007",
+          "name": "Competencias",
+          "tag": "competencies",
+          "description": null,
+          "position": 1,
+          "enabled": true,
+          "parameters": {
+            "type_render": "default"
+          },
+          "render": {
+            "type": "default",
+            "metadata": {}
+          },
+          "translations": {
+            "es": {
+              "name": "Competencias"
+            },
+            "en": {
+              "name": "Competencies"
+            }
+          },
+          "fields": [
+            {
+              "id": "02940a1b-3000-7e4f-8a9b-000000000019",
               "name": "Idiomas que habla",
               "tag": "languages",
-              "type": "select",
+              "type": "select-multiple",
               "description": null,
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "create": {
+                    "required": true
+                  }
+                }
               },
               "parameters": {
-                "multiple": true,
-                "searchable": true
+                "size": "md",
+                "searchable": true,
+                "tags_mode": false,
+                "search_limit": null,
+                "min_search_length": null,
+                "max_count_items": 5
               },
-              "position": 5,
+              "position": 1,
               "enabled": true,
               "placeholder": "Selecciona idiomas",
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
-              "options": [
-                { "value": "es", "text": "Español",   "tag": "es", "icon": null, "color": null, "position": 1, "data": {} },
-                { "value": "en", "text": "Inglés",    "tag": "en", "icon": null, "color": null, "position": 2, "data": {} },
-                { "value": "pt", "text": "Portugués", "tag": "pt", "icon": null, "color": null, "position": 3, "data": {} },
-                { "value": "fr", "text": "Francés",   "tag": "fr", "icon": null, "color": null, "position": 4, "data": {} }
+              "default_value": [],
+              "style": [
+                "lg:w-6/12"
               ],
-              "interactions": [],
-              "translations": {
-                "es": { "name": "Idiomas que habla", "placeholder": "Selecciona idiomas" },
-                "en": { "name": "Spoken Languages", "placeholder": "Select languages" }
-              }
-            },
-            {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000006",
-              "name": "Género",
-              "tag": "gender",
-              "type": "radio",
-              "description": null,
-              "attributes": {
-                "required": true,
-                "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
-              },
-              "parameters": {},
-              "position": 6,
-              "enabled": true,
-              "placeholder": null,
-              "defaultValue": null,
-              "style": ["lg:w-6/12"],
               "options": [
-                { "value": "male",       "text": "Masculino",           "tag": "male",       "icon": null, "color": null, "position": 1, "data": {} },
-                { "value": "female",     "text": "Femenino",            "tag": "female",     "icon": null, "color": null, "position": 2, "data": {} },
-                { "value": "other",      "text": "Otro",                "tag": "other",      "icon": null, "color": null, "position": 3, "data": {} },
-                { "value": "prefer_not", "text": "Prefiero no indicar", "tag": "prefer_not", "icon": null, "color": null, "position": 4, "data": {} }
-              ],
-              "interactions": [
                 {
-                  "trigger": "change",
-                  "action": "toggle_visibility",
-                  "target": "interests",
-                  "condition": { "operator": "not_equals", "value": "prefer_not" },
-                  "params": {}
+                  "value": "es",
+                  "label": "Español",
+                  "tag": "es",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
                 },
                 {
-                  "trigger": "change",
-                  "action": "toggle_required",
-                  "target": "bio",
-                  "condition": { "operator": "not_in", "value": ["prefer_not"] },
-                  "params": {}
+                  "value": "en",
+                  "label": "Inglés",
+                  "tag": "en",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "pt",
+                  "label": "Portugués",
+                  "tag": "pt",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "fr",
+                  "label": "Francés",
+                  "tag": "fr",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
                 }
               ],
               "translations": {
-                "es": { "name": "Género" },
-                "en": { "name": "Gender" }
-              }
+                "es": {
+                  "name": "Idiomas que habla",
+                  "placeholder": "Selecciona idiomas"
+                },
+                "en": {
+                  "name": "Spoken Languages",
+                  "placeholder": "Select languages"
+                }
+              },
+              "interactions": []
             },
             {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000007",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000020",
               "name": "Intereses",
               "tag": "interests",
               "type": "checkbox",
@@ -899,117 +1484,303 @@
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
-              "parameters": {},
-              "position": 7,
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "layout": "vertical"
+              },
+              "position": 2,
               "enabled": true,
               "placeholder": null,
-              "defaultValue": null,
-              "style": ["lg:w-full"],
-              "options": [
-                { "value": "tech",   "text": "Tecnología", "tag": "tech",   "icon": null, "color": null, "position": 1, "data": {} },
-                { "value": "sports", "text": "Deportes",   "tag": "sports", "icon": null, "color": null, "position": 2, "data": {} },
-                { "value": "music",  "text": "Música",     "tag": "music",  "icon": null, "color": null, "position": 3, "data": {} },
-                { "value": "travel", "text": "Viajes",     "tag": "travel", "icon": null, "color": null, "position": 4, "data": {} }
+              "default_value": null,
+              "style": [
+                "lg:w-full"
               ],
-              "interactions": [],
+              "options": [
+                {
+                  "value": "tech",
+                  "label": "Tecnología",
+                  "tag": "tech",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "sports",
+                  "label": "Deportes",
+                  "tag": "sports",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "music",
+                  "label": "Música",
+                  "tag": "music",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "travel",
+                  "label": "Viajes",
+                  "tag": "travel",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
+                }
+              ],
               "translations": {
-                "es": { "name": "Intereses", "description": "Selecciona todos los que apliquen" },
-                "en": { "name": "Interests", "description": "Select all that apply" }
-              }
+                "es": {
+                  "name": "Intereses",
+                  "description": "Selecciona todos los que apliquen"
+                },
+                "en": {
+                  "name": "Interests",
+                  "description": "Select all that apply"
+                }
+              },
+              "interactions": []
             },
             {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000008",
-              "name": "Habilidades asignadas",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000021",
+              "name": "Habilidades Asignadas",
               "tag": "assigned_skills",
               "type": "duallist",
               "description": "Mueve las habilidades que aplican a la derecha",
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
               "parameters": {
+                "size": "md",
+                "searchable": true,
                 "source_label": "Disponibles",
-                "target_label": "Asignadas"
+                "target_label": "Asignadas",
+                "show_move_all_buttons": true
               },
-              "position": 8,
+              "position": 3,
               "enabled": true,
               "placeholder": null,
-              "defaultValue": [],
-              "style": ["lg:w-full"],
-              "options": [
-                { "value": "php",        "text": "PHP",        "tag": "php",        "icon": null, "color": null, "position": 1, "data": {} },
-                { "value": "js",         "text": "JavaScript", "tag": "js",         "icon": null, "color": null, "position": 2, "data": {} },
-                { "value": "python",     "text": "Python",     "tag": "python",     "icon": null, "color": null, "position": 3, "data": {} },
-                { "value": "typescript", "text": "TypeScript", "tag": "typescript", "icon": null, "color": null, "position": 4, "data": {} }
+              "default_value": [],
+              "style": [
+                "lg:w-full"
               ],
-              "interactions": [],
+              "options": [
+                {
+                  "value": "php",
+                  "label": "PHP",
+                  "tag": "php",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "js",
+                  "label": "JavaScript",
+                  "tag": "js",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "python",
+                  "label": "Python",
+                  "tag": "python",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "typescript",
+                  "label": "TypeScript",
+                  "tag": "typescript",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
+                }
+              ],
               "translations": {
-                "es": { "name": "Habilidades asignadas", "description": "Mueve las habilidades que aplican a la derecha" },
-                "en": { "name": "Assigned Skills", "description": "Move applicable skills to the right" }
-              }
+                "es": {
+                  "name": "Habilidades Asignadas",
+                  "description": "Mueve las habilidades que aplican a la derecha"
+                },
+                "en": {
+                  "name": "Assigned Skills",
+                  "description": "Move applicable skills to the right"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        },
+        {
+          "id": "02940a1b-2000-7e4f-8a9b-000000000008",
+          "name": "Control de Acceso",
+          "tag": "access_control",
+          "description": null,
+          "position": 2,
+          "enabled": true,
+          "parameters": {
+            "type_render": "default"
+          },
+          "render": {
+            "type": "default",
+            "metadata": {}
+          },
+          "translations": {
+            "es": {
+              "name": "Control de Acceso"
             },
+            "en": {
+              "name": "Access Control"
+            }
+          },
+          "fields": [
             {
-              "id": "01930a1b-0003-7e4f-8a9b-000000000009",
+              "id": "02940a1b-3000-7e4f-8a9b-000000000022",
               "name": "Estructura de Carpetas",
-              "tag": "folder_tree",
+              "tag": "folder_access",
               "type": "tree",
               "description": "Selecciona las carpetas a las que tendrás acceso",
               "attributes": {
                 "required": false,
                 "readonly": false,
-                "unique": { "enabled": false, "entity": null, "method": null },
-                "filter": { "enabled": false, "key": null },
-                "show": true,
-                "edit": true,
-                "create": true
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
               },
               "parameters": {
                 "selection_mode": "checkbox",
+                "auto_select_children": true,
                 "expanded_by_default": true
               },
-              "position": 9,
+              "position": 1,
               "enabled": true,
               "placeholder": null,
-              "defaultValue": [],
-              "style": ["lg:w-6/12"],
+              "default_value": [],
+              "style": [
+                "lg:w-6/12"
+              ],
               "options": [
                 {
-                  "value": "docs", "text": "Documentos", "tag": "docs", "icon": "tabler--folder", "color": null, "position": 1,
+                  "value": "docs",
+                  "label": "Documentos",
+                  "tag": "docs",
+                  "icon": "tabler--folder",
+                  "color": null,
+                  "position": 1,
                   "data": {
                     "is_dir": true,
                     "children": [
-                      { "value": "docs_contracts", "text": "Contratos",  "tag": "docs_contracts", "icon": "tabler--file", "color": null, "position": 1, "data": { "is_dir": false } },
-                      { "value": "docs_reports",   "text": "Reportes",   "tag": "docs_reports",   "icon": "tabler--file", "color": null, "position": 2, "data": { "is_dir": false } }
+                      {
+                        "value": "docs_contracts",
+                        "label": "Contratos",
+                        "tag": "docs_contracts",
+                        "icon": "tabler--file",
+                        "color": null,
+                        "position": 1,
+                        "data": {
+                          "is_dir": false
+                        }
+                      },
+                      {
+                        "value": "docs_reports",
+                        "label": "Reportes",
+                        "tag": "docs_reports",
+                        "icon": "tabler--file",
+                        "color": null,
+                        "position": 2,
+                        "data": {
+                          "is_dir": false
+                        }
+                      }
                     ]
                   }
                 },
                 {
-                  "value": "media", "text": "Multimedia", "tag": "media", "icon": "tabler--folder", "color": null, "position": 2,
+                  "value": "media",
+                  "label": "Multimedia",
+                  "tag": "media",
+                  "icon": "tabler--folder",
+                  "color": null,
+                  "position": 2,
                   "data": {
                     "is_dir": true,
                     "children": [
-                      { "value": "media_images", "text": "Imágenes", "tag": "media_images", "icon": "tabler--photo", "color": null, "position": 1, "data": { "is_dir": false } },
-                      { "value": "media_videos",  "text": "Videos",   "tag": "media_videos",  "icon": "tabler--video", "color": null, "position": 2, "data": { "is_dir": false } }
+                      {
+                        "value": "media_images",
+                        "label": "Imágenes",
+                        "tag": "media_images",
+                        "icon": "tabler--photo",
+                        "color": null,
+                        "position": 1,
+                        "data": {
+                          "is_dir": false
+                        }
+                      },
+                      {
+                        "value": "media_videos",
+                        "label": "Videos",
+                        "tag": "media_videos",
+                        "icon": "tabler--video",
+                        "color": null,
+                        "position": 2,
+                        "data": {
+                          "is_dir": false
+                        }
+                      }
                     ]
                   }
                 }
               ],
-              "interactions": [],
               "translations": {
-                "es": { "name": "Estructura de Carpetas", "description": "Selecciona las carpetas a las que tendrás acceso" },
-                "en": { "name": "Folder Structure", "description": "Select the folders you will have access to" }
-              }
+                "es": {
+                  "name": "Estructura de Carpetas",
+                  "description": "Selecciona las carpetas a las que tendrás acceso"
+                },
+                "en": {
+                  "name": "Folder Structure",
+                  "description": "Select the folders you will have access to"
+                }
+              },
+              "interactions": []
             }
           ]
         }

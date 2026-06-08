@@ -46,7 +46,7 @@ final class OptionsResolverTest extends TestCase
     #[Test]
     public function testDelegatesResolveToSource(): void
     {
-        $option = new OptionDTO(value: 1, text: 'Option 1');
+        $option = new OptionDTO(value: 1, label: 'Option 1');
         $source = $this->createMock(OptionsSourceInterface::class);
         $source->expects(self::once())
             ->method('resolve')

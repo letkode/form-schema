@@ -12,18 +12,17 @@ use Letkode\FormSchema\Domain\Entity\FormField;
 use Letkode\FormSchema\Domain\Entity\FormGroup;
 use Letkode\FormSchema\Domain\Entity\FormSection;
 use Letkode\FormSchema\Domain\Exception\FormNotFoundException;
-use Letkode\FormSchema\Domain\Exception\UnknownContextException;
 use Letkode\FormSchema\Domain\Repository\FormRepositoryInterface;
 use Letkode\FormSchema\Infrastructure\FieldType\StringFieldType;
-use Letkode\FormSchema\Infrastructure\FormRender\SimpleFormRender;
-use Letkode\FormSchema\Infrastructure\GroupRender\SimpleGroupRender;
+use Letkode\FormSchema\Infrastructure\FormRender\DefaultFormRender;
+use Letkode\FormSchema\Infrastructure\GroupRender\DefaultGroupRender;
 use Letkode\FormSchema\Infrastructure\Registry\FieldTypeRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\FormRenderRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\GroupRenderRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\InteractionHandlerRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\OptionsSourceRegistry;
 use Letkode\FormSchema\Infrastructure\Registry\SectionRenderRegistry;
-use Letkode\FormSchema\Infrastructure\SectionRender\SimpleSectionRender;
+use Letkode\FormSchema\Infrastructure\SectionRender\DefaultSectionRender;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -38,9 +37,9 @@ final class FormSchemaResolverTest extends TestCase
         $this->formRepository = $this->createMock(FormRepositoryInterface::class);
 
         $fieldTypeRegistry = new FieldTypeRegistry(new \ArrayIterator([new StringFieldType()]));
-        $formRenderRegistry = new FormRenderRegistry(new \ArrayIterator([new SimpleFormRender()]));
-        $sectionRenderRegistry = new SectionRenderRegistry(new \ArrayIterator([new SimpleSectionRender()]));
-        $groupRenderRegistry = new GroupRenderRegistry(new \ArrayIterator([new SimpleGroupRender()]));
+        $formRenderRegistry = new FormRenderRegistry(new \ArrayIterator([new DefaultFormRender()]));
+        $sectionRenderRegistry = new SectionRenderRegistry(new \ArrayIterator([new DefaultSectionRender()]));
+        $groupRenderRegistry = new GroupRenderRegistry(new \ArrayIterator([new DefaultGroupRender()]));
         $optionsSourceRegistry = new OptionsSourceRegistry(new \ArrayIterator([]));
         $optionsResolver = new OptionsResolver($optionsSourceRegistry);
         $interactionHandlerRegistry = new InteractionHandlerRegistry(new \ArrayIterator([]));
@@ -114,13 +113,14 @@ final class FormSchemaResolverTest extends TestCase
     }
 
     #[Test]
-    public function testWithContextThrowsForUnknownContext(): void
+    public function testWithContextUnknownContextIncludesField(): void
     {
         $this->formRepository->method('findOneByTag')->willReturn($this->buildSimpleForm());
 
-        $this->expectException(UnknownContextException::class);
+        $dto = $this->resolver->schema('test_form')->withContext('nonexistent_context')->resolve();
 
-        $this->resolver->schema('test_form')->withContext('nonexistent_context')->resolve();
+        $fieldDTOs = $dto->sections[0]->groups[0]->fields;
+        self::assertCount(1, $fieldDTOs, 'Unknown context should not exclude fields');
     }
 
     #[Test]
@@ -130,15 +130,32 @@ final class FormSchemaResolverTest extends TestCase
         $section = $form->sections->first();
         $group = $section->groups->first();
         $field = $group->fields->first();
-        $field->attributes = ['create' => false];
+        $field->attributes = ['actions' => ['create' => ['enabled' => false]]];
 
         $this->formRepository->method('findOneByTag')->willReturn($form);
 
         $dto = $this->resolver->schema('test_form')->withContext('create')->resolve();
 
-        $groupDTOs = $dto->sections[0]->groups;
-        $fieldDTOs = $groupDTOs[0]->fields;
-        self::assertEmpty($fieldDTOs, 'Field with create=false should be excluded in create context');
+        $fieldDTOs = $dto->sections[0]->groups[0]->fields;
+        self::assertEmpty($fieldDTOs, 'Field with actions.create.enabled=false should be excluded in create context');
+    }
+
+    #[Test]
+    public function testWithContextAppliesRequiredOverride(): void
+    {
+        $form = $this->buildSimpleForm();
+        $section = $form->sections->first();
+        $group = $section->groups->first();
+        $field = $group->fields->first();
+        $field->attributes = ['required' => false, 'actions' => ['edit' => ['required' => true]]];
+
+        $this->formRepository->method('findOneByTag')->willReturn($form);
+
+        $dto = $this->resolver->schema('test_form')->withContext('edit')->resolve();
+
+        $fieldDTOs = $dto->sections[0]->groups[0]->fields;
+        self::assertCount(1, $fieldDTOs);
+        self::assertTrue($fieldDTOs[0]->attributes['required']);
     }
 
     #[Test]

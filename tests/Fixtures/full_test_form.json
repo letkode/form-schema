@@ -1,0 +1,2351 @@
+{
+  "id": "aaaabbbb-0000-0000-0000-000000000001",
+  "name": "Formulario de Prueba Integral",
+  "tag": "full_test_form",
+  "locale": "es",
+  "default_locale": "es",
+  "enabled": true,
+  "parameters": {
+    "type_render": "stepper",
+    "stepper": {
+      "navigation": "horizontal",
+      "show_progress": true,
+      "allow_skip": false
+    }
+  },
+  "render": {
+    "type": "stepper",
+    "metadata": {
+      "navigation": "horizontal",
+      "show_progress": true,
+      "allow_skip": false
+    }
+  },
+  "translations": {
+    "es": {
+      "name": "Formulario de Prueba Integral",
+      "description": "Cubre todos los tipos de campo e interacciones"
+    },
+    "en": {
+      "name": "Comprehensive Test Form",
+      "description": "Covers all field types and interactions"
+    }
+  },
+  "sections": [
+    {
+      "id": "aaaabbbb-1001-0000-0000-000000000001",
+      "name": "Datos Personales",
+      "tag": "personal_data",
+      "description": "Identidad, contacto y credenciales de acceso",
+      "position": 1,
+      "enabled": true,
+      "parameters": {
+        "type_render": "default"
+      },
+      "render": {
+        "type": "default",
+        "metadata": {}
+      },
+      "translations": {
+        "es": {
+          "name": "Datos Personales",
+          "description": "Identidad, contacto y credenciales de acceso"
+        },
+        "en": {
+          "name": "Personal Data",
+          "description": "Identity, contact and access credentials"
+        }
+      },
+      "groups": [
+        {
+          "id": "aaaabbbb-2001-0000-0000-000000000001",
+          "name": "Información de Contacto",
+          "tag": "contact_info",
+          "description": null,
+          "position": 1,
+          "enabled": true,
+          "parameters": {
+            "type_render": "default"
+          },
+          "render": {
+            "type": "default",
+            "metadata": {}
+          },
+          "translations": {
+            "es": {
+              "name": "Información de Contacto"
+            },
+            "en": {
+              "name": "Contact Information"
+            }
+          },
+          "fields": [
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000001",
+              "name": "Nombre",
+              "tag": "first_name",
+              "type": "string",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": "Ej: Juan",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Nombre",
+                  "placeholder": "Ej: Juan"
+                },
+                "en": {
+                  "name": "First Name",
+                  "placeholder": "E.g. John"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000002",
+              "name": "Apellido",
+              "tag": "last_name",
+              "type": "string",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": "Ej: Pérez",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Apellido",
+                  "placeholder": "Ej: Pérez"
+                },
+                "en": {
+                  "name": "Last Name",
+                  "placeholder": "E.g. Smith"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000003",
+              "name": "Correo Electrónico",
+              "tag": "email",
+              "type": "email",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": true,
+                  "entity": "App\\Entity\\User",
+                  "method": "findOneByEmail"
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "edit": {
+                    "readonly": true
+                  }
+                }
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 3,
+              "enabled": true,
+              "placeholder": "usuario@ejemplo.com",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Correo Electrónico",
+                  "placeholder": "usuario@ejemplo.com"
+                },
+                "en": {
+                  "name": "Email Address",
+                  "placeholder": "user@example.com"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "blur",
+                  "action": "ajax_validate",
+                  "target": null,
+                  "condition": {},
+                  "params": {
+                    "endpoint": "/api/validate/email",
+                    "method": "POST",
+                    "debounce": 400
+                  }
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000004",
+              "name": "Teléfono",
+              "tag": "phone",
+              "type": "phone",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 4,
+              "enabled": true,
+              "placeholder": "+56 9 1234 5678",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Teléfono",
+                  "placeholder": "+56 9 1234 5678"
+                },
+                "en": {
+                  "name": "Phone",
+                  "placeholder": "+1 555 000 0000"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000005",
+              "name": "Fecha de Nacimiento",
+              "tag": "birth_date",
+              "type": "date",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 5,
+              "enabled": true,
+              "placeholder": "DD/MM/YYYY",
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Fecha de Nacimiento"
+                },
+                "en": {
+                  "name": "Birth Date"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "set_date_constraint",
+                  "target": "contract_period",
+                  "condition": {},
+                  "params": {
+                    "constraint": "min"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000006",
+              "name": "Token de Referido",
+              "tag": "ref_token",
+              "type": "hidden",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 6,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": null,
+              "style": [],
+              "options": [],
+              "translations": {},
+              "interactions": []
+            }
+          ]
+        },
+        {
+          "id": "aaaabbbb-2001-0000-0000-000000000002",
+          "name": "Credenciales de Seguridad",
+          "tag": "security_credentials",
+          "description": null,
+          "position": 2,
+          "enabled": true,
+          "parameters": {
+            "type_render": "fieldset",
+            "legend": true,
+            "legend_custom": null
+          },
+          "render": {
+            "type": "fieldset",
+            "metadata": {
+              "legend": true,
+              "legend_custom": null
+            }
+          },
+          "translations": {
+            "es": {
+              "name": "Credenciales de Seguridad"
+            },
+            "en": {
+              "name": "Security Credentials"
+            }
+          },
+          "fields": [
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000007",
+              "name": "Contraseña",
+              "tag": "password",
+              "type": "password",
+              "description": "Mínimo 8 caracteres con mayúsculas, números y símbolos",
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "show": {
+                    "enabled": false
+                  }
+                }
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "show_strength": true,
+                "min_length": 8,
+                "checks_exclude": []
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": "••••••••",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Contraseña",
+                  "description": "Mínimo 8 caracteres con mayúsculas, números y símbolos"
+                },
+                "en": {
+                  "name": "Password",
+                  "description": "Min 8 chars with uppercase, numbers and symbols"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3001-0000-0000-000000000008",
+              "name": "PIN de Acceso",
+              "tag": "access_pin",
+              "type": "pin",
+              "description": "Código numérico de 4 dígitos",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "show": {
+                    "enabled": false
+                  }
+                }
+              },
+              "parameters": {
+                "size": "md",
+                "variant": "outline",
+                "length": 4,
+                "input_type": "password",
+                "chars_pattern": "^[0-9]+$"
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "PIN de Acceso",
+                  "description": "Código numérico de 4 dígitos"
+                },
+                "en": {
+                  "name": "Access PIN",
+                  "description": "4-digit numeric code"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aaaabbbb-1002-0000-0000-000000000001",
+      "name": "Información Laboral",
+      "tag": "work_info",
+      "description": null,
+      "position": 2,
+      "enabled": true,
+      "parameters": {
+        "type_render": "default",
+        "tabs": {
+          "position": "top",
+          "lazy_load": true
+        }
+      },
+      "render": {
+        "type": "default",
+        "metadata": {
+          "position": "top",
+          "lazy_load": true
+        }
+      },
+      "translations": {
+        "es": {
+          "name": "Información Laboral"
+        },
+        "en": {
+          "name": "Work Information"
+        }
+      },
+      "groups": [
+        {
+          "id": "aaaabbbb-2002-0000-0000-000000000001",
+          "name": "Posición y Ubicación",
+          "tag": "position_location",
+          "description": null,
+          "position": 1,
+          "enabled": true,
+          "parameters": {
+            "type_render": "default"
+          },
+          "render": {
+            "type": "default",
+            "metadata": {}
+          },
+          "translations": {
+            "es": {
+              "name": "Posición y Ubicación"
+            },
+            "en": {
+              "name": "Position & Location"
+            }
+          },
+          "fields": [
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000001",
+              "name": "País",
+              "tag": "country",
+              "type": "select",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "searchable": true,
+                "tags_mode": false,
+                "search_limit": null,
+                "min_search_length": null
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": "Selecciona un país",
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [
+                {
+                  "value": "cl",
+                  "label": "Chile",
+                  "tag": "cl",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "ar",
+                  "label": "Argentina",
+                  "tag": "ar",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "co",
+                  "label": "Colombia",
+                  "tag": "co",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "mx",
+                  "label": "México",
+                  "tag": "mx",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "País",
+                  "placeholder": "Selecciona un país"
+                },
+                "en": {
+                  "name": "Country",
+                  "placeholder": "Select a country"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "set_value",
+                  "target": "city",
+                  "condition": {},
+                  "params": {
+                    "value": null
+                  }
+                },
+                {
+                  "trigger": "change",
+                  "action": "filter_options",
+                  "target": "city",
+                  "condition": {},
+                  "params": {
+                    "mode": "server",
+                    "filter_param": "country_id"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000002",
+              "name": "Ciudad",
+              "tag": "city",
+              "type": "select",
+              "description": "Se filtra según el país seleccionado",
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "searchable": true,
+                "tags_mode": false,
+                "search_limit": null,
+                "min_search_length": null
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": "Selecciona una ciudad",
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Ciudad",
+                  "description": "Se filtra según el país seleccionado",
+                  "placeholder": "Selecciona una ciudad"
+                },
+                "en": {
+                  "name": "City",
+                  "description": "Filtered by selected country",
+                  "placeholder": "Select a city"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000003",
+              "name": "Departamento",
+              "tag": "department",
+              "type": "select",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "searchable": true,
+                "tags_mode": false,
+                "search_limit": null,
+                "min_search_length": null
+              },
+              "position": 3,
+              "enabled": true,
+              "placeholder": "Selecciona un departamento",
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [
+                {
+                  "value": "engineering",
+                  "label": "Ingeniería",
+                  "tag": "engineering",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "product",
+                  "label": "Producto",
+                  "tag": "product",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "design",
+                  "label": "Diseño",
+                  "tag": "design",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "hr",
+                  "label": "Recursos Humanos",
+                  "tag": "hr",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Departamento",
+                  "placeholder": "Selecciona un departamento"
+                },
+                "en": {
+                  "name": "Department",
+                  "placeholder": "Select a department"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "set_value",
+                  "target": "position_level",
+                  "condition": {},
+                  "params": {
+                    "value": null
+                  }
+                },
+                {
+                  "trigger": "change",
+                  "action": "filter_options",
+                  "target": "position_level",
+                  "condition": {},
+                  "params": {
+                    "mode": "client",
+                    "filter_key": "department"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000004",
+              "name": "Nivel del Cargo",
+              "tag": "position_level",
+              "type": "select",
+              "description": "Se filtra según el departamento",
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "searchable": false,
+                "tags_mode": false,
+                "search_limit": null,
+                "min_search_length": null
+              },
+              "position": 4,
+              "enabled": true,
+              "placeholder": "Selecciona el nivel",
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [
+                {
+                  "value": "junior",
+                  "label": "Junior",
+                  "tag": "junior",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {
+                    "department": "engineering"
+                  }
+                },
+                {
+                  "value": "semi",
+                  "label": "Semi Senior",
+                  "tag": "semi",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {
+                    "department": "engineering"
+                  }
+                },
+                {
+                  "value": "senior",
+                  "label": "Senior",
+                  "tag": "senior",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {
+                    "department": "engineering"
+                  }
+                },
+                {
+                  "value": "tech_lead",
+                  "label": "Tech Lead",
+                  "tag": "tech_lead",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {
+                    "department": "engineering"
+                  }
+                },
+                {
+                  "value": "pm_jr",
+                  "label": "PM Junior",
+                  "tag": "pm_jr",
+                  "icon": null,
+                  "color": null,
+                  "position": 5,
+                  "data": {
+                    "department": "product"
+                  }
+                },
+                {
+                  "value": "pm_sr",
+                  "label": "PM Senior",
+                  "tag": "pm_sr",
+                  "icon": null,
+                  "color": null,
+                  "position": 6,
+                  "data": {
+                    "department": "product"
+                  }
+                },
+                {
+                  "value": "ux_jr",
+                  "label": "UX Junior",
+                  "tag": "ux_jr",
+                  "icon": null,
+                  "color": null,
+                  "position": 7,
+                  "data": {
+                    "department": "design"
+                  }
+                },
+                {
+                  "value": "ux_sr",
+                  "label": "UX Senior",
+                  "tag": "ux_sr",
+                  "icon": null,
+                  "color": null,
+                  "position": 8,
+                  "data": {
+                    "department": "design"
+                  }
+                },
+                {
+                  "value": "hr_anl",
+                  "label": "Analista RRHH",
+                  "tag": "hr_anl",
+                  "icon": null,
+                  "color": null,
+                  "position": 9,
+                  "data": {
+                    "department": "hr"
+                  }
+                },
+                {
+                  "value": "hr_mgr",
+                  "label": "Gerente RRHH",
+                  "tag": "hr_mgr",
+                  "icon": null,
+                  "color": null,
+                  "position": 10,
+                  "data": {
+                    "department": "hr"
+                  }
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Nivel del Cargo",
+                  "description": "Se filtra según el departamento",
+                  "placeholder": "Selecciona el nivel"
+                },
+                "en": {
+                  "name": "Position Level",
+                  "description": "Filtered by department",
+                  "placeholder": "Select level"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000005",
+              "name": "Rol de Trabajo",
+              "tag": "job_role",
+              "type": "combobox",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "open_on_focus": true,
+                "min_search_length": 2,
+                "api_url": "/api/job-roles"
+              },
+              "position": 5,
+              "enabled": true,
+              "placeholder": "Busca o escribe el rol...",
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Rol de Trabajo",
+                  "placeholder": "Busca o escribe el rol..."
+                },
+                "en": {
+                  "name": "Job Role",
+                  "placeholder": "Search or type the role..."
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000006",
+              "name": "Fecha y Hora de Inicio",
+              "tag": "start_datetime",
+              "type": "datetime",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 6,
+              "enabled": true,
+              "placeholder": "DD/MM/YYYY HH:MM",
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Fecha y Hora de Inicio"
+                },
+                "en": {
+                  "name": "Start Date & Time"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000007",
+              "name": "Período de Contrato",
+              "tag": "contract_period",
+              "type": "date-range",
+              "description": "La fecha mínima se ajusta según la fecha de nacimiento",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default"
+              },
+              "position": 7,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": {
+                "from": null,
+                "to": null
+              },
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Período de Contrato",
+                  "description": "La fecha mínima se ajusta según la fecha de nacimiento"
+                },
+                "en": {
+                  "name": "Contract Period",
+                  "description": "Min date adjusted by birth date"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        },
+        {
+          "id": "aaaabbbb-2002-0000-0000-000000000002",
+          "name": "Preferencias y Evaluación",
+          "tag": "prefs_matrix",
+          "description": null,
+          "position": 2,
+          "enabled": true,
+          "parameters": {
+            "type_render": "matrix",
+            "matrix": {
+              "rows": [
+                "Email",
+                "SMS",
+                "Push"
+              ],
+              "cols": [
+                "Inmediato",
+                "Diario",
+                "Semanal"
+              ]
+            }
+          },
+          "render": {
+            "type": "matrix",
+            "metadata": {
+              "rows": [
+                "Email",
+                "SMS",
+                "Push"
+              ],
+              "cols": [
+                "Inmediato",
+                "Diario",
+                "Semanal"
+              ]
+            }
+          },
+          "translations": {
+            "es": {
+              "name": "Preferencias y Evaluación"
+            },
+            "en": {
+              "name": "Preferences & Evaluation"
+            }
+          },
+          "fields": [
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000008",
+              "name": "Activar Notificaciones",
+              "tag": "notify_enabled",
+              "type": "switch",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "variant": "solid",
+                "layout": "vertical"
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": false,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Activar Notificaciones"
+                },
+                "en": {
+                  "name": "Enable Notifications"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "toggle_visibility",
+                  "target": "bio",
+                  "condition": {
+                    "operator": "truthy"
+                  },
+                  "params": {}
+                },
+                {
+                  "trigger": "change",
+                  "action": "toggle_required",
+                  "target": "bio",
+                  "condition": {
+                    "operator": "truthy"
+                  },
+                  "params": {}
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000009",
+              "name": "Ciclo de Pago",
+              "tag": "pay_cycle",
+              "type": "radio",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "variant": "default",
+                "layout": "horizontal"
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": "monthly",
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [
+                {
+                  "value": "weekly",
+                  "label": "Semanal",
+                  "tag": "weekly",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "biweekly",
+                  "label": "Quincenal",
+                  "tag": "biweekly",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "monthly",
+                  "label": "Mensual",
+                  "tag": "monthly",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Ciclo de Pago"
+                },
+                "en": {
+                  "name": "Pay Cycle"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000010",
+              "name": "Satisfacción con el Proceso",
+              "tag": "satisfaction_rating",
+              "type": "rating",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "max_stars": 5,
+                "half_star": false
+              },
+              "position": 3,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": null,
+              "style": [
+                "lg:w-4/12"
+              ],
+              "options": [
+                {
+                  "value": "1",
+                  "label": "Muy malo",
+                  "tag": "very_bad",
+                  "icon": "star",
+                  "color": "#ef4444",
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "2",
+                  "label": "Malo",
+                  "tag": "bad",
+                  "icon": "star",
+                  "color": "#f97316",
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "3",
+                  "label": "Regular",
+                  "tag": "regular",
+                  "icon": "star",
+                  "color": "#eab308",
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "4",
+                  "label": "Bueno",
+                  "tag": "good",
+                  "icon": "star",
+                  "color": "#84cc16",
+                  "position": 4,
+                  "data": {}
+                },
+                {
+                  "value": "5",
+                  "label": "Excelente",
+                  "tag": "excellent",
+                  "icon": "star",
+                  "color": "#22c55e",
+                  "position": 5,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Satisfacción con el Proceso"
+                },
+                "en": {
+                  "name": "Process Satisfaction"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        },
+        {
+          "id": "aaaabbbb-2002-0000-0000-000000000003",
+          "name": "Perfil del Candidato",
+          "tag": "candidate_profile",
+          "description": null,
+          "position": 3,
+          "enabled": true,
+          "parameters": {
+            "type_render": "fieldset",
+            "legend": true,
+            "legend_custom": "Presentación Personal"
+          },
+          "render": {
+            "type": "fieldset",
+            "metadata": {
+              "legend": true,
+              "legend_custom": "Presentación Personal"
+            }
+          },
+          "translations": {
+            "es": {
+              "name": "Perfil del Candidato"
+            },
+            "en": {
+              "name": "Candidate Profile"
+            }
+          },
+          "fields": [
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000011",
+              "name": "Biografía",
+              "tag": "bio",
+              "type": "textarea",
+              "description": "Se muestra y se vuelve obligatorio al activar notificaciones",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "icon_leading": null,
+                "icon_trailing": null
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": "Cuéntanos sobre tu experiencia profesional...",
+              "default_value": null,
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Biografía",
+                  "description": "Se muestra y se vuelve obligatorio al activar notificaciones",
+                  "placeholder": "Cuéntanos sobre tu experiencia profesional..."
+                },
+                "en": {
+                  "name": "Biography",
+                  "description": "Shown and required when notifications are enabled",
+                  "placeholder": "Tell us about your professional experience..."
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "blur",
+                  "action": "ajax_validate",
+                  "target": null,
+                  "condition": {},
+                  "params": {
+                    "endpoint": "/api/validate/bio",
+                    "method": "POST",
+                    "debounce": 600
+                  }
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3002-0000-0000-000000000012",
+              "name": "Currículum Vitae",
+              "tag": "cv_file",
+              "type": "file",
+              "description": "PDF o DOCX, máximo 5MB",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {
+                  "edit": {
+                    "required": true
+                  }
+                }
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "multiple": false
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": null,
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Currículum Vitae",
+                  "description": "PDF o DOCX, máximo 5MB"
+                },
+                "en": {
+                  "name": "Curriculum Vitae",
+                  "description": "PDF or DOCX, max 5MB"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aaaabbbb-1003-0000-0000-000000000001",
+      "name": "Habilidades y Compensación",
+      "tag": "skills_compensation",
+      "description": null,
+      "position": 3,
+      "enabled": true,
+      "parameters": {
+        "type_render": "default"
+      },
+      "render": {
+        "type": "default",
+        "metadata": {}
+      },
+      "translations": {
+        "es": {
+          "name": "Habilidades y Compensación"
+        },
+        "en": {
+          "name": "Skills & Compensation"
+        }
+      },
+      "groups": [
+        {
+          "id": "aaaabbbb-2003-0000-0000-000000000001",
+          "name": "Habilidades",
+          "tag": "skills_tabs",
+          "description": null,
+          "position": 1,
+          "enabled": true,
+          "parameters": {
+            "type_render": "tabs",
+            "tabs": {
+              "position": "top",
+              "lazy_load": false
+            }
+          },
+          "render": {
+            "type": "tabs",
+            "metadata": {
+              "position": "top",
+              "lazy_load": false
+            }
+          },
+          "translations": {
+            "es": {
+              "name": "Habilidades"
+            },
+            "en": {
+              "name": "Skills"
+            }
+          },
+          "fields": [
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000001",
+              "name": "Idiomas",
+              "tag": "languages",
+              "type": "select-multiple",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "searchable": true,
+                "tags_mode": false,
+                "search_limit": null,
+                "min_search_length": null,
+                "max_count_items": 6
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": "Selecciona idiomas",
+              "default_value": [],
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [
+                {
+                  "value": "es",
+                  "label": "Español",
+                  "tag": "es",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "en",
+                  "label": "Inglés",
+                  "tag": "en",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "pt",
+                  "label": "Portugués",
+                  "tag": "pt",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "fr",
+                  "label": "Francés",
+                  "tag": "fr",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
+                },
+                {
+                  "value": "de",
+                  "label": "Alemán",
+                  "tag": "de",
+                  "icon": null,
+                  "color": null,
+                  "position": 5,
+                  "data": {}
+                },
+                {
+                  "value": "it",
+                  "label": "Italiano",
+                  "tag": "it",
+                  "icon": null,
+                  "color": null,
+                  "position": 6,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Idiomas",
+                  "placeholder": "Selecciona idiomas"
+                },
+                "en": {
+                  "name": "Languages",
+                  "placeholder": "Select languages"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000002",
+              "name": "Áreas de Interés",
+              "tag": "interests",
+              "type": "checkbox",
+              "description": "Selecciona todas las que apliquen",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "layout": "vertical"
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": [],
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [
+                {
+                  "value": "backend",
+                  "label": "Backend",
+                  "tag": "backend",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "frontend",
+                  "label": "Frontend",
+                  "tag": "frontend",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "devops",
+                  "label": "DevOps / SRE",
+                  "tag": "devops",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "data",
+                  "label": "Data & BI",
+                  "tag": "data",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
+                },
+                {
+                  "value": "mobile",
+                  "label": "Mobile",
+                  "tag": "mobile",
+                  "icon": null,
+                  "color": null,
+                  "position": 5,
+                  "data": {}
+                },
+                {
+                  "value": "security",
+                  "label": "Ciberseguridad",
+                  "tag": "security",
+                  "icon": null,
+                  "color": null,
+                  "position": 6,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Áreas de Interés",
+                  "description": "Selecciona todas las que apliquen"
+                },
+                "en": {
+                  "name": "Areas of Interest",
+                  "description": "Select all that apply"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000003",
+              "name": "Tecnologías Asignadas",
+              "tag": "assigned_skills",
+              "type": "duallist",
+              "description": "Mueve las tecnologías que dominas hacia la derecha",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "searchable": true,
+                "source_label": "Disponibles",
+                "target_label": "Asignadas",
+                "show_move_all_buttons": true
+              },
+              "position": 3,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": [],
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [
+                {
+                  "value": "php",
+                  "label": "PHP",
+                  "tag": "php",
+                  "icon": null,
+                  "color": null,
+                  "position": 1,
+                  "data": {}
+                },
+                {
+                  "value": "js",
+                  "label": "JavaScript",
+                  "tag": "js",
+                  "icon": null,
+                  "color": null,
+                  "position": 2,
+                  "data": {}
+                },
+                {
+                  "value": "ts",
+                  "label": "TypeScript",
+                  "tag": "ts",
+                  "icon": null,
+                  "color": null,
+                  "position": 3,
+                  "data": {}
+                },
+                {
+                  "value": "python",
+                  "label": "Python",
+                  "tag": "python",
+                  "icon": null,
+                  "color": null,
+                  "position": 4,
+                  "data": {}
+                },
+                {
+                  "value": "go",
+                  "label": "Go",
+                  "tag": "go",
+                  "icon": null,
+                  "color": null,
+                  "position": 5,
+                  "data": {}
+                },
+                {
+                  "value": "react",
+                  "label": "React",
+                  "tag": "react",
+                  "icon": null,
+                  "color": null,
+                  "position": 6,
+                  "data": {}
+                },
+                {
+                  "value": "vue",
+                  "label": "Vue",
+                  "tag": "vue",
+                  "icon": null,
+                  "color": null,
+                  "position": 7,
+                  "data": {}
+                },
+                {
+                  "value": "docker",
+                  "label": "Docker",
+                  "tag": "docker",
+                  "icon": null,
+                  "color": null,
+                  "position": 8,
+                  "data": {}
+                },
+                {
+                  "value": "kubernetes",
+                  "label": "Kubernetes",
+                  "tag": "kubernetes",
+                  "icon": null,
+                  "color": null,
+                  "position": 9,
+                  "data": {}
+                },
+                {
+                  "value": "postgres",
+                  "label": "PostgreSQL",
+                  "tag": "postgres",
+                  "icon": null,
+                  "color": null,
+                  "position": 10,
+                  "data": {}
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Tecnologías Asignadas",
+                  "description": "Mueve las tecnologías que dominas hacia la derecha"
+                },
+                "en": {
+                  "name": "Assigned Technologies",
+                  "description": "Move mastered technologies to the right"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000004",
+              "name": "Años de Experiencia",
+              "tag": "experience_years",
+              "type": "range",
+              "description": "Total de años en la industria",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "color": "primary",
+                "min": 0,
+                "max": 25,
+                "step": 1,
+                "show_steps": true
+              },
+              "position": 4,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": 0,
+              "style": [
+                "lg:w-full"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Años de Experiencia",
+                  "description": "Total de años en la industria"
+                },
+                "en": {
+                  "name": "Years of Experience",
+                  "description": "Total years in the industry"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        },
+        {
+          "id": "aaaabbbb-2003-0000-0000-000000000002",
+          "name": "Compensación y Acceso",
+          "tag": "compensation_access",
+          "description": null,
+          "position": 2,
+          "enabled": true,
+          "parameters": {
+            "type_render": "default"
+          },
+          "render": {
+            "type": "default",
+            "metadata": {}
+          },
+          "translations": {
+            "es": {
+              "name": "Compensación y Acceso"
+            },
+            "en": {
+              "name": "Compensation & Access"
+            }
+          },
+          "fields": [
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000005",
+              "name": "Estructura de Acceso",
+              "tag": "folder_access",
+              "type": "tree",
+              "description": "Selecciona los módulos a los que tendrás acceso",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "selection_mode": "checkbox",
+                "auto_select_children": true,
+                "expanded_by_default": true
+              },
+              "position": 1,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": [],
+              "style": [
+                "lg:w-6/12"
+              ],
+              "options": [
+                {
+                  "value": "admin",
+                  "label": "Administración",
+                  "tag": "admin",
+                  "icon": "tabler--settings",
+                  "color": null,
+                  "position": 1,
+                  "data": {
+                    "is_dir": true,
+                    "children": [
+                      {
+                        "value": "admin_users",
+                        "label": "Usuarios",
+                        "tag": "admin_users",
+                        "icon": "tabler--users",
+                        "color": null,
+                        "position": 1,
+                        "data": {
+                          "is_dir": false
+                        }
+                      },
+                      {
+                        "value": "admin_roles",
+                        "label": "Roles",
+                        "tag": "admin_roles",
+                        "icon": "tabler--shield",
+                        "color": null,
+                        "position": 2,
+                        "data": {
+                          "is_dir": false
+                        }
+                      },
+                      {
+                        "value": "admin_settings",
+                        "label": "Ajustes",
+                        "tag": "admin_settings",
+                        "icon": "tabler--adjustments",
+                        "color": null,
+                        "position": 3,
+                        "data": {
+                          "is_dir": false
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "value": "reports",
+                  "label": "Reportes",
+                  "tag": "reports",
+                  "icon": "tabler--chart-bar",
+                  "color": null,
+                  "position": 2,
+                  "data": {
+                    "is_dir": true,
+                    "children": [
+                      {
+                        "value": "reports_monthly",
+                        "label": "Mensual",
+                        "tag": "reports_monthly",
+                        "icon": "tabler--file-analytics",
+                        "color": null,
+                        "position": 1,
+                        "data": {
+                          "is_dir": false
+                        }
+                      },
+                      {
+                        "value": "reports_yearly",
+                        "label": "Anual",
+                        "tag": "reports_yearly",
+                        "icon": "tabler--file-analytics",
+                        "color": null,
+                        "position": 2,
+                        "data": {
+                          "is_dir": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "translations": {
+                "es": {
+                  "name": "Estructura de Acceso",
+                  "description": "Selecciona los módulos a los que tendrás acceso"
+                },
+                "en": {
+                  "name": "Access Structure",
+                  "description": "Select the modules you will have access to"
+                }
+              },
+              "interactions": []
+            },
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000006",
+              "name": "Incluye Bono",
+              "tag": "has_bonus",
+              "type": "switch",
+              "description": null,
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "color": "success",
+                "variant": "solid",
+                "layout": "vertical"
+              },
+              "position": 2,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": false,
+              "style": [
+                "lg:w-3/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Incluye Bono"
+                },
+                "en": {
+                  "name": "Includes Bonus"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "toggle_visibility",
+                  "target": "bonus_pct",
+                  "condition": {
+                    "operator": "truthy"
+                  },
+                  "params": {}
+                },
+                {
+                  "trigger": "change",
+                  "action": "toggle_required",
+                  "target": "bonus_pct",
+                  "condition": {
+                    "operator": "truthy"
+                  },
+                  "params": {}
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000007",
+              "name": "Salario Base (UF)",
+              "tag": "salary_base",
+              "type": "number",
+              "description": null,
+              "attributes": {
+                "required": true,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "min": 0,
+                "max": 500,
+                "step": 1,
+                "button_layout": "default"
+              },
+              "position": 3,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": null,
+              "style": [
+                "lg:w-3/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Salario Base (UF)"
+                },
+                "en": {
+                  "name": "Base Salary (UF)"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "compute",
+                  "target": "salary_total",
+                  "condition": {},
+                  "params": {
+                    "expression": "{salary_base} * (1 + {bonus_pct} / 100)",
+                    "sources": [
+                      "salary_base",
+                      "bonus_pct"
+                    ],
+                    "decimals": 2
+                  }
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000008",
+              "name": "Porcentaje de Bono (%)",
+              "tag": "bonus_pct",
+              "type": "number",
+              "description": "Visible y obligatorio solo si se activa el bono",
+              "attributes": {
+                "required": false,
+                "readonly": false,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "button_layout": "default"
+              },
+              "position": 4,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": 0,
+              "style": [
+                "lg:w-3/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Porcentaje de Bono (%)",
+                  "description": "Visible y obligatorio solo si se activa el bono"
+                },
+                "en": {
+                  "name": "Bonus Percentage (%)",
+                  "description": "Visible and required only when bonus is enabled"
+                }
+              },
+              "interactions": [
+                {
+                  "trigger": "change",
+                  "action": "compute",
+                  "target": "salary_total",
+                  "condition": {},
+                  "params": {
+                    "expression": "{salary_base} * (1 + {bonus_pct} / 100)",
+                    "sources": [
+                      "salary_base",
+                      "bonus_pct"
+                    ],
+                    "decimals": 2
+                  }
+                }
+              ]
+            },
+            {
+              "id": "aaaabbbb-3003-0000-0000-000000000009",
+              "name": "Salario Total (UF)",
+              "tag": "salary_total",
+              "type": "number",
+              "description": "Calculado automáticamente",
+              "attributes": {
+                "required": false,
+                "readonly": true,
+                "unique": {
+                  "enabled": false,
+                  "entity": null,
+                  "method": null
+                },
+                "filter": {
+                  "enabled": false,
+                  "key": null
+                },
+                "actions": {}
+              },
+              "parameters": {
+                "size": "md",
+                "label_style": "default",
+                "min": null,
+                "max": null,
+                "step": 1,
+                "button_layout": "default"
+              },
+              "position": 5,
+              "enabled": true,
+              "placeholder": null,
+              "default_value": 0,
+              "style": [
+                "lg:w-3/12"
+              ],
+              "options": [],
+              "translations": {
+                "es": {
+                  "name": "Salario Total (UF)",
+                  "description": "Calculado automáticamente"
+                },
+                "en": {
+                  "name": "Total Salary (UF)",
+                  "description": "Automatically calculated"
+                }
+              },
+              "interactions": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

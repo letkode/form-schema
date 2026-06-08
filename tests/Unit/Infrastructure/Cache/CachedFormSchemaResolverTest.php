@@ -50,7 +50,7 @@ final class CachedFormSchemaResolverTest extends TestCase
             defaultLocale: 'es',
             enabled: true,
             parameters: [],
-            renderType: 'simple',
+            renderType: 'default',
             renderMeta: [],
             translations: null,
             sections: [],

@@ -19,21 +19,16 @@ final class FieldAttributesTest extends TestCase
 
         self::assertFalse($attrs->required);
         self::assertFalse($attrs->readonly);
-        self::assertTrue($attrs->show);
-        self::assertTrue($attrs->edit);
-        self::assertTrue($attrs->create);
+        self::assertSame([], $attrs->actions);
     }
 
     #[Test]
     public function testFromArrayWithKnownKeys(): void
     {
-        $attrs = FieldAttributes::fromArray(['required' => true, 'edit' => false]);
+        $attrs = FieldAttributes::fromArray(['required' => true]);
 
         self::assertTrue($attrs->required);
-        self::assertFalse($attrs->edit);
         self::assertFalse($attrs->readonly);
-        self::assertTrue($attrs->show);
-        self::assertTrue($attrs->create);
     }
 
     #[Test]
@@ -54,9 +49,7 @@ final class FieldAttributesTest extends TestCase
         self::assertArrayNotHasKey('extra', $array);
         self::assertArrayHasKey('required', $array);
         self::assertArrayHasKey('readonly', $array);
-        self::assertArrayHasKey('show', $array);
-        self::assertArrayHasKey('edit', $array);
-        self::assertArrayHasKey('create', $array);
+        self::assertArrayHasKey('actions', $array);
     }
 
     #[Test]
@@ -101,5 +94,44 @@ final class FieldAttributesTest extends TestCase
         self::assertInstanceOf(FilterRule::class, $attrs->filter);
         self::assertTrue($attrs->filter->enabled);
         self::assertSame('country_id', $attrs->filter->key);
+    }
+
+    #[Test]
+    public function testActionsDefaultsToEmpty(): void
+    {
+        self::assertSame([], FieldAttributes::default()->toArray()['actions']);
+    }
+
+    #[Test]
+    public function testFromArrayParsesActions(): void
+    {
+        $attrs = FieldAttributes::fromArray([
+            'actions' => ['edit' => ['enabled' => false, 'required' => true]],
+        ]);
+
+        self::assertSame(['edit' => ['enabled' => false, 'required' => true]], $attrs->actions);
+    }
+
+    #[Test]
+    public function testWithActionOverridesAppliesRequiredOverride(): void
+    {
+        $attrs = FieldAttributes::fromArray([
+            'required' => false,
+            'actions' => ['edit' => ['enabled' => true, 'required' => true]],
+        ]);
+
+        $merged = $attrs->withActionOverrides('edit');
+
+        self::assertTrue($merged->required);
+        self::assertSame($attrs->actions, $merged->actions);
+    }
+
+    #[Test]
+    public function testWithActionOverridesSkipsUnknownContext(): void
+    {
+        $attrs = FieldAttributes::fromArray(['required' => false]);
+        $result = $attrs->withActionOverrides('nonexistent');
+
+        self::assertSame($attrs, $result);
     }
 }

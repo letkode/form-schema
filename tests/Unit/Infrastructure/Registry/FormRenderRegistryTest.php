@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Letkode\FormSchema\Tests\Unit\Infrastructure\Registry;
 
 use Letkode\FormSchema\Domain\Exception\UnknownRenderException;
-use Letkode\FormSchema\Infrastructure\FormRender\SimpleFormRender;
+use Letkode\FormSchema\Infrastructure\FormRender\DefaultFormRender;
 use Letkode\FormSchema\Infrastructure\FormRender\TabsFormRender;
 use Letkode\FormSchema\Infrastructure\Registry\FormRenderRegistry;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,7 +18,7 @@ final class FormRenderRegistryTest extends TestCase
     protected function setUp(): void
     {
         $this->registry = new FormRenderRegistry(new \ArrayIterator([
-            new SimpleFormRender(),
+            new DefaultFormRender(),
             new TabsFormRender(),
         ]));
     }
@@ -26,9 +26,9 @@ final class FormRenderRegistryTest extends TestCase
     #[Test]
     public function testGetReturnsRegisteredRender(): void
     {
-        $render = $this->registry->get('simple');
+        $render = $this->registry->get('default');
 
-        self::assertInstanceOf(SimpleFormRender::class, $render);
+        self::assertInstanceOf(DefaultFormRender::class, $render);
     }
 
     #[Test]
@@ -42,7 +42,7 @@ final class FormRenderRegistryTest extends TestCase
     #[Test]
     public function testHasReturnsTrueForRegisteredRender(): void
     {
-        self::assertTrue($this->registry->has('simple'));
+        self::assertTrue($this->registry->has('default'));
         self::assertTrue($this->registry->has('tabs'));
     }
 
@@ -58,7 +58,7 @@ final class FormRenderRegistryTest extends TestCase
         $all = $this->registry->all();
 
         self::assertCount(2, $all);
-        self::assertArrayHasKey('simple', $all);
+        self::assertArrayHasKey('default', $all);
         self::assertArrayHasKey('tabs', $all);
     }
 }
