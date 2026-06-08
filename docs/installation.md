@@ -16,28 +16,43 @@ return [
 ];
 ```
 
-## 2. Migraciones
+## 2. Mapear las entidades en tu Entity Manager
 
-El bundle incluye sus propias migraciones. Registra el namespace en tu configuración de Doctrine Migrations:
+El bundle no registra las entidades automáticamente. Debes mapearlas al Entity Manager que gestiona el schema donde quieres instalar las tablas.
 
 ```yaml
-# config/packages/doctrine_migrations.yaml
-doctrine_migrations:
-    migrations_paths:
-        'Letkode\FormSchema\Migrations': '%kernel.project_dir%/vendor/letkode/form-schema/src/Migrations'
-        # Tus propias migraciones siguen igual:
-        'App\Migrations': '%kernel.project_dir%/migrations'
+# config/packages/doctrine.yaml
+doctrine:
+    orm:
+        entity_managers:
+            default:                        # nombre de tu EM — cámbialo si es distinto
+                mappings:
+                    LetkodeFormSchema:
+                        type: attribute
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/vendor/letkode/form-schema/src/Domain/Entity'
+                        prefix: 'Letkode\FormSchema\Domain\Entity'
 ```
 
-Ejecuta la migración inicial:
+> **Multi-schema / multi-tenant:** si tienes varios EMs (p.ej. `hub` para el schema público y `tenant` para schemas dinámicos), mapea las entidades únicamente en el EM del schema de sistema, no en el de tenant.
+
+## 3. Generar y aplicar las migraciones
+
+Una vez mapeadas las entidades, genera la migración con tu configuración habitual de Doctrine Migrations:
 
 ```bash
+# Ejemplo con un único archivo de configuración
+php bin/console doctrine:migrations:diff
 php bin/console doctrine:migrations:migrate
+
+# Ejemplo con configuraciones separadas por schema (multi-tenant)
+php bin/console doctrine:migrations:diff --configuration=config/migrations/hub.yaml
+php bin/console doctrine:migrations:migrate --configuration=config/migrations/hub.yaml
 ```
 
 Esto crea las 6 tablas del bundle:
 
-| Tabla | Entidad |
+| Tabla (default) | Entidad |
 |---|---|
 | `form` | `Form` — formulario raíz |
 | `form_section` | `FormSection` — sección dentro del formulario |
@@ -46,33 +61,19 @@ Esto crea las 6 tablas del bundle:
 | `form_option_general` | `FormOptionGeneral` — catálogo de opciones reutilizable |
 | `form_option_general_value` | `FormOptionGeneralValue` — valores del catálogo |
 
-> Los nombres de tabla son personalizables. Ver [Nombres de tabla](table-names.md).
+> Los nombres de tabla son personalizables con `table_prefix` y `table_names`. Ver [Nombres de tabla](table-names.md).
 
-## 3. Archivo de configuración
+## 4. Archivo de configuración
 
 Crea el archivo de configuración del bundle (o déjalo con los valores por defecto):
 
-```bash
-# Si usas Flex ya se genera automáticamente. Si no:
-touch config/packages/letkode_form_schema.yaml
-```
-
 ```yaml
+# config/packages/letkode_form_schema.yaml
 letkode_form_schema:
     default_locale: 'es'
 ```
 
 Ver la referencia completa en [Configuración](configuration.md).
-
-## 4. Verificación
-
-El bundle incluye un comando para verificar que la instalación es correcta:
-
-```bash
-php bin/console letkode:form-schema:install
-```
-
-Comprueba que las tablas existen, que los registries tienen servicios y muestra un resumen del estado.
 
 ## Requisitos
 

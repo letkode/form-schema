@@ -1,6 +1,8 @@
 # Renders
 
-Los renders controlan la **estructura visual** del formulario en 3 niveles independientes. Cada nivel tiene su propio registro y no son intercambiables entre niveles.
+Los renders controlan la **estructura visual** del formulario en 3 niveles jerárquicos. Cada nivel tiene su propio registro y no son intercambiables entre niveles.
+
+El `FormRender` determina cómo se **navegan las secciones** del formulario (pasos, pestañas, scroll lineal). Esto define implícitamente el rol de cada sección dentro del contenedor. El `SectionRender` describe cómo se distribuyen los **grupos dentro de una sección**. El `GroupRender` describe cómo se distribuyen los **campos dentro de un grupo**.
 
 El tipo de render se define en el campo `parameters.type_render` de cada entidad. La metadata generada por el render se incluye en el DTO dentro de la llave `render` y es consumida por el frontend.
 
@@ -8,14 +10,14 @@ El tipo de render se define en el campo `parameters.type_render` de cada entidad
 
 ## Renders de Form
 
-Configuran la estructura global del formulario.
+Configuran el contenedor global y la navegación entre secciones.
 
-### `simple` (default)
+### `default`
 
 Formulario plano sin navegación especial. Todas las secciones se renderizan seguidas.
 
 ```json
-{ "render": { "type": "simple", "metadata": {} } }
+{ "render": { "type": "default", "metadata": {} } }
 ```
 
 ### `stepper`
@@ -45,7 +47,7 @@ Cada `FormSection` es un **paso** del stepper. El frontend usa `form.sections[]`
 
 ### `wizard`
 
-Similar a stepper pero con énfasis en confirmación final.
+Similar a stepper pero con énfasis en confirmación final y navegación estrictamente secuencial.
 
 ```json
 {
@@ -76,43 +78,18 @@ Las secciones se presentan como pestañas accesibles en cualquier orden.
 }
 ```
 
-### `modal`
-
-El formulario se presenta dentro de un dialog/modal. El frontend es responsable de abrirlo y cerrarlo; el bundle solo expone la metadata de configuración.
-
-```json
-{
-  "render": {
-    "type": "modal",
-    "metadata": {
-      "size": "md",
-      "position": "center",
-      "dismissible": true,
-      "show_close_button": true
-    }
-  }
-}
-```
-
-| Parámetro en `parameters.modal` | Descripción | Valores | Default |
-|---|---|---|---|
-| `size` | Ancho del dialog | `"sm"` / `"md"` / `"lg"` / `"xl"` / `"full"` | `"md"` |
-| `position` | Posición en pantalla | `"center"` / `"top"` / `"bottom"` / `"drawer-right"` / `"drawer-left"` | `"center"` |
-| `dismissible` | Cierra al hacer click fuera | `true` / `false` | `true` |
-| `show_close_button` | Muestra botón X de cierre | `true` / `false` | `true` |
-
 ---
 
 ## Renders de Section
 
-Configuran cómo se presenta una sección y sus grupos.
+Configuran cómo se distribuyen los **grupos dentro de una sección**. No definen el rol de la sección en el formulario — eso lo determina el `FormRender` padre.
 
-### `simple` (default)
+### `default`
 
 Grupos visibles directamente, uno debajo del otro.
 
 ```json
-{ "render": { "type": "simple", "metadata": {} } }
+{ "render": { "type": "default", "metadata": {} } }
 ```
 
 ### `accordion`
@@ -136,22 +113,6 @@ Los grupos se colapsan en acordeón. Solo uno abierto a la vez por defecto.
 | `allow_multiple` | Permite abrir varios paneles a la vez | `true` / `false` |
 | `default_open` | Cuál está abierto al cargar | `"first"` / `"none"` / tag del grupo |
 
-### `tabs`
-
-Los grupos se presentan como pestañas dentro de la sección.
-
-```json
-{
-  "render": {
-    "type": "tabs",
-    "metadata": {
-      "tab_position": "top",
-      "lazy_load": false
-    }
-  }
-}
-```
-
 ### `collapsible`
 
 Similar a accordion pero cada grupo puede colapsarse independientemente.
@@ -171,14 +132,27 @@ Similar a accordion pero cada grupo puede colapsarse independientemente.
 
 ## Renders de Group
 
-Configuran cómo se distribuyen los campos dentro de un grupo.
+Configuran cómo se distribuyen los **campos dentro de un grupo**.
 
-### `simple` (default)
+### `default`
 
 Campos en columna vertical, uno debajo del otro.
 
 ```json
-{ "render": { "type": "simple", "metadata": {} } }
+{ "render": { "type": "default", "metadata": {} } }
+```
+
+### `fieldset`
+
+Campos agrupados visualmente con borde y leyenda.
+
+```json
+{
+  "render": {
+    "type": "fieldset",
+    "metadata": {}
+  }
+}
 ```
 
 ### `matrix`
