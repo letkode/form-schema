@@ -38,7 +38,7 @@ final class OptionsGeneralSource implements OptionsSourceInterface
         }
 
         $idColumn = $parameters['id_column'] ?? 'tag';
-        $textColumn = $parameters['text_column'] ?? 'text';
+        $textColumn = $parameters['label_column'] ?? 'label';
         $withAllOption = $parameters['with_all_option'] ?? false;
         $allOptionParams = $parameters['all_option_params'] ?? [];
 
@@ -47,7 +47,7 @@ final class OptionsGeneralSource implements OptionsSourceInterface
         if ($withAllOption) {
             $options[] = new OptionDTO(
                 value: $allOptionParams['value'] ?? '',
-                text: $allOptionParams['text'] ?? 'Todos',
+                label: $allOptionParams['label'] ?? 'Todos',
                 position: -1,
             );
         }
@@ -59,7 +59,7 @@ final class OptionsGeneralSource implements OptionsSourceInterface
             }
 
             $resolvedText = (null !== $locale ? $value->getTranslation($locale, $textColumn) : null)
-                ?? $value->text;
+                ?? $value->label;
 
             $rawValue = match ($idColumn) {
                 'tag' => $value->tag,
@@ -69,7 +69,7 @@ final class OptionsGeneralSource implements OptionsSourceInterface
 
             $options[] = new OptionDTO(
                 value: $rawValue,
-                text: $resolvedText,
+                label: $resolvedText,
                 tag: $value->tag,
                 icon: $value->getParameter('icon'),
                 color: $value->getParameter('color'),

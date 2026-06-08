@@ -8,7 +8,7 @@ final readonly class OptionDTO implements \JsonSerializable
 {
     public function __construct(
         public string|int $value,
-        public string $text,
+        public string $label,
         public string|null $tag = null,
         public string|null $icon = null,
         public string|null $color = null,
@@ -22,7 +22,7 @@ final readonly class OptionDTO implements \JsonSerializable
     {
         return [
             'value' => $this->value,
-            'text' => $this->text,
+            'label' => $this->label,
             'tag' => $this->tag,
             'icon' => $this->icon,
             'color' => $this->color,

@@ -10,7 +10,7 @@ final readonly class OptionGroupDTO implements \JsonSerializable
      * @param list<OptionDTO> $options
      */
     public function __construct(
-        public string $text,
+        public string $label,
         public array $options,
     ) {
     }
@@ -19,7 +19,7 @@ final readonly class OptionGroupDTO implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'text' => $this->text,
+            'label' => $this->label,
             'options' => array_map(static fn (OptionDTO $o) => $o->jsonSerialize(), $this->options),
         ];
     }

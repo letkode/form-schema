@@ -45,7 +45,7 @@ final class OptionsEntitySource implements OptionsSourceInterface
         $rawOptions = $repository->{$method}($context);
 
         $idColumn = $parameters['id_column'] ?? 'id';
-        $textColumn = $parameters['text_column'] ?? 'text';
+        $textColumn = $parameters['label_column'] ?? 'label';
         $withAllOption = $parameters['with_all_option'] ?? false;
         $allOptionParams = $parameters['all_option_params'] ?? [];
 
@@ -54,7 +54,7 @@ final class OptionsEntitySource implements OptionsSourceInterface
         if ($withAllOption) {
             $options[] = new OptionDTO(
                 value: $allOptionParams['value'] ?? '',
-                text: $allOptionParams['text'] ?? 'Todos',
+                label: $allOptionParams['label'] ?? 'Todos',
                 position: -1,
             );
         }
@@ -63,14 +63,14 @@ final class OptionsEntitySource implements OptionsSourceInterface
             if (\is_array($item)) {
                 $options[] = new OptionDTO(
                     value: $item[$idColumn] ?? $item['id'] ?? '',
-                    text: $item[$textColumn] ?? $item['text'] ?? '',
+                    label: $item[$textColumn] ?? $item['text'] ?? '',
                     position: $item['position'] ?? $position,
                     data: array_diff_key($item, array_flip([$idColumn, $textColumn, 'position'])),
                 );
             } elseif (\is_object($item)) {
                 $options[] = new OptionDTO(
                     value: $item->{$idColumn} ?? $item->id ?? '',
-                    text: $item->{$textColumn} ?? $item->text ?? '',
+                    label: $item->{$textColumn} ?? $item->label ?? '',
                     position: $item->position ?? $position,
                 );
             }

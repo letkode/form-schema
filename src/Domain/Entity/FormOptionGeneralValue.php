@@ -37,11 +37,11 @@ class FormOptionGeneralValue
     public private(set) string $tag;
 
     #[ORM\Column(type: Types::STRING)]
-    private string $rawText;
+    private string $rawLabel;
 
-    public string $text {
-        get => $this->rawText;
-        set(string $value) => $this->rawText = trim($value);
+    public string $label {
+        get => $this->rawLabel;
+        set(string $value) => $this->rawLabel = trim($value);
     }
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
