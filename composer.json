@@ -12,7 +12,6 @@
         "doctrine/orm": "^3.4",
         "doctrine/dbal": "^4.0",
         "doctrine/doctrine-bundle": "^3.2.2",
-        "doctrine/doctrine-migrations-bundle": "^4.0",
         "symfony/framework-bundle": "^7.0",
         "symfony/dependency-injection": "^7.0",
         "symfony/http-kernel": "^7.0",
