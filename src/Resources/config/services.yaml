@@ -19,7 +19,6 @@ services:
         arguments:
             $defaultLocale: '%letkode_form_schema.default_locale%'
         public: true
-        alias: Letkode\FormSchema\Domain\Contract\FormSchemaResolverInterface
 
     Letkode\FormSchema\Domain\Contract\FormSchemaResolverInterface:
         alias: Letkode\FormSchema\Application\Resolver\FormSchemaResolver
