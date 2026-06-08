@@ -14,7 +14,6 @@ use Letkode\FormSchema\Application\Filter\StructureFilter;
 use Letkode\FormSchema\Domain\Contract\FormSchemaResolverInterface;
 use Letkode\FormSchema\Domain\Contract\InteractionHandlerRegistryInterface;
 use Letkode\FormSchema\Domain\Exception\FormNotFoundException;
-use Letkode\FormSchema\Domain\Exception\UnknownContextException;
 use Letkode\FormSchema\Domain\Repository\FormRepositoryInterface;
 use Letkode\FormSchema\Domain\ValueObject\FieldAttributes;
 use Letkode\FormSchema\Domain\ValueObject\FieldInteraction;
@@ -125,7 +124,7 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
 
         $form->withActiveLocale($effectiveLocale);
 
-        $formRenderType = $form->parameters['type_render'] ?? 'simple';
+        $formRenderType = $form->parameters['type_render'] ?? 'default';
         $formRender = $this->formRenderRegistry->get($formRenderType);
         $formMeta = $formRender->renderMeta($form->parameters);
 
@@ -137,7 +136,7 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
                 continue;
             }
 
-            $sectionRenderType = $section->parameters['type_render'] ?? 'simple';
+            $sectionRenderType = $section->parameters['type_render'] ?? 'default';
             $sectionRender = $this->sectionRenderRegistry->get($sectionRenderType);
             $sectionMeta = $sectionRender->renderMeta($section->parameters);
 
@@ -149,7 +148,7 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
                     continue;
                 }
 
-                $groupRenderType = $group->parameters['type_render'] ?? 'simple';
+                $groupRenderType = $group->parameters['type_render'] ?? 'default';
                 $groupRender = $this->groupRenderRegistry->get($groupRenderType);
                 $groupMeta = $groupRender->renderMeta($group->parameters);
 
@@ -167,13 +166,11 @@ final class FormSchemaResolver implements FormSchemaResolverInterface
                     );
 
                     if (null !== $this->context) {
-                        $attrsArray = $attrs->toArray();
-                        if (!\array_key_exists($this->context, $attrsArray)) {
-                            throw new UnknownContextException($this->context);
-                        }
-                        if (false === $attrsArray[$this->context]) {
+                        $actionConfig = $attrs->toArray()['actions'][$this->context] ?? [];
+                        if (false === ($actionConfig['enabled'] ?? true)) {
                             continue;
                         }
+                        $attrs = $attrs->withActionOverrides($this->context);
                     }
 
                     $options = [];
